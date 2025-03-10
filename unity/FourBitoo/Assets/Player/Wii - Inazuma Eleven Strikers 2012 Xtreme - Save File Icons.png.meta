@@ -1,0 +1,1892 @@
+fileFormatVersion: 2
+guid: 552438a79f4edc64bb513e9bf8ec97a8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7987988637223829420
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_0
+  - first:
+      213: -9111827140406763883
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_1
+  - first:
+      213: -4743356316978773144
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_2
+  - first:
+      213: 1942542514314091818
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_3
+  - first:
+      213: 6389147818181159531
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_4
+  - first:
+      213: 1522258837299960726
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_5
+  - first:
+      213: 6260549059434104777
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_6
+  - first:
+      213: 1807729266656195394
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_7
+  - first:
+      213: -1924689571544721434
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_8
+  - first:
+      213: 7491892840359606097
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_9
+  - first:
+      213: 811492367138796383
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_10
+  - first:
+      213: 1125260534286259952
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_11
+  - first:
+      213: 6530580156992753552
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_12
+  - first:
+      213: -147046422428908000
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_13
+  - first:
+      213: -2114448980267424318
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_14
+  - first:
+      213: 559616149716212485
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_15
+  - first:
+      213: 7051270021765012552
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_16
+  - first:
+      213: -5791364666030420732
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_17
+  - first:
+      213: 1239708210917604001
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_18
+  - first:
+      213: 3942435277865902058
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_19
+  - first:
+      213: 1115048003659286601
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_20
+  - first:
+      213: -7249569263167913267
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_21
+  - first:
+      213: 7114019686186798759
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_22
+  - first:
+      213: 5909785050981411271
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_23
+  - first:
+      213: -7488226193297109226
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_24
+  - first:
+      213: 7937325374946776150
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_25
+  - first:
+      213: 5836916013616136192
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_26
+  - first:
+      213: -4875696198067632206
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_27
+  - first:
+      213: -1555935700704170231
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_28
+  - first:
+      213: -4871875258366869621
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_29
+  - first:
+      213: 7694649513366408131
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_30
+  - first:
+      213: -7748314702745682368
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_31
+  - first:
+      213: -5382627893252166717
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_32
+  - first:
+      213: 230515286369995061
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_33
+  - first:
+      213: 8901465156463034687
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_34
+  - first:
+      213: -1359300750439943142
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_35
+  - first:
+      213: -8607552724973514349
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_36
+  - first:
+      213: 6980745284825170749
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_37
+  - first:
+      213: -8004691309869756986
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_38
+  - first:
+      213: -6755601491222666601
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_39
+  - first:
+      213: 6330669009581044282
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_40
+  - first:
+      213: 6017035830956588380
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_41
+  - first:
+      213: 7465421889921578653
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_42
+  - first:
+      213: 1641667330234767577
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_43
+  - first:
+      213: -7987321919055846973
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_44
+  - first:
+      213: 968637119446432945
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_45
+  - first:
+      213: 1366651467847023193
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_46
+  - first:
+      213: -821748854591020099
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_47
+  - first:
+      213: 5304900830144727073
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_48
+  - first:
+      213: 8712423632333565078
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_49
+  - first:
+      213: 1246736205080574161
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_50
+  - first:
+      213: 3268782935772764457
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_51
+  - first:
+      213: -2047732072178723050
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_52
+  - first:
+      213: -5453257302990490379
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_53
+  - first:
+      213: 8061433761866835544
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_54
+  - first:
+      213: 6047872357054090172
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_55
+  - first:
+      213: -8321159096480137263
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_56
+  - first:
+      213: 7703150070855335063
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_57
+  - first:
+      213: -5450335774355496807
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_58
+  - first:
+      213: 6630084674693312501
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_59
+  - first:
+      213: -9027682580807985306
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_60
+  - first:
+      213: -6962267139396464796
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_61
+  - first:
+      213: 7105359976844566662
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_62
+  - first:
+      213: 6682187503165419961
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_63
+  - first:
+      213: -8135346428061022338
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_64
+  - first:
+      213: 1463461354142124687
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_65
+  - first:
+      213: -6453085638011216495
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_66
+  - first:
+      213: 1803511915109238761
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_67
+  - first:
+      213: -6123891327499161242
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_68
+  - first:
+      213: 3322672222354876148
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_69
+  - first:
+      213: -7370391872992773766
+    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_70
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 581
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caf3597e7590bde60800000000000000
+      internalID: 7987988637223829420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 523
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59e9a490e794c8180800000000000000
+      internalID: -9111827140406763883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_2
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 581
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8630063af863c2eb0800000000000000
+      internalID: -4743356316978773144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_3
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 523
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2d19ceef1c45fa10800000000000000
+      internalID: 1942542514314091818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_4
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 581
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6a6628e610daa850800000000000000
+      internalID: 6389147818181159531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_5
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 523
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69b9675e856202510800000000000000
+      internalID: 1522258837299960726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_6
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 581
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c7c9722330f1e650800000000000000
+      internalID: 6260549059434104777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_7
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 523
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 243be15b038561910800000000000000
+      internalID: 1807729266656195394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_8
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 581
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e79d2938012a45e0800000000000000
+      internalID: -1924689571544721434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_9
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 523
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1573de438dc88f760800000000000000
+      internalID: 7491892840359606097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_10
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 581
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f53bf392200034b00800000000000000
+      internalID: 811492367138796383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_11
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 523
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f616e97e7abd9f00800000000000000
+      internalID: 1125260534286259952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_12
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 581
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09f84c26d0841aa50800000000000000
+      internalID: 6530580156992753552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_13
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 523
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02602a1de0695fdf0800000000000000
+      internalID: -147046422428908000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_14
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 465
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c52973fad7f7a2e0800000000000000
+      internalID: -2114448980267424318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_15
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 407
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b18665ce724c700800000000000000
+      internalID: 559616149716212485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_16
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 465
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84c1aaeb9b42bd160800000000000000
+      internalID: 7051270021765012552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_17
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 407
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40d028c2580f0afa0800000000000000
+      internalID: -5791364666030420732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_18
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 465
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aaf0e0bc04543110800000000000000
+      internalID: 1239708210917604001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_19
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 407
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aef5a2f4ff756b630800000000000000
+      internalID: 3942435277865902058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_20
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 465
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 948ce956042797f00800000000000000
+      internalID: 1115048003659286601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_21
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 407
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc2494e3a2b546b90800000000000000
+      internalID: -7249569263167913267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_22
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 465
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aecc4086331ab260800000000000000
+      internalID: 7114019686186798759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_23
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 407
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c929a64136c30250800000000000000
+      internalID: 5909785050981411271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_24
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 465
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61f00c693f9741890800000000000000
+      internalID: -7488226193297109226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_25
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 407
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6549560ff5b072e60800000000000000
+      internalID: 7937325374946776150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_26
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 465
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00001676034e00150800000000000000
+      internalID: 5836916013616136192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_27
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 407
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b7c471f32c065cb0800000000000000
+      internalID: -4875696198067632206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_28
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 349
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90fed2259b4386ae0800000000000000
+      internalID: -1555935700704170231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_29
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 291
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8f370bc34f936cb0800000000000000
+      internalID: -4871875258366869621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_30
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 349
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb4653e6f2e8ca60800000000000000
+      internalID: 7694649513366408131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_31
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 291
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04e38e684d4787490800000000000000
+      internalID: -7748314702745682368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_32
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 349
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb689013701d45b0800000000000000
+      internalID: -5382627893252166717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_33
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 291
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 539816f7e64f23300800000000000000
+      internalID: 230515286369995061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_34
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 349
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f310f77d56b588b70800000000000000
+      internalID: 8901465156463034687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_35
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 291
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a14fa1b5b2bc22de0800000000000000
+      internalID: -1359300750439943142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_36
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 349
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3911282c664db8880800000000000000
+      internalID: -8607552724973514349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_37
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 291
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d33cc79d9d690e060800000000000000
+      internalID: 6980745284825170749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_38
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 349
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cd8e821aaf99e090800000000000000
+      internalID: -8004691309869756986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_39
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 291
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 792e2978c384f32a0800000000000000
+      internalID: -6755601491222666601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_40
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 349
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a32f6a24ced0bd750800000000000000
+      internalID: 6330669009581044282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_41
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 291
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5df6f8653ec08350800000000000000
+      internalID: 6017035830956588380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_42
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 233
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d967337c7a18a9760800000000000000
+      internalID: 7465421889921578653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_43
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 175
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d8d10a2dbf58c610800000000000000
+      internalID: 1641667330234767577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_44
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 233
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c12cf38805572190800000000000000
+      internalID: -7987321919055846973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_45
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 175
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bcbcdcf35a417d00800000000000000
+      internalID: 968637119446432945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_46
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 233
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95ab9c8e44257f210800000000000000
+      internalID: 1366651467847023193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_47
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 175
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db3a48345cf8894f0800000000000000
+      internalID: -821748854591020099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_48
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 233
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 128837dc23bce9940800000000000000
+      internalID: 5304900830144727073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_49
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 175
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69ce5f9122fb8e870800000000000000
+      internalID: 8712423632333565078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_50
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 233
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d8327819fb4d4110800000000000000
+      internalID: 1246736205080574161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_51
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 175
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9291896e2cc0d5d20800000000000000
+      internalID: 3268782935772764457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_52
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 233
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 617dc9a978ef493e0800000000000000
+      internalID: -2047732072178723050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_53
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 175
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f4727220632254b0800000000000000
+      internalID: -5453257302990490379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_54
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 233
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 856e96c8b47ffdf60800000000000000
+      internalID: 8061433761866835544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_55
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 175
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbb0d11addb5ee350800000000000000
+      internalID: 6047872357054090172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_56
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 117
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1df7ace93ed458c80800000000000000
+      internalID: -8321159096480137263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_57
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 59
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79c7bd82d2617ea60800000000000000
+      internalID: 7703150070855335063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_58
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 117
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 990efe68d748c54b0800000000000000
+      internalID: -5450335774355496807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_59
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 59
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ff2bd942eac20c50800000000000000
+      internalID: 6630084674693312501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_60
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 117
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66755f1068a37b280800000000000000
+      internalID: -9027682580807985306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_61
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 59
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46f06e4acee016f90800000000000000
+      internalID: -6962267139396464796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_62
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 117
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 680291dc04f4b9260800000000000000
+      internalID: 7105359976844566662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_63
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 59
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b1bab06126ebbc50800000000000000
+      internalID: 6682187503165419961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_64
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 117
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e770eaec681791f80800000000000000
+      internalID: -8135346428061022338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_65
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 59
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8a472c09524f4410800000000000000
+      internalID: 1463461354142124687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_66
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 117
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19d9a295dc80276a0800000000000000
+      internalID: -6453085638011216495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_67
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 59
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e74548088c570910800000000000000
+      internalID: 1803511915109238761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_68
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 117
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 661315d8841930ba0800000000000000
+      internalID: -6123891327499161242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_69
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 59
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f6258e28c08c1e20800000000000000
+      internalID: 3322672222354876148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_70
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79f6da34ab17b990800000000000000
+      internalID: -7370391872992773766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
