@@ -1,0 +1,67 @@
+# Archivos y carpetas a ignorar en un proyecto Unity 2D
+
+/unity/FourBitoo/Temp/
+/unity/FourBitoo/Library/
+/unity/FourBitoo/Logs/
+/unity/FourBitoo/obj/
+/unity/FourBitoo/Build/
+/unity/FourBitoo/Builds/
+/unity/FourBitoo/UserSettings/
+
+# Capturas de memoria y grabaciones
+/unity/FourBitoo/[Mm]emoryCaptures/
+/unity/FourBitoo/[Rr]ecordings/
+
+# Complementos y cachés
+/unity/FourBitoo/[Aa]ssets/Plugins/Editor/JetBrains*
+/unity/FourBitoo/.vs/
+/unity/FourBitoo/.gradle/
+/unity/FourBitoo/ExportedObj/
+/unity/FourBitoo/.consulo/
+
+# Archivos de configuración y compilación
+/unity/FourBitoo/*.csproj
+/unity/FourBitoo/*.unityproj
+/unity/FourBitoo/*.sln
+/unity/FourBitoo/*.suo
+/unity/FourBitoo/*.tmp
+/unity/FourBitoo/*.user
+/unity/FourBitoo/*.userprefs
+/unity/FourBitoo/*.pidb
+/unity/FourBitoo/*.booproj
+/unity/FourBitoo/*.svd
+/unity/FourBitoo/*.pdb
+/unity/FourBitoo/*.mdb
+/unity/FourBitoo/*.opendb
+/unity/FourBitoo/*.VC.db
+
+# Archivos generados automáticamente
+/unity/FourBitoo/sysinfo.txt
+/unity/FourBitoo/*.apk
+/unity/FourBitoo/*.aab
+/unity/FourBitoo/*.unitypackage
+/unity/FourBitoo/*.unitypackage.meta
+/unity/FourBitoo/*.app
+/unity/FourBitoo/crashlytics-build.properties
+
+# Datos de Addressables y StreamingAssets
+/unity/FourBitoo/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+/unity/FourBitoo/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/unity/FourBitoo/[Aa]ssets/[Ss]treamingAssets/aa/
+
+# Configuración de TextMesh Pro
+/unity/FourBitoo/[Aa]ssets/TextMesh Pro/Resources/Font Asset Creator Settings.asset
+/unity/FourBitoo/[Aa]ssets/TextMesh Pro/Resources/LineBreaking Following Characters.asset
+/unity/FourBitoo/[Aa]ssets/TextMesh Pro/Resources/LineBreaking Leading Characters.asset
+
+# Datos de iluminación y Tilemaps
+/unity/FourBitoo/[Aa]ssets/LightingData.asset
+/unity/FourBitoo/[Aa]ssets/ReflectionProbe-*.exr
+/unity/FourBitoo/[Aa]ssets/[Tt]ilemaps/*
+/unity/FourBitoo/[Aa]ssets/[Tt]iles/*
+
+# Archivos de configuración específicos del repositorio
+/unity/FourBitoo/.idea/
+/unity/FourBitoo/*.iml
+/unity/FourBitoo/.vscode/
+/unity/FourBitoo/*.log
