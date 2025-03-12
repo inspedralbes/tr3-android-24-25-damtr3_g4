@@ -10,17 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: cesped
+  m_Name: Soccer
   m_EditorClassIdentifier: 
-  templateScene: {fileID: 102900000, guid: 7865ac96243944c45be3ee347996c57c, type: 3}
+  templateScene: {fileID: 0}
   templateName: 
   description: 
   preview: {fileID: 0}
-  dependencies:
-  - dependency: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-    instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 8d6a9f7ea65c5d848b777a78b843e2de, type: 3}
-    instantiationMode: 0
+  dependencies: []
   templatePipeline: {fileID: 0}
   badge: {fileID: 0}
   addToDefaults: 0
