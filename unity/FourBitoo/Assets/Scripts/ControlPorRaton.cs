@@ -9,23 +9,13 @@ public class ControlPorRaton : MonoBehaviour
     private Vector3 prosicionJugador;
     private bool seleccionado = false;
     private Rigidbody2D rb;
-
-    private SpriteRenderer sr;
-
-    private Color colorOriginal;
+    private GameObject border;
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
-         if (sr == null)
-        {
-            sr = gameObject.AddComponent<SpriteRenderer>(); // Agrega uno si falta
-        }
-        colorOriginal = sr.color;
         objetoSeleccionado.Add(this);
         prosicionJugador = this.transform.position;
 
-       
         if (this.gameObject.GetComponent<CircleCollider2D>() == null)
         {
             this.gameObject.AddComponent<CircleCollider2D>();
@@ -40,6 +30,17 @@ public class ControlPorRaton : MonoBehaviour
         rb.gravityScale = 0;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+        // Encuentra el objeto "rojo" hijo del jugador con el tag "border"
+        border = transform.Find("rojo")?.gameObject;
+        if (border != null && border.CompareTag("border"))
+        {
+            border.SetActive(false); // Asegúrate de que el borde esté desactivado al inicio
+        }
+        else
+        {
+            Debug.LogWarning("El objeto 'rojo' no tiene el tag 'border' o no se encontró.");
+        }
     }
 
     void Update()
@@ -56,13 +57,26 @@ public class ControlPorRaton : MonoBehaviour
     private void OnMouseDown()
     {
         seleccionado = true;
-        sr.color = Color.red;
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+
+        // Activa el borde del objeto seleccionado
+        if (border != null)
+        {
+            border.SetActive(true);
+        }
+
         foreach (ControlPorRaton jugador in objetoSeleccionado)
         {
             if (jugador != this)
             {
                 jugador.seleccionado = false;
-                jugador.sr.color = jugador.colorOriginal;
+                jugador.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+
+                // Desactiva el borde de los otros objetos
+                if (jugador.border != null)
+                {
+                    jugador.border.SetActive(false);
+                }
             }
         }
     }
@@ -86,4 +100,3 @@ public class ControlPorRaton : MonoBehaviour
         }
     }
 }
-

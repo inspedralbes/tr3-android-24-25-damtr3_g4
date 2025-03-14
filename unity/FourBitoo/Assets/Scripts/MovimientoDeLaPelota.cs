@@ -4,7 +4,7 @@ public class MovimientoDeLaPelota : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float desaceleracion = 0.98f; // Factor de desaceleración (más cerca de 1 = desaceleración lenta)
-    private float velocidadMinima = 0.05f; // Velocidad mínima antes de detenerse
+    private float velocidadMinima = 0.3f; // Velocidad mínima antes de detenerse
     private bool enColision = false;
 
     void Start()
