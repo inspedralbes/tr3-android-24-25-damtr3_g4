@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class ControlPorRaton : MonoBehaviour
 {
-    private float velocidad = 5f;
+    private float velocidad = 9f;
     public static List<ControlPorRaton> objetoSeleccionado = new List<ControlPorRaton>();
     private Vector3 prosicionJugador;
     private bool seleccionado = false;
     private Rigidbody2D rb;
 
+    private SpriteRenderer sr;
+
+    private Color colorOriginal;
+
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
+         if (sr == null)
+        {
+            sr = gameObject.AddComponent<SpriteRenderer>(); // Agrega uno si falta
+        }
+        colorOriginal = sr.color;
         objetoSeleccionado.Add(this);
         prosicionJugador = this.transform.position;
 
+       
         if (this.gameObject.GetComponent<CircleCollider2D>() == null)
         {
             this.gameObject.AddComponent<CircleCollider2D>();
@@ -45,13 +56,13 @@ public class ControlPorRaton : MonoBehaviour
     private void OnMouseDown()
     {
         seleccionado = true;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        sr.color = Color.red;
         foreach (ControlPorRaton jugador in objetoSeleccionado)
         {
             if (jugador != this)
             {
                 jugador.seleccionado = false;
-                jugador.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                jugador.sr.color = jugador.colorOriginal;
             }
         }
     }
