@@ -98,5 +98,23 @@ public class ControlPorRaton : MonoBehaviour
                 rbOther.linearVelocity = Vector2.zero;
             }
         }
+         else if (other.CompareTag("ColisionInvisible"))
+        {
+            Debug.Log("Colisión con ColisionInvisible!");
+
+
+            rb.linearVelocity = Vector2.zero;
+            prosicionJugador = transform.position; 
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("ColisionInvisible"))
+        {
+            // Mantener el personaje detenido mientras esté en contacto con "ColisionInvisible"
+            rb.linearVelocity = Vector2.zero;
+            prosicionJugador = transform.position; // Evitar que siga moviéndose hacia el objetivo
+        }
     }
 }

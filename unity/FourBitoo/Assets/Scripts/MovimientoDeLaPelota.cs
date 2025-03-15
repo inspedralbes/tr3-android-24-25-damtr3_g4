@@ -48,13 +48,29 @@ public class MovimientoDeLaPelota : MonoBehaviour
             Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
             rb.AddForce(direccionDeRebote * 5f, ForceMode2D.Impulse);
         }
+        else if (other.CompareTag("ColisionInvisible"))
+        {
+            enColision = true; // Marca que está en contacto con la colisión invisible
+            Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
+            rb.linearVelocity = direccionDeRebote * rb.linearVelocity.magnitude; // Rebote en la dirección opuesta
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("ColisionInvisible"))
+        {
+            // Mantener la pelota rebotando mientras esté en contacto con "ColisionInvisible"
+            Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
+            rb.linearVelocity = direccionDeRebote * rb.linearVelocity.magnitude; // Rebote en la dirección opuesta
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("ColisionInvisible"))
         {
-            enColision = false; // Cuando el Player sale, la pelota empieza a desacelerar
+            enColision = false; // Cuando el Player o la colisión invisible sale, la pelota empieza a desacelerar
         }
     }
 }
