@@ -584,7 +584,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5450335774355496807, guid: 552438a79f4edc64bb513e9bf8ec97a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -697,7 +697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1998068987}
   - component: {fileID: 1998068988}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: rojo
   m_TagString: border
   m_Icon: {fileID: 0}
@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 2075678742}
   - component: {fileID: 2075678743}
   - component: {fileID: 2075678744}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1002,7 +1002,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1942542514314091818, guid: 552438a79f4edc64bb513e9bf8ec97a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
