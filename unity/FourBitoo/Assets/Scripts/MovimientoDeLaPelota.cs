@@ -6,6 +6,7 @@ public class MovimientoDeLaPelota : MonoBehaviour
     private float desaceleracion = 0.98f; // Factor de desaceleración (más cerca de 1 = desaceleración lenta)
     private float velocidadMinima = 0.3f; // Velocidad mínima antes de detenerse
     private bool enColision = false;
+    
 
     void Start()
     {
@@ -46,7 +47,7 @@ public class MovimientoDeLaPelota : MonoBehaviour
         {
             enColision = true; // Marca que está en contacto con el jugador
             Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
-            rb.AddForce(direccionDeRebote * 5f, ForceMode2D.Impulse);
+            rb.AddForce(direccionDeRebote * 8f, ForceMode2D.Impulse);
         }
         else if (other.CompareTag("ColisionInvisible"))
         {
