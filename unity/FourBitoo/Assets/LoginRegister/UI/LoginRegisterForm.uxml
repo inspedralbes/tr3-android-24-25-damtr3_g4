@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/LoginRegister/UI/LoginRegisterStyle.uss?fileID=7433441132597879392&amp;guid=7b39a264097016140a46ba3e3a4fd7a8&amp;type=3#LoginRegisterStyle" />
+    <ui:VisualElement name="container" focusable="false" data-source="project://database/Assets/LoginRegister/UI/LoginRegisterStyle.uss?fileID=7433441132597879392&amp;guid=7b39a264097016140a46ba3e3a4fd7a8&amp;type=3#LoginRegisterStyle" style="flex-grow: 1; top: auto; overflow: visible; visibility: visible; display: flex; opacity: 1; align-items: center; justify-content: center; align-self: auto; align-content: center; width: 300px; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; font-size: 16px; background-color: rgba(22, 63, 11, 0); height: 200px; border-left-color: rgba(8, 43, 17, 0); border-right-color: rgba(8, 43, 17, 0); border-top-color: rgba(8, 43, 17, 0); border-bottom-color: rgba(8, 43, 17, 0); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-position-x: center 0;">
+        <ui:Label text="Label" name="messageLabel" style="-unity-text-align: middle-left;" />
+        <ui:TextField label="username" placeholder-text="filler text" name="username" class="styleClassName" />
+        <ui:TextField label="email" placeholder-text="filler text" name="email" />
+        <ui:TextField label="password" placeholder-text="filler text" name="password" password="true" />
+        <ui:Button text="Register" name="registerBtn" style="width: 156px; background-color: rgb(14, 147, 143);" />
+        <ui:Button text="LogIn" name="loginBtn" style="width: 124px; white-space: pre; text-overflow: clip; background-color: rgb(25, 94, 209);" />
+    </ui:VisualElement>
+</ui:UXML>
