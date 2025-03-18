@@ -1,0 +1,1342 @@
+fileFormatVersion: 2
+guid: 65672b214712d554cbf91deaeeaae8fb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1502975126729980069
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_0
+  - first:
+      213: 7727325315854198861
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_1
+  - first:
+      213: -9093746430057131182
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_2
+  - first:
+      213: -7864941039549301807
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_3
+  - first:
+      213: -6974390190635262131
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_4
+  - first:
+      213: 5865735865733456455
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_5
+  - first:
+      213: 221092109953469562
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_6
+  - first:
+      213: 1831575908350319464
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_7
+  - first:
+      213: 5796505095884326685
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_8
+  - first:
+      213: -7135766085886829704
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_9
+  - first:
+      213: 4882678491009414548
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_10
+  - first:
+      213: 5600446682041956327
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_11
+  - first:
+      213: 4800051979695285882
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_12
+  - first:
+      213: -7657988341878268134
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_13
+  - first:
+      213: 8010054433002062894
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_14
+  - first:
+      213: 2451992028766535531
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_15
+  - first:
+      213: 3484393710822812159
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_16
+  - first:
+      213: -5512115132550006860
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_17
+  - first:
+      213: 3119096796917711209
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_18
+  - first:
+      213: -7211270439972593516
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_19
+  - first:
+      213: -7816760014382657856
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_20
+  - first:
+      213: -7498119426291299142
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_21
+  - first:
+      213: 6318079191098867965
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_22
+  - first:
+      213: -1087619874345038847
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_23
+  - first:
+      213: 5024664862876427224
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_24
+  - first:
+      213: -7506134954898699488
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_25
+  - first:
+      213: -4981073542033547880
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_26
+  - first:
+      213: -5290616037151155718
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_27
+  - first:
+      213: -769998255616223705
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_28
+  - first:
+      213: 1901385294007437145
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_29
+  - first:
+      213: -8938334336444431751
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_30
+  - first:
+      213: -6392857649675042764
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_31
+  - first:
+      213: 1208916824862693511
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_32
+  - first:
+      213: 1994305349961565396
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_33
+  - first:
+      213: 1171442141690282554
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_34
+  - first:
+      213: -1993618741711755220
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_35
+  - first:
+      213: -3489783424655918397
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_36
+  - first:
+      213: 6571243726762863865
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_37
+  - first:
+      213: 996555071336463638
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_38
+  - first:
+      213: 999325805243547262
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_39
+  - first:
+      213: -6198016895766759770
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_40
+  - first:
+      213: 5094341481336715418
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_41
+  - first:
+      213: 690718928302070951
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_42
+  - first:
+      213: 7845225961134106441
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_43
+  - first:
+      213: 4046298466892403251
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_44
+  - first:
+      213: 5486667974678584517
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_45
+  - first:
+      213: 4207298173202267272
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_46
+  - first:
+      213: -4178164872751121232
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_47
+  - first:
+      213: 3487563633758347914
+    second: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 306
+        width: 67
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b570309d51c542be0800000000000000
+      internalID: -1502975126729980069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_1
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 305
+        width: 67
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d486f530f69fc3b60800000000000000
+      internalID: 7727325315854198861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_2
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 305
+        width: 69
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 253d7f67dc58cc180800000000000000
+      internalID: -9093746430057131182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_3
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 307
+        width: 67
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dbb5467bcd1ad290800000000000000
+      internalID: -7864941039549301807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_4
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 306
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4f5732d21df53f90800000000000000
+      internalID: -6974390190635262131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_5
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 306
+        width: 58
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 742af4f11b7476150800000000000000
+      internalID: 5865735865733456455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_6
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 306
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c0b644a1a711300800000000000000
+      internalID: 221092109953469562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_7
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 306
+        width: 54
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86b5264a5901b6910800000000000000
+      internalID: 1831575908350319464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_8
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 268
+        width: 36
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d174dea6ca2517050800000000000000
+      internalID: 5796505095884326685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_9
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 267
+        width: 35
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87b9f624d8aa8fc90800000000000000
+      internalID: -7135766085886829704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_10
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 267
+        width: 34
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4957e01d732c2c340800000000000000
+      internalID: 4882678491009414548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_11
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 268
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e730aab598c8bd40800000000000000
+      internalID: 5600446682041956327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_12
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 268
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a76e52108d53d9240800000000000000
+      internalID: 4800051979695285882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_13
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 268
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1f53444d2c59b590800000000000000
+      internalID: -7657988341878268134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_14
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 268
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2481a6511e692f60800000000000000
+      internalID: 8010054433002062894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_15
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 199
+        width: 67
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ff7ba42c9370220800000000000000
+      internalID: 2451992028766535531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_16
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 199
+        width: 69
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff9e23f6e9d0b5030800000000000000
+      internalID: 3484393710822812159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_17
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 199
+        width: 64
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b73d4bcd780183b0800000000000000
+      internalID: -5512115132550006860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_18
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 198
+        width: 61
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 961c658d202494b20800000000000000
+      internalID: 3119096796917711209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_19
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 199
+        width: 67
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 490a826edbb6ceb90800000000000000
+      internalID: -7211270439972593516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_20
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 199
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ce8e309e2a458390800000000000000
+      internalID: -7816760014382657856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_21
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 199
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abc8378cb1451f790800000000000000
+      internalID: -7498119426291299142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_22
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 160
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df04c38bc835ea750800000000000000
+      internalID: 6318079191098867965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_23
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 160
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10c420b9c7ff7e0f0800000000000000
+      internalID: -1087619874345038847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_24
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 160
+        width: 36
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d3e22b22123bb540800000000000000
+      internalID: 5024664862876427224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_25
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 160
+        width: 33
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02bce19170ad4d790800000000000000
+      internalID: -7506134954898699488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_26
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 161
+        width: 36
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89d5efe110cafdab0800000000000000
+      internalID: -4981073542033547880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_27
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 161
+        width: 34
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af9de9ebeb4f396b0800000000000000
+      internalID: -5290616037151155718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_28
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 161
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72613588aaa6055f0800000000000000
+      internalID: -769998255616223705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_29
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 76
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9570776d9d3136a10800000000000000
+      internalID: 1901385294007437145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_30
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 75
+        width: 65
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9728d804748a4f380800000000000000
+      internalID: -8938334336444431751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_31
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 79
+        width: 64
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4300b73a6d10847a0800000000000000
+      internalID: -6392857649675042764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_32
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 76
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7881fe4727fe6c010800000000000000
+      internalID: 1208916824862693511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_33
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 76
+        width: 65
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d4ce1646223dab10800000000000000
+      internalID: 1994305349961565396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_34
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 75
+        width: 63
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a324f5adb6cc14010800000000000000
+      internalID: 1171442141690282554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_35
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 79
+        width: 63
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c28a5ba215e3554e0800000000000000
+      internalID: -1993618741711755220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_36
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 81
+        width: 64
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ca7656077cc19fc0800000000000000
+      internalID: -3489783424655918397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_37
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 77
+        width: 62
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fce6328a5fb13b50800000000000000
+      internalID: 6571243726762863865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_38
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 77
+        width: 64
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61dbf12be8974dd00800000000000000
+      internalID: 996555071336463638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_39
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 3
+        width: 65
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7e3c6476815edd00800000000000000
+      internalID: 999325805243547262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_40
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 4
+        width: 65
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6f3f7c8783cf9a0800000000000000
+      internalID: -6198016895766759770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_41
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 3
+        width: 64
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a98bc97169cb2b640800000000000000
+      internalID: 5094341481336715418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_42
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 3
+        width: 65
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ac5519a43de59900800000000000000
+      internalID: 690718928302070951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_43
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 6
+        width: 65
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94722142277dfdc60800000000000000
+      internalID: 7845225961134106441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_44
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 6
+        width: 64
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33254567407572830800000000000000
+      internalID: 4046298466892403251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_45
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 5
+        width: 57
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc9a3f047f842c40800000000000000
+      internalID: 5486667974678584517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_46
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 6
+        width: 59
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88cfed5b563536a30800000000000000
+      internalID: 4207298173202267272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_47
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 6
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bc77a26f2d2406c0800000000000000
+      internalID: -4178164872751121232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_48
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 6
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a82acb1a5a0566030800000000000000
+      internalID: 3487563633758347914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
