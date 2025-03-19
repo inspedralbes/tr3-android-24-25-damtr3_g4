@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      logo_fourbitoo_0: 5087060804991512774
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
