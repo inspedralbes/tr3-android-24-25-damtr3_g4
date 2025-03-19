@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 130232215}
   m_Layer: 5
   m_Name: team2ScoreText
-  m_TagString: Untagged
+  m_TagString: Team2ScoreText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team1ScoreText: {fileID: 0}
-  team2ScoreText: {fileID: 0}
+  team2ScoreText: {fileID: 130232213}
 --- !u!1 &290650726
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,7 +2161,7 @@ GameObject:
   - component: {fileID: 2025850369}
   m_Layer: 5
   m_Name: team1ScoreText
-  m_TagString: Untagged
+  m_TagString: Team1ScoreText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

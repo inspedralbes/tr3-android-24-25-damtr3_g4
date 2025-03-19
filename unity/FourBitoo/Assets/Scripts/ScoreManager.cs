@@ -28,23 +28,31 @@ public class ScoreManager : MonoBehaviour
         team1ScoreText.text = team1Score.ToString();
         team2ScoreText.text = team2Score.ToString();
     }
-    void Start()
+void Start()
 {
     if (team1ScoreText == null)
     {
-        team1ScoreText = GameObject.Find("Team1ScoreText").GetComponent<TextMeshProUGUI>();
-        if (team1ScoreText == null)
+        GameObject team1TextObject = GameObject.FindWithTag("Team1ScoreText");
+        if (team1TextObject != null)
         {
-            Debug.LogError("❌ No se encontró el objeto de texto para el Equipo 1.");
+            team1ScoreText = team1TextObject.GetComponent<TextMeshProUGUI>();
+        }
+        else
+        {
+            Debug.LogError("❌ No se encontró el objeto con la etiqueta 'Team1ScoreText'.");
         }
     }
 
     if (team2ScoreText == null)
     {
-        team2ScoreText = GameObject.Find("Team2ScoreText").GetComponent<TextMeshProUGUI>();
-        if (team2ScoreText == null)
+        GameObject team2TextObject = GameObject.FindWithTag("Team2ScoreText");
+        if (team2TextObject != null)
         {
-            Debug.LogError("❌ No se encontró el objeto de texto para el Equipo 2.");
+            team2ScoreText = team2TextObject.GetComponent<TextMeshProUGUI>();
+        }
+        else
+        {
+            Debug.LogError("❌ No se encontró el objeto con la etiqueta 'Team2ScoreText'.");
         }
     }
 }

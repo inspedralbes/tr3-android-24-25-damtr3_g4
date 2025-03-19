@@ -10,6 +10,8 @@ TagManager:
   - ColisionInvisible
   - Goal1
   - Goal2
+  - Team1ScoreText
+  - Team2ScoreText
   layers:
   - Default
   - TransparentFX
