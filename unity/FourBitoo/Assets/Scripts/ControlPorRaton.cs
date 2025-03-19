@@ -8,6 +8,8 @@ public class ControlPorRaton : MonoBehaviour
     public static List<ControlPorRaton> objetoSeleccionado = new List<ControlPorRaton>();
     private Vector3 prosicionJugador;
     private bool seleccionado = false;
+
+    public bool activo = false;
     private Rigidbody2D rb;
     private GameObject border;
 
@@ -15,6 +17,8 @@ public class ControlPorRaton : MonoBehaviour
     {
         objetoSeleccionado.Add(this);
         prosicionJugador = this.transform.position;
+
+        activo = false;
 
         if (this.gameObject.GetComponent<CircleCollider2D>() == null)
         {
@@ -45,6 +49,7 @@ public class ControlPorRaton : MonoBehaviour
 
     void Update()
     {
+        if(!activo) return;
         if (Input.GetMouseButtonDown(0) && seleccionado)
         {
             prosicionJugador = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -57,6 +62,7 @@ public class ControlPorRaton : MonoBehaviour
     private void OnMouseDown()
     {
         seleccionado = true;
+        activo = true;
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
 
         // Activa el borde del objeto seleccionado
@@ -70,6 +76,7 @@ public class ControlPorRaton : MonoBehaviour
             if (jugador != this)
             {
                 jugador.seleccionado = false;
+                jugador.activo = false;
                 jugador.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
 
                 // Desactiva el borde de los otros objetos

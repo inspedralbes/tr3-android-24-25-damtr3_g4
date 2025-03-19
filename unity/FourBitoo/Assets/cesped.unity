@@ -363,6 +363,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team1ScoreText: {fileID: 0}
   team2ScoreText: {fileID: 130232213}
+  ball: {fileID: 2064664914}
+  players:
+  - {fileID: 2075678735}
+  - {fileID: 1756108676}
 --- !u!1 &290650726
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,6 +989,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team1ScoreText: {fileID: 2025850367}
   team2ScoreText: {fileID: 130232213}
+  ball: {fileID: 2064664914}
+  players:
+  - {fileID: 2075678735}
+  - {fileID: 1756108676}
 --- !u!1 &1018004574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,6 +1980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ae4775b9f56c24a97e78eb17925fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activo: 0
 --- !u!1 &1844960858
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,6 +2307,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team1ScoreText: {fileID: 2025850367}
   team2ScoreText: {fileID: 130232213}
+  ball: {fileID: 2064664914}
+  players:
+  - {fileID: 2075678735}
+  - {fileID: 1756108676}
 --- !u!1 &2043609296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2720,6 +2733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ae4775b9f56c24a97e78eb17925fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activo: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
