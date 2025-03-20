@@ -12,6 +12,7 @@ TagManager:
   - Goal2
   - Team1ScoreText
   - Team2ScoreText
+  - gameButton
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RegisterScene.unity
     guid: e3bf8452d41ee49458c1b5096aa76807
+  - enabled: 1
+    path: Assets/Scenes/SeleccionPersonaje.unity
+    guid: a35d9006f211cad4e9edbaf78e985bc6
+  - enabled: 1
+    path: Assets/cesped.unity
+    guid: 7865ac96243944c45be3ee347996c57c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
