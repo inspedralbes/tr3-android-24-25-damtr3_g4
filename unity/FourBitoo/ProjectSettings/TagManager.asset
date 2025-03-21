@@ -13,6 +13,7 @@ TagManager:
   - Team1ScoreText
   - Team2ScoreText
   - loginBtn
+  - gameButton
   layers:
   - Default
   - TransparentFX
