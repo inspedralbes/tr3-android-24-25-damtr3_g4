@@ -10,12 +10,11 @@ public class RegisterScriptUI : MonoBehaviour
     private TextField usernameField;
     private TextField emailField;
     private TextField passwordField;
-    private TextField confirmPasswordField;
     private Button registerButton;
     // private Button backButton;
     private Label messageLabel;
 
-    private const string BASE_URL = "http://localhost:3000";
+    private const string BASE_URL = "http://localhost:4000";
 
     void Start()
     {
@@ -23,10 +22,10 @@ public class RegisterScriptUI : MonoBehaviour
         usernameField = root.Q<TextField>("username");
         emailField = root.Q<TextField>("email");
         passwordField = root.Q<TextField>("password");
-        confirmPasswordField = root.Q<TextField>("confirmPassword");
         registerButton = root.Q<Button>("registerBtn");
-        // backButton = root.Q<Button>("backBtn");
         messageLabel = root.Q<Label>("messageLabel");
+
+        Debug.Log($"usernameField: {usernameField}, emailField: {emailField}, passwordField: {passwordField}, registerButton: {registerButton}, messageLabel: {messageLabel}");
 
         if (registerButton != null)
             registerButton.clicked += () => StartCoroutine(Register());
@@ -37,11 +36,7 @@ public class RegisterScriptUI : MonoBehaviour
 
     IEnumerator Register()
     {
-        if (passwordField.value != confirmPasswordField.value)
-        {
-            ShowMessage("Las contraseñas no coinciden", false);
-            yield break;
-        }
+        Debug.Log($"usernameField: {usernameField}, emailField: {emailField}, passwordField: {passwordField}");
 
         string jsonData = JsonUtility.ToJson(new RegisterData(usernameField.value, emailField.value, passwordField.value));
 
