@@ -44,11 +44,23 @@ public class LoginScriptUI : MonoBehaviour
 
             yield return request.SendWebRequest();
 
+            ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+
             if (request.result == UnityWebRequest.Result.Success)
             {
-                ShowMessage("Login exitoso", true);
-                Debug.Log("Respuesta del servidor: " + request.downloadHandler.text);
+                
                 // Puedes cargar otra escena aquí si quieres
+
+                if(response.success){
+                    UserStore.Instance.SetUserData(response.user.id, response.user.name, response.user.email, response.user.token);
+                
+                    ShowMessage("Login exitoso", true);
+                    Debug.Log("Respuesta del servidor: " + request.downloadHandler.text);
+                }
+                else
+                {
+                    ShowMessage(response.message, false);
+                }
             }
             else
             {
@@ -74,4 +86,21 @@ public class LoginScriptUI : MonoBehaviour
             this.password = password;
         }
     }
+}
+
+[System.Serializable]
+public class ServerResponse
+{
+    public bool success;
+    public User user;
+    public string message;
+}
+
+[System.Serializable]
+public class User
+{
+    public int id;
+    public string name;
+    public string email;
+    public string token;
 }
