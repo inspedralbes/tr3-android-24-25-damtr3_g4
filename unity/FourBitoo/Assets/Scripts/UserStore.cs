@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class UserStore
@@ -18,6 +19,7 @@ public class UserStore
             if (instance == null)
             {
                 instance = new UserStore();
+                instance.LoadUserData();
             }
             return instance;
         }
@@ -31,13 +33,38 @@ public class UserStore
         this.name = name;
         this.email = email;
         this.token = token;
+
+        SaveUserData();
     }
 
     public void ClearUserData()
     {
         id = 0;
-        name = null;
-        email = null;
-        token = null;
+        name = "";
+        email = "";
+        token = "";
+
+        PlayerPrefs.DeleteKey("userData");
+        PlayerPrefs.Save();
     }
+
+    private void SaveUserData()
+    {
+        string json = JsonUtility.ToJson(this);
+        PlayerPrefs.SetString("userData", json);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadUserData()
+    {
+        if (PlayerPrefs.HasKey("userData"))
+        {
+            string jsonData = PlayerPrefs.GetString("userData");
+            if (!string.IsNullOrEmpty(jsonData))
+            {
+                JsonUtility.FromJsonOverwrite(jsonData, this);
+            }
+        }
+    }
+
 }

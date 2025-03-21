@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 using System.Collections;
+using System;
 
 public class LoginScriptUI : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class LoginScriptUI : MonoBehaviour
     private Button registerButton;
     private Label messageLabel;
 
-    private const string BASE_URL = "http://localhost:3000";
+    private const string BASE_URL = "http://localhost:4000";
 
     void Start()
     {
@@ -31,43 +32,70 @@ public class LoginScriptUI : MonoBehaviour
             registerButton.clicked += () => SceneManager.LoadScene("RegisterScene"); // 🔄 Cambia de escena
     }
 
-    IEnumerator Login()
+   IEnumerator Login()
+{
+    // Crear el objeto UserData
+    UserData userData = new UserData(emailField.value, passwordField.value);
+
+    // Depurar el contenido de UserData
+    Debug.Log($"UserData - Email: {userData.email}, Password: {userData.password}");
+
+    // Convertir UserData a JSON
+    string jsonData = JsonUtility.ToJson(userData);
+
+    using (UnityWebRequest request = new UnityWebRequest(BASE_URL + "/login", "POST"))
     {
-        string jsonData = JsonUtility.ToJson(new UserData(emailField.value, passwordField.value));
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
 
-        using (UnityWebRequest request = new UnityWebRequest(BASE_URL + "/login", "POST"))
+        yield return request.SendWebRequest();
+
+        Debug.Log("Raw Response: " + request.downloadHandler.text);
+
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            yield return request.SendWebRequest();
-
-            ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
-
-            if (request.result == UnityWebRequest.Result.Success)
+            if (string.IsNullOrEmpty(request.downloadHandler.text))
             {
-                
-                // Puedes cargar otra escena aquí si quieres
+                ShowMessage("Empty response from server", false);
+                yield break;
+            }
 
-                if(response.success){
-                    UserStore.Instance.SetUserData(response.user.id, response.user.name, response.user.email, response.user.token);
-                
+            if (!request.GetResponseHeader("Content-Type").Contains("application/json"))
+            {
+                Debug.LogError("Invalid response type: " + request.GetResponseHeader("Content-Type"));
+                ShowMessage("Error: Respuesta no válida del servidor", false);
+                yield break;
+            }
+
+            try
+            {
+                ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+
+                if (response.user != null)
+                {
+                    UserStore.Instance.SetUserData(response.user.id, response.user.name, response.user.email, null);
                     ShowMessage("Login exitoso", true);
-                    Debug.Log("Respuesta del servidor: " + request.downloadHandler.text);
                 }
                 else
                 {
-                    ShowMessage(response.message, false);
+                    ShowMessage("Error: Usuario no encontrado", false);
                 }
             }
-            else
+            catch (System.Exception ex)
             {
-                ShowMessage("Error al hacer login", false);
+                Debug.LogError("JSON Parsing Error: " + ex.Message);
+                ShowMessage("Error al procesar la respuesta del servidor", false);
             }
         }
+        else
+        {
+            Debug.LogError("Request Error: " + request.error);
+            ShowMessage("Error al hacer login", false);
+        }
     }
+}
 
     void ShowMessage(string message, bool isSuccess)
     {
