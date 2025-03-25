@@ -7,6 +7,8 @@ public class InicioToSeleccionPersonaje : MonoBehaviour
     public string seleccionPersonajeSceneName = "SeleccionPersonaje"; // Nombre de la escena de selección de personaje
     public Button iniciarButton; // Botón de iniciar
 
+    public WelcomeTextScript welcomeTextScript;
+
     void Start()
     {
         if (iniciarButton != null)
@@ -29,6 +31,10 @@ public class InicioToSeleccionPersonaje : MonoBehaviour
         else
         {
             Debug.Log("Usuario no logueado. No se puede continuar.");
+            if (welcomeTextScript != null)
+            {
+                welcomeTextScript.welcomeText.text = "Necessita iniciar sessió";
+            }
         }
     }
 }

@@ -755,6 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seleccionPersonajeSceneName: SeleccionPersonaje
   iniciarButton: {fileID: 367434810}
+  welcomeTextScript: {fileID: 411951094}
 --- !u!1 &411951092
 GameObject:
   m_ObjectHideFlags: 0
