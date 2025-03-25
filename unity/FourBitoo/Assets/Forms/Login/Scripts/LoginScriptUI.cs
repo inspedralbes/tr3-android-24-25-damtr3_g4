@@ -25,6 +25,7 @@ public class LoginScriptUI : MonoBehaviour
         registerButton = root.Q<Button>("registerBtn");
         messageLabel = root.Q<Label>("messageLabel");
 
+
         if (loginButton != null)
             loginButton.clicked += () => StartCoroutine(Login());
 
@@ -78,7 +79,7 @@ public class LoginScriptUI : MonoBehaviour
                     UserStore.Instance.SetUserData(response.user.id, response.user.username, response.user.email, null);
                     ShowMessage("Login exitoso", true);
 
-
+                    FindFirstObjectByType<LoginButtonManager>()?.UpdateLoginButtonVisibility();
                     SceneManager.LoadScene("Inicio");
                 }
                 else

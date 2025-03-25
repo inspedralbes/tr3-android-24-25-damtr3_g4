@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 204236809}
   - component: {fileID: 204236808}
   - component: {fileID: 204236807}
+  - component: {fileID: 204236811}
   m_Layer: 5
   m_Name: Login
   m_TagString: loginBtn
@@ -467,6 +468,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204236805}
   m_CullTransparentMesh: 1
+--- !u!114 &204236811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204236805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240bcdf3c29ac7d49882758fb0afc344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loginButton: {fileID: 204236808}
 --- !u!1 &281393819
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +631,7 @@ GameObject:
   - component: {fileID: 367434812}
   - component: {fileID: 367434811}
   - component: {fileID: 367434810}
+  - component: {fileID: 367434813}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -726,6 +741,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367434808}
   m_CullTransparentMesh: 1
+--- !u!114 &367434813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367434808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc448ff558d87f4a8456895fb73aaa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seleccionPersonajeSceneName: SeleccionPersonaje
+  iniciarButton: {fileID: 367434810}
 --- !u!1 &411951092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1314,7 @@ GameObject:
   - component: {fileID: 1699874785}
   - component: {fileID: 1699874784}
   - component: {fileID: 1699874783}
+  - component: {fileID: 1699874786}
   m_Layer: 5
   m_Name: logoutBtn
   m_TagString: Untagged
@@ -1308,9 +1338,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 419.32483, y: -134.44287}
+  m_AnchoredPosition: {x: 400.32483, y: 139.55713}
   m_SizeDelta: {x: 48, y: 50}
-  m_Pivot: {x: 0.49999985, y: 0.49999985}
+  m_Pivot: {x: 0.49999988, y: 0.49999973}
 --- !u!114 &1699874783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1393,6 +1423,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699874781}
   m_CullTransparentMesh: 1
+--- !u!114 &1699874786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699874781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2483b651d6e1b43874a9b68c4ea988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logoutButton: {fileID: 1699874783}
+  welcomeTextScript: {fileID: 411951094}
+  loginButton: {fileID: 204236805}
 --- !u!1 &1803490355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1525,7 @@ GameObject:
   - component: {fileID: 2084621459}
   - component: {fileID: 2084621458}
   - component: {fileID: 2084621461}
+  - component: {fileID: 2084621463}
   - component: {fileID: 2084621462}
   m_Layer: 0
   m_Name: Main Camera
@@ -1615,11 +1661,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2084621457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac2483b651d6e1b43874a9b68c4ea988, type: 3}
+  m_Script: {fileID: 11500000, guid: 469ae5a9955255b4ca55576c042eeea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   logoutButton: {fileID: 1699874783}
-  welcomeTextScript: {fileID: 0}
+--- !u!114 &2084621463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084621457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240bcdf3c29ac7d49882758fb0afc344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loginButton: {fileID: 204236808}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
