@@ -77,6 +77,9 @@ public class LoginScriptUI : MonoBehaviour
                 {
                     UserStore.Instance.SetUserData(response.user.id, response.user.name, response.user.email, null);
                     ShowMessage("Login exitoso", true);
+
+
+                    SceneManager.LoadScene("Inicio");
                 }
                 else
                 {
