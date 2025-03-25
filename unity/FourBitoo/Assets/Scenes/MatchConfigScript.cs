@@ -12,16 +12,6 @@ public class MatchConfigManager : MonoBehaviour
 
     private List<GameObject> players = new List<GameObject>();
 
-    // Posiciones de spawn más cercanas a (0,0,0)
-    private Vector3[] spawnPositions = new Vector3[]
-    {
-        new Vector3(-200, 100, 0),   // Antes (983, 610, -3.93)
-        new Vector3(0, 200, 0),      // Antes (1333, 610, -3.93)
-        new Vector3(200, 100, 0),    // Antes (1183, 110, -3.93)
-        new Vector3(-100, -100, 0),  // Antes (983, 360, -3.93)
-        new Vector3(100, -100, 0)    // Antes (1333, 360, -3.93)
-    };
-
     void Start()
     {
         CheckSpawnPoints();
@@ -81,55 +71,64 @@ public class MatchConfigManager : MonoBehaviour
 
         for (int i = 0; i < selectedPlayer; i++)
         {
-            if (i < spawnPositions.Length)
+            // Obtener la posición de spawn desde el array
+            Vector3 newPosition = spawnPoints[i % spawnPoints.Length].position;
+
+            // Instanciar el prefab en la posición calculada
+            GameObject canvasInstance = Instantiate(canvasPrefab, Vector3.zero, Quaternion.identity);
+            canvasInstance.transform.SetParent(transform, false);
+
+            // Asegurar que el objeto esté activo
+            canvasInstance.SetActive(true);
+
+            // Ajustar la escala para evitar problemas de visibilidad
+            canvasInstance.transform.localScale = Vector3.one;
+
+            // Encontrar el DropdownPersonajes dentro del prefab
+            Transform dropdownTransform = canvasInstance.transform.Find("DropdownPersonajes");
+            if (dropdownTransform != null)
             {
-                // Instanciar el prefab en el punto de spawn específico
-                GameObject canvasInstance = Instantiate(canvasPrefab, spawnPositions[i], Quaternion.identity);
-                canvasInstance.transform.SetParent(transform, false);
+                // Mover el DropdownPersonajes a la posición del spawn point
+                dropdownTransform.position = newPosition;
+                dropdownTransform.localScale = Vector3.one;
 
-                // Asegurar que el objeto esté activo
-                canvasInstance.SetActive(true);
-
-                // Ajustar la escala para evitar problemas de visibilidad
-                canvasInstance.transform.localScale = Vector3.one;
-
-                // Configurar el Canvas en World Space
-                Canvas canvas = canvasInstance.GetComponent<Canvas>();
-                if (canvas != null)
-                {
-                    canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                    canvas.sortingOrder = i * 10; // Asegurar visibilidad
-
-                    // Asegurar que el CanvasScaler esté configurado
-                    CanvasScaler canvasScaler = canvasInstance.GetComponent<CanvasScaler>();
-                    if (canvasScaler == null)
-                    {
-                        canvasScaler = canvasInstance.AddComponent<CanvasScaler>();
-                    }
-                    canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                    canvasScaler.referenceResolution = new Vector2(1920, 1080);
-                    canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-                    canvasScaler.matchWidthOrHeight = 0.5f;
-
-                    // Asegurar que el GraphicRaycaster esté configurado
-                    GraphicRaycaster graphicRaycaster = canvasInstance.GetComponent<GraphicRaycaster>();
-                    if (graphicRaycaster == null)
-                    {
-                        canvasInstance.AddComponent<GraphicRaycaster>();
-                    }
-                }
-
-                Debug.Log($"🎯 Jugador {i + 1} instanciado en: {spawnPositions[i]} con escala: {canvasInstance.transform.localScale}");
-
-                players.Add(canvasInstance);
+                Debug.Log($"🎯 DropdownPersonajes {i + 1} instanciado en: {dropdownTransform.position} con escala: {dropdownTransform.localScale}");
             }
             else
             {
-                Debug.LogWarning($"⚠️ No hay suficientes puntos de spawn definidos.");
+                Debug.LogError("❌ No se encontró DropdownPersonajes en el prefab.");
             }
-        }
 
-        Debug.Log($"📌 TOTAL DE JUGADORES INSTANCIADOS: {players.Count}");
+            // Configurar el Canvas en World Space
+            Canvas canvas = canvasInstance.GetComponent<Canvas>();
+            if (canvas != null)
+            {
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                canvas.sortingOrder = i * 10; // Asegurar visibilidad
+
+                // Asegurar que el CanvasScaler esté configurado
+                CanvasScaler canvasScaler = canvasInstance.GetComponent<CanvasScaler>();
+                if (canvasScaler == null)
+                {
+                    canvasScaler = canvasInstance.AddComponent<CanvasScaler>();
+                }
+                canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                canvasScaler.referenceResolution = new Vector2(1920, 1080);
+                canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+                canvasScaler.matchWidthOrHeight = 0.5f;
+
+                // Asegurar que el GraphicRaycaster esté configurado
+                GraphicRaycaster graphicRaycaster = canvasInstance.GetComponent<GraphicRaycaster>();
+                if (graphicRaycaster == null)
+                {
+                    canvasInstance.AddComponent<GraphicRaycaster>();
+                }
+            }
+
+            Debug.Log($"🎯 Jugador {i + 1} instanciado en: {newPosition} con escala: {canvasInstance.transform.localScale}");
+
+            players.Add(canvasInstance);
+        }
     }
 }
 
