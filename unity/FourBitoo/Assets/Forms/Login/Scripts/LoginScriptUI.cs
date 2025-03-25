@@ -75,7 +75,7 @@ public class LoginScriptUI : MonoBehaviour
 
                 if (response.user != null)
                 {
-                    UserStore.Instance.SetUserData(response.user.id, response.user.name, response.user.email, null);
+                    UserStore.Instance.SetUserData(response.user.id, response.user.username, response.user.email, null);
                     ShowMessage("Login exitoso", true);
 
 
@@ -131,7 +131,7 @@ public class ServerResponse
 public class User
 {
     public int id;
-    public string name;
+    public string username;
     public string email;
     public string token;
 }

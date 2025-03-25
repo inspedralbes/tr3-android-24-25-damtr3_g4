@@ -7,7 +7,7 @@ public class UserStore
     private static UserStore instance;
 
     public int id;
-    public string name;
+    public string username;
     public string email;
     public string token;
 
@@ -27,20 +27,22 @@ public class UserStore
 
     private UserStore() { }
 
-    public void SetUserData(int id, string name, string email, string token)
+    public void SetUserData(int id, string username, string email, string token)
     {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.email = email;
         this.token = token;
 
         SaveUserData();
+
+         Debug.Log($"Datos guardados en UserStore: ID={id}, Nombre={username}, Email={email}, Token={token}");
     }
 
     public void ClearUserData()
     {
         id = 0;
-        name = "";
+        username = "";
         email = "";
         token = "";
 

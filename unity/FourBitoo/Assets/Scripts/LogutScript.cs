@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class LogutScript : MonoBehaviour
 {
     public Button logoutButton;
+    public WelcomeTextScript welcomeTextScript;
     void Start()
     {
 
@@ -20,7 +21,7 @@ public class LogutScript : MonoBehaviour
     {
         Debug.Log($"Datos actuales de UserStore antes de cerrar sesión: " +
                   $"ID: {UserStore.Instance.id}, " +
-                  $"Nombre: {UserStore.Instance.name}, " +
+                  $"Nombre: {UserStore.Instance.username}, " +
                   $"Email: {UserStore.Instance.email}, " +
                   $"Token: {UserStore.Instance.token}");
         Debug.Log("Cerrando sesión...");
@@ -28,10 +29,15 @@ public class LogutScript : MonoBehaviour
 
         Debug.Log($"Datos de UserStore después de cerrar sesión: " +
                   $"ID: {UserStore.Instance.id}, " +
-                  $"Nombre: {UserStore.Instance.name}, " +
+                  $"Nombre: {UserStore.Instance.username}, " +
                   $"Email: {UserStore.Instance.email}, " +
                   $"Token: {UserStore.Instance.token}");
         Debug.Log("Sesión cerrada");
+
+        if (welcomeTextScript != null)
+        {
+            welcomeTextScript.UpdateWelcomeText();
+        }
 
     }
 }
