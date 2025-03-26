@@ -9,6 +9,7 @@ public class MatchConfigManager : MonoBehaviour
     public string URL = "http://localhost:4000"; // URL del backend
     public Transform[] spawnPoints; // Puntos de spawn para los jugadores
     public GameObject canvasPrefab; // Prefab del canvas que contiene el dropdown y la imagen del jugador
+    public Button confirmButton; // Botón de confirmar
 
     private List<GameObject> players = new List<GameObject>();
 
@@ -16,6 +17,11 @@ public class MatchConfigManager : MonoBehaviour
     {
         CheckSpawnPoints();
         StartCoroutine(LoadMatchConfig());
+
+        if (confirmButton != null)
+        {
+            confirmButton.onClick.AddListener(() => StartCoroutine(SaveSelectedPlayers()));
+        }
     }
 
     void CheckSpawnPoints()
@@ -130,6 +136,85 @@ public class MatchConfigManager : MonoBehaviour
             players.Add(canvasInstance);
         }
     }
+
+    IEnumerator SaveSelectedPlayers()
+    {
+        Debug.Log("🔄 Guardando equipo y jugadores seleccionados en la base de datos...");
+
+        // Datos del equipo
+        string teamName = "TeamName"; // Cambiar por el nombre del equipo (puedes obtenerlo de un input en la UI)
+        int userId = 1; // Cambiar por el ID del usuario (puedes obtenerlo dinámicamente)
+        string badgeSpriteName = "DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_0"; // Cambiar por el nombre del sprite seleccionado
+
+        // Cargar el sprite del escudo desde la carpeta Resources
+        Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{badgeSpriteName}");
+        if (badgeSprite == null)
+        {
+            Debug.LogError($"❌ No se encontró el sprite del badge con el nombre: {badgeSpriteName}");
+            yield break;
+        }
+
+        // Convertir el sprite a una textura
+        Texture2D badgeTexture = badgeSprite.texture;
+        byte[] badgeBytes = badgeTexture.EncodeToPNG();
+
+        // Crear formulario para enviar como multipart/form-data
+        WWWForm teamForm = new WWWForm();
+        teamForm.AddField("id_user", userId.ToString());
+        teamForm.AddField("name", teamName);
+        teamForm.AddBinaryData("badge", badgeBytes, $"{badgeSpriteName}.png", "image/png");
+
+        // Agregar jugadores seleccionados al formulario
+        for (int i = 0; i < players.Count; i++)
+        {
+            GameObject player = players[i];
+
+            // Buscar el DropdownPersonajes dentro del CanvasPrefab(Clone)
+            Transform dropdownTransform = player.transform.Find("DropdownPersonajes");
+            if (dropdownTransform == null)
+            {
+                Debug.LogError($"❌ No se encontró el DropdownPersonajes en el jugador {i + 1}. Verifica la jerarquía del prefab.");
+                continue; // Continuar con el siguiente jugador
+            }
+
+            // Buscar el CaptionImage dentro del DropdownPersonajes
+            Transform captionImageTransform = dropdownTransform.Find("CaptionImage");
+            if (captionImageTransform == null)
+            {
+                Debug.LogError($"❌ No se encontró el CaptionImage en el DropdownPersonajes del jugador {i + 1}.");
+                continue; // Continuar con el siguiente jugador
+            }
+
+            // Obtener el componente Image del CaptionImage
+            Image captionImage = captionImageTransform.GetComponent<Image>();
+            if (captionImage == null)
+            {
+                Debug.LogError($"❌ El CaptionImage no tiene un componente Image en el jugador {i + 1}.");
+                continue; // Continuar con el siguiente jugador
+            }
+
+            // Obtener el nombre del sprite asociado al CaptionImage
+            string spriteName = captionImage.sprite.name; // Nombre del sprite seleccionado
+            Debug.Log($"🎨 Sprite seleccionado para el jugador {i + 1}: {spriteName}");
+
+            // Agregar los datos del jugador al formulario
+            teamForm.AddField($"players[{i}][name]", $"Player_{i + 1}"); // Nombre del jugador
+            teamForm.AddField($"players[{i}][img]", spriteName); // Nombre del sprite como imagen
+        }
+
+        UnityWebRequest teamRequest = UnityWebRequest.Post($"{URL}/teams", teamForm);
+
+        yield return teamRequest.SendWebRequest();
+
+        if (teamRequest.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log($"✅ Equipo {teamName} y jugadores guardados correctamente.");
+        }
+        else
+        {
+            Debug.LogError($"❌ Error al guardar el equipo y jugadores: {teamRequest.error}");
+        }
+    }
 }
 
 [System.Serializable]
@@ -138,4 +223,17 @@ public class MatchConfig
     public int matchDuration;
     public int goalsToWin;
     public int selectedPlayer;
+}
+
+[System.Serializable]
+public class PlayerData
+{
+    public string name;
+    public string img;
+
+    public PlayerData(string name, string img)
+    {
+        this.name = name;
+        this.img = img;
+    }
 }
