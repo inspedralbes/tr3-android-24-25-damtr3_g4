@@ -5,10 +5,11 @@ public class ShopUI : MonoBehaviour
 {
     public Button[] buyButtons; // Botones de compra en la tienda
     private PurchaseHandler purchaseHandler;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        purchaseHandler = FindObjectOfType<PurchaseHandler>();
+        purchaseHandler = Object.FindFirstObjectByType<PurchaseHandler>();
 
         if (purchaseHandler == null)
         {

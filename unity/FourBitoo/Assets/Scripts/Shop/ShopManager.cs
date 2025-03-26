@@ -2,16 +2,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public Transform shopContainer; // Contenedor donde se mostrarán los objetos
-    public GameObject shopItemPrefab; // Prefab del objeto en la tienda
+    public Transform shopContainer;
+    public GameObject shopItemPrefab;
 
-    private string shopApiUrl = "http://localhost:4000";
+    private string shopApiUrl = "http://localhost:4000/shopItems";
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(LoadShopItems());
@@ -19,12 +18,13 @@ public class ShopManager : MonoBehaviour
 
     IEnumerator LoadShopItems()
     {
-        UnityWebRequest request = UnityWebRequest.Get(shopApiUrl + "/shopItems");
+        UnityWebRequest request = UnityWebRequest.Get(shopApiUrl);
         yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.Sucess)
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            List<ShopItemData> items = JsonConvert.DeserializeObject<List<ShopItemData>>(request.downloadHandler.text);
+            List<ShopItemData> items = JsonUtility.FromJson<ShopItemList>("{\"items\":" + request.downloadHandler.text + "}").items;
+
             foreach (var itemData in items)
             {
                 GameObject newItem = Instantiate(shopItemPrefab, shopContainer);
@@ -37,7 +37,10 @@ public class ShopManager : MonoBehaviour
             Debug.LogError("Error al cargar la tienda: " + request.error);
         }
     }
+}
 
-    // Update is called once per frame
-
+[System.Serializable]
+public class ShopItemList
+{
+    public List<ShopItemData> items;
 }
