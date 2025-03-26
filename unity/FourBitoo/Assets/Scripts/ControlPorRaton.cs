@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControlPorRaton : MonoBehaviour
 {
-    private float velocidad = 9f;
+    private float velocidad = 70f;
     public static List<ControlPorRaton> objetoSeleccionado = new List<ControlPorRaton>();
     private Vector3 prosicionJugador;
     private bool seleccionado = false;

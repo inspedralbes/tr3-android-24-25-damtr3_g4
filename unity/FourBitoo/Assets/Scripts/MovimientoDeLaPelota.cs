@@ -47,7 +47,7 @@ public class MovimientoDeLaPelota : MonoBehaviour
         {
             enColision = true; // Marca que está en contacto con el jugador
             Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
-            rb.AddForce(direccionDeRebote * 8f, ForceMode2D.Impulse);
+            rb.AddForce(direccionDeRebote * 50f, ForceMode2D.Impulse);
         }
         else if (other.CompareTag("ColisionInvisible"))
         {
