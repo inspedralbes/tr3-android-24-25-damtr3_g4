@@ -50,16 +50,38 @@ public class ShopItem : MonoBehaviour
 
     public void OnBuyButtonClick()
     {
-        PurchaseHandler purchaseHandler = Object.FindFirstObjectByType<PurchaseHandler>();
+        StartCoroutine(BuyItemRequest());
+    }
 
-        if (purchaseHandler != null)
+    IEnumerator BuyItemRequest()
+    {
+        string buyUrl = "http://localhost:4000/shop/buy";
+
+        int userId = 7;
+
+        if (userId == 0)
         {
-            purchaseHandler.BuyItem(itemData.id); // Pasa el ID directamente
-            Debug.Log("Comprando: " + itemData.name);
+            Debug.LogError("Error: No se encontró el ID del usuario en UserStore.");
+            yield break;
+        }
+
+        WWWForm form = new WWWForm();
+        form.AddField("userId", userId);
+        form.AddField("itemId", itemData.id);
+        form.AddField("quantity", 1);
+
+        UnityWebRequest request = UnityWebRequest.Post(buyUrl, form);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Compra exitosa: " + request.downloadHandler.text);
         }
         else
         {
-            Debug.LogError("PurchaseHandler no encontrado en la escena.");
+            Debug.LogError("Error al comprar: " + request.error);
         }
     }
+
+
 }
