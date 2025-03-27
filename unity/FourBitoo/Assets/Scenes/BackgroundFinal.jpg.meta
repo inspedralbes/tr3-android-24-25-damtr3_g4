@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d668ec8158ca7762d86d62a14ba787c0
+guid: 275f6ceee8e23aa439d3914f11dc262b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4442132644133256233
-    second: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_20_0
+      213: 4527470027961095755
+    second: BackgroundFinal_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_20_0
+      name: BackgroundFinal_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 58
-        height: 58
+        x: 0
+        y: 0
+        width: 700
+        height: 508
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7d3454545ef5a52c0800000000000000
-      internalID: -4442132644133256233
+      spriteID: b4659dbb00ec4de30800000000000000
+      internalID: 4527470027961095755
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Wii - Inazuma Eleven Strikers 2012 Xtreme - Save File Icons_20_0: -4442132644133256233
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
