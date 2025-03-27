@@ -12,13 +12,13 @@ public class LoginButtonManager : MonoBehaviour
     // Update is called once per frame
     public void UpdateLoginButtonVisibility()
     {
-        if(UserStore.Instance.id != 0)
+        if (UserStore.Instance.mainUser.id != 0)
         {
             loginButton.gameObject.SetActive(false);
-    }
-    else
-    {
-        loginButton.gameObject.SetActive(true);
-    }
+        }
+        else
+        {
+            loginButton.gameObject.SetActive(true);
+        }
     }
 }

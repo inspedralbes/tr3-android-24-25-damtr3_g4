@@ -12,7 +12,7 @@ public class LogoutButtonManager : MonoBehaviour
 
     public void UpdateLogoutButtonVisibility()
     {
-        if (UserStore.Instance.id != 0) // Usuario logueado
+        if (UserStore.Instance.mainUser.id != 0) // Usuario logueado
         {
             logoutButton.gameObject.SetActive(true); // Mostrar botón de logout
         }

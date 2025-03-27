@@ -49,7 +49,7 @@ public class ControlPorRaton : MonoBehaviour
 
     void Update()
     {
-        if(!activo) return;
+        if (!activo) return;
         if (Input.GetMouseButtonDown(0) && seleccionado)
         {
             prosicionJugador = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -105,13 +105,13 @@ public class ControlPorRaton : MonoBehaviour
                 rbOther.linearVelocity = Vector2.zero;
             }
         }
-         else if (other.CompareTag("ColisionInvisible"))
+        else if (other.CompareTag("ColisionInvisible"))
         {
             Debug.Log("Colisión con ColisionInvisible!");
 
 
             rb.linearVelocity = Vector2.zero;
-            prosicionJugador = transform.position; 
+            prosicionJugador = transform.position;
         }
     }
 

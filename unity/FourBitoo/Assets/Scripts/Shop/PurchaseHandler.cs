@@ -5,7 +5,7 @@ public class PurchaseHandler : MonoBehaviour
 {
 
     private string purchaseUrl = "http://localhost:4000/shop/buy";
-    private int userId => UserStore.Instance.id;
+    private int userId => UserStore.Instance.mainUser.id;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BuyItem(int itemId)
     {

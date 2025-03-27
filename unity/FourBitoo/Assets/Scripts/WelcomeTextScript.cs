@@ -13,11 +13,13 @@ public class WelcomeTextScript : MonoBehaviour
     // Update is called once per frame
     public void UpdateWelcomeText()
     {
-         Debug.Log($"UserStore.Instance.id: {UserStore.Instance.id}, UserStore.Instance.name: {UserStore.Instance.username}");
-        if(UserStore.Instance.id != 0)
+        Debug.Log($"UserStore.Instance.id: {UserStore.Instance.mainUser.id}, UserStore.Instance.name: {UserStore.Instance.mainUser.username}");
+        if (UserStore.Instance.mainUser.id != 0)
         {
-            welcomeText.text = $"Benvingut {UserStore.Instance.username}";
-        }else{
+            welcomeText.text = $"Benvingut {UserStore.Instance.mainUser.username}";
+        }
+        else
+        {
             welcomeText.text = "Benvingut";
         }
     }
