@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MatchConfigManager : MonoBehaviour
 {
@@ -12,11 +13,13 @@ public class MatchConfigManager : MonoBehaviour
     public Button confirmButton; // Botón de confirmar
 
     private List<GameObject> players = new List<GameObject>();
+    private string selectedBadgeName; // Store the selected badge name
 
     void Start()
     {
         CheckSpawnPoints();
         StartCoroutine(LoadMatchConfig());
+        LoadAvailableBadges(); // Load badges dynamically
 
         if (confirmButton != null)
         {
@@ -137,20 +140,47 @@ public class MatchConfigManager : MonoBehaviour
         }
     }
 
+    void LoadAvailableBadges()
+    {
+        // Seleccionar un badge dinámicamente entre 0 y 5
+        int badgeIndex = Random.Range(0, 6); // Generar un índice aleatorio entre 0 y 5
+        selectedBadgeName = $"DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_{badgeIndex}";
+        Debug.Log($"🎨 Badge seleccionado dinámicamente: {selectedBadgeName}");
+
+        // Verificar si el badge existe
+        Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{selectedBadgeName}");
+        if (badgeSprite == null)
+        {
+            Debug.LogError($"❌ No se encontró el badge con el nombre: {selectedBadgeName}");
+        }
+        else
+        {
+            Debug.Log($"✅ Badge encontrado: {selectedBadgeName}");
+        }
+    }
+
     IEnumerator SaveSelectedPlayers()
     {
         Debug.Log("🔄 Guardando equipo y jugadores seleccionados en la base de datos...");
 
-        // Datos del equipo
-        string teamName = "TeamName"; // Cambiar por el nombre del equipo (puedes obtenerlo de un input en la UI)
-        int userId = 1; // Cambiar por el ID del usuario (puedes obtenerlo dinámicamente)
-        string badgeSpriteName = "DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_0"; // Cambiar por el nombre del sprite seleccionado
+        string teamName = "TeamName"; // Cambiar por el nombre del equipo
+        int userId = 1; // Cambiar por el ID del usuario
+
+        // Asegurarse de que un badge está seleccionado
+        if (string.IsNullOrEmpty(selectedBadgeName))
+        {
+            Debug.LogError("❌ No se seleccionó ningún badge.");
+            yield break;
+        }
+
+        // Usar el nombre exacto del badge sin sanitizar
+        string badgeFileName = selectedBadgeName;
 
         // Cargar el sprite del escudo desde la carpeta Resources
-        Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{badgeSpriteName}");
+        Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{badgeFileName}");
         if (badgeSprite == null)
         {
-            Debug.LogError($"❌ No se encontró el sprite del badge con el nombre: {badgeSpriteName}");
+            Debug.LogError($"❌ No se encontró el sprite del badge con el nombre: {badgeFileName}");
             yield break;
         }
 
@@ -162,44 +192,39 @@ public class MatchConfigManager : MonoBehaviour
         WWWForm teamForm = new WWWForm();
         teamForm.AddField("id_user", userId.ToString());
         teamForm.AddField("name", teamName);
-        teamForm.AddBinaryData("badge", badgeBytes, $"{badgeSpriteName}.png", "image/png");
+        teamForm.AddBinaryData("badge", badgeBytes, $"{badgeFileName}.png", "image/png");
 
         // Agregar jugadores seleccionados al formulario
         for (int i = 0; i < players.Count; i++)
         {
             GameObject player = players[i];
 
-            // Buscar el DropdownPersonajes dentro del CanvasPrefab(Clone)
             Transform dropdownTransform = player.transform.Find("DropdownPersonajes");
             if (dropdownTransform == null)
             {
-                Debug.LogError($"❌ No se encontró el DropdownPersonajes en el jugador {i + 1}. Verifica la jerarquía del prefab.");
-                continue; // Continuar con el siguiente jugador
+                Debug.LogError($"❌ No se encontró el DropdownPersonajes en el jugador {i + 1}.");
+                continue;
             }
 
-            // Buscar el CaptionImage dentro del DropdownPersonajes
             Transform captionImageTransform = dropdownTransform.Find("CaptionImage");
             if (captionImageTransform == null)
             {
                 Debug.LogError($"❌ No se encontró el CaptionImage en el DropdownPersonajes del jugador {i + 1}.");
-                continue; // Continuar con el siguiente jugador
+                continue;
             }
 
-            // Obtener el componente Image del CaptionImage
             Image captionImage = captionImageTransform.GetComponent<Image>();
             if (captionImage == null)
             {
                 Debug.LogError($"❌ El CaptionImage no tiene un componente Image en el jugador {i + 1}.");
-                continue; // Continuar con el siguiente jugador
+                continue;
             }
 
-            // Obtener el nombre del sprite asociado al CaptionImage
-            string spriteName = captionImage.sprite.name; // Nombre del sprite seleccionado
+            string spriteName = captionImage.sprite.name;
             Debug.Log($"🎨 Sprite seleccionado para el jugador {i + 1}: {spriteName}");
 
-            // Agregar los datos del jugador al formulario
-            teamForm.AddField($"players[{i}][name]", $"Player_{i + 1}"); // Nombre del jugador
-            teamForm.AddField($"players[{i}][img]", spriteName); // Nombre del sprite como imagen
+            teamForm.AddField($"players[{i}][name]", $"Player_{i + 1}");
+            teamForm.AddField($"players[{i}][img]", spriteName);
         }
 
         UnityWebRequest teamRequest = UnityWebRequest.Post($"{URL}/teams", teamForm);

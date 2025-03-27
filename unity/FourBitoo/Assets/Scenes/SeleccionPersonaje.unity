@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 634559356}
   - component: {fileID: 634559355}
   m_Layer: 5
-  m_Name: Dropdown
+  m_Name: BadgeDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1710,6 +1710,7 @@ MonoBehaviour:
   - {fileID: 466608852}
   - {fileID: 1348437707}
   canvasPrefab: {fileID: 700070994623940037, guid: 1d86046267b6bd2d09810aea5aabb0e1, type: 3}
+  confirmButton: {fileID: 1749683154}
 --- !u!1 &1612446715
 GameObject:
   m_ObjectHideFlags: 0
