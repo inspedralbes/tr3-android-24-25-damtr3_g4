@@ -166,21 +166,38 @@ public class MatchConfigManager : MonoBehaviour
         string teamName = "TeamName"; // Cambiar por el nombre del equipo
         int userId = 1; // Cambiar por el ID del usuario
 
-        // Asegurarse de que un badge está seleccionado
-        if (string.IsNullOrEmpty(selectedBadgeName))
+        // Buscar el BadgeDropdown en toda la escena
+        GameObject badgeDropdownObject = GameObject.Find("BadgeDropdown");
+        if (badgeDropdownObject == null)
         {
-            Debug.LogError("❌ No se seleccionó ningún badge.");
+            Debug.LogError("❌ No se encontró el BadgeDropdown en la escena.");
             yield break;
         }
 
-        // Usar el nombre exacto del badge sin sanitizar
-        string badgeFileName = selectedBadgeName;
+        // Acceder al CaptionImage dentro del BadgeDropdown
+        Transform badgeCaptionImageTransform = badgeDropdownObject.transform.Find("CaptionImage");
+        if (badgeCaptionImageTransform == null)
+        {
+            Debug.LogError("❌ No se encontró el CaptionImage dentro del BadgeDropdown.");
+            yield break;
+        }
 
-        // Cargar el sprite del escudo desde la carpeta Resources
-        Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{badgeFileName}");
+        Image badgeCaptionImage = badgeCaptionImageTransform.GetComponent<Image>();
+        if (badgeCaptionImage == null)
+        {
+            Debug.LogError("❌ El CaptionImage no tiene un componente Image.");
+            yield break;
+        }
+
+        // Obtener el nombre del sprite del CaptionImage
+        selectedBadgeName = badgeCaptionImage.sprite.name;
+        Debug.Log($"🎨 Badge seleccionado por el usuario (desde CaptionImage): {selectedBadgeName}");
+
+        // Verificar si el badge existe
+        Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{selectedBadgeName}");
         if (badgeSprite == null)
         {
-            Debug.LogError($"❌ No se encontró el sprite del badge con el nombre: {badgeFileName}");
+            Debug.LogError($"❌ No se encontró el sprite del badge con el nombre: {selectedBadgeName}");
             yield break;
         }
 
@@ -192,35 +209,35 @@ public class MatchConfigManager : MonoBehaviour
         WWWForm teamForm = new WWWForm();
         teamForm.AddField("id_user", userId.ToString());
         teamForm.AddField("name", teamName);
-        teamForm.AddBinaryData("badge", badgeBytes, $"{badgeFileName}.png", "image/png");
+        teamForm.AddBinaryData("badge", badgeBytes, $"{selectedBadgeName}.png", "image/png");
 
         // Agregar jugadores seleccionados al formulario
         for (int i = 0; i < players.Count; i++)
         {
             GameObject player = players[i];
 
-            Transform dropdownTransform = player.transform.Find("DropdownPersonajes");
-            if (dropdownTransform == null)
+            Transform playerDropdownTransform = player.transform.Find("DropdownPersonajes");
+            if (playerDropdownTransform == null)
             {
                 Debug.LogError($"❌ No se encontró el DropdownPersonajes en el jugador {i + 1}.");
                 continue;
             }
 
-            Transform captionImageTransform = dropdownTransform.Find("CaptionImage");
-            if (captionImageTransform == null)
+            Transform playerCaptionImageTransform = playerDropdownTransform.Find("CaptionImage");
+            if (playerCaptionImageTransform == null)
             {
                 Debug.LogError($"❌ No se encontró el CaptionImage en el DropdownPersonajes del jugador {i + 1}.");
                 continue;
             }
 
-            Image captionImage = captionImageTransform.GetComponent<Image>();
-            if (captionImage == null)
+            Image playerCaptionImage = playerCaptionImageTransform.GetComponent<Image>();
+            if (playerCaptionImage == null)
             {
                 Debug.LogError($"❌ El CaptionImage no tiene un componente Image en el jugador {i + 1}.");
                 continue;
             }
 
-            string spriteName = captionImage.sprite.name;
+            string spriteName = playerCaptionImage.sprite.name;
             Debug.Log($"🎨 Sprite seleccionado para el jugador {i + 1}: {spriteName}");
 
             teamForm.AddField($"players[{i}][name]", $"Player_{i + 1}");
