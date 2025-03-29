@@ -251,6 +251,11 @@ public class MatchConfigManager : MonoBehaviour
         if (teamRequest.result == UnityWebRequest.Result.Success)
         {
             Debug.Log($"✅ Equipo {teamName} y jugadores guardados correctamente.");
+
+            // Cargar la pantalla del partido con el número de jugadores seleccionados
+            Debug.Log($"🎮 Cargando pantalla del partido con {players.Count} jugadores.");
+            PlayerPrefs.SetInt("TeamPlayerCount", players.Count); // Guardar el número de jugadores en PlayerPrefs
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MatchScene"); // Cambiar a la escena del partido
         }
         else
         {
