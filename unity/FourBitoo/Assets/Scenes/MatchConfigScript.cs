@@ -21,9 +21,21 @@ public class MatchConfigManager : MonoBehaviour
         StartCoroutine(LoadMatchConfig());
         LoadAvailableBadges(); // Load badges dynamically
 
+        // Eliminar la llamada inicial a SaveSelectedPlayers
+        StartCoroutine(SaveSelectedPlayers());
+
         if (confirmButton != null)
         {
-            confirmButton.onClick.AddListener(() => StartCoroutine(SaveSelectedPlayers()));
+            // Configurar el evento onClick para guardar los jugadores al presionar el botón
+            confirmButton.onClick.AddListener(() =>
+            {
+                Debug.Log("🖱️ Botón de confirmar presionado. Guardando jugadores...");
+                StartCoroutine(SaveSelectedPlayers());
+            });
+        }
+        else
+        {
+            Debug.LogError("❌ El botón confirmButton no está asignado en el inspector.");
         }
     }
 
@@ -161,101 +173,69 @@ public class MatchConfigManager : MonoBehaviour
 
     IEnumerator SaveSelectedPlayers()
     {
-        Debug.Log("🔄 Guardando equipo y jugadores seleccionados en la base de datos...");
-
-        string teamName = "TeamName"; // Cambiar por el nombre del equipo
-        int userId = 1; // Cambiar por el ID del usuario
-
-        // Buscar el BadgeDropdown en toda la escena
+        int userId = 1;
+        string teamName = "TeamName";
+        
         GameObject badgeDropdownObject = GameObject.Find("BadgeDropdown");
-        if (badgeDropdownObject == null)
-        {
-            Debug.LogError("❌ No se encontró el BadgeDropdown en la escena.");
-            yield break;
-        }
-
-        // Acceder al CaptionImage dentro del BadgeDropdown
+        if (badgeDropdownObject == null) yield break;
+        
         Transform badgeCaptionImageTransform = badgeDropdownObject.transform.Find("CaptionImage");
-        if (badgeCaptionImageTransform == null)
-        {
-            Debug.LogError("❌ No se encontró el CaptionImage dentro del BadgeDropdown.");
-            yield break;
-        }
-
+        if (badgeCaptionImageTransform == null) yield break;
+        
         Image badgeCaptionImage = badgeCaptionImageTransform.GetComponent<Image>();
-        if (badgeCaptionImage == null)
-        {
-            Debug.LogError("❌ El CaptionImage no tiene un componente Image.");
-            yield break;
-        }
-
-        // Obtener el nombre del sprite del CaptionImage
+        
         selectedBadgeName = badgeCaptionImage.sprite.name;
-        Debug.Log($"🎨 Badge seleccionado por el usuario (desde CaptionImage): {selectedBadgeName}");
-
-        // Verificar si el badge existe
         Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{selectedBadgeName}");
-        if (badgeSprite == null)
-        {
-            Debug.LogError($"❌ No se encontró el sprite del badge con el nombre: {selectedBadgeName}");
-            yield break;
-        }
-
-        // Convertir el sprite a una textura
+        
         Texture2D badgeTexture = badgeSprite.texture;
-        byte[] badgeBytes = badgeTexture.EncodeToPNG();
+        Texture2D readableBadgeTexture = new Texture2D(badgeTexture.width, badgeTexture.height, TextureFormat.RGBA32, false);
+        readableBadgeTexture.SetPixels(badgeTexture.GetPixels());
+        readableBadgeTexture.Apply();
+        byte[] badgeBytes = readableBadgeTexture.EncodeToPNG();
 
-        // Crear formulario para enviar como multipart/form-data
         WWWForm teamForm = new WWWForm();
         teamForm.AddField("id_user", userId.ToString());
         teamForm.AddField("name", teamName);
         teamForm.AddBinaryData("badge", badgeBytes, $"{selectedBadgeName}.png", "image/png");
+        UnityWebRequest teamRequest = UnityWebRequest.Post($"{URL}/teams", teamForm);
+        
+        yield return teamRequest.SendWebRequest();
+        if (teamRequest.result != UnityWebRequest.Result.Success) yield break;
 
-        // Agregar jugadores seleccionados al formulario
+        WWWForm form = new WWWForm();
+        List<PlayerData> playerDataList = new List<PlayerData>();
+
         for (int i = 0; i < players.Count; i++)
         {
             GameObject player = players[i];
-
+            
             Transform playerDropdownTransform = player.transform.Find("DropdownPersonajes");
-            if (playerDropdownTransform == null)
-            {
-                Debug.LogError($"❌ No se encontró el DropdownPersonajes en el jugador {i + 1}.");
-                continue;
-            }
-
+            if (playerDropdownTransform == null) continue;
+            
             Transform playerCaptionImageTransform = playerDropdownTransform.Find("CaptionImage");
-            if (playerCaptionImageTransform == null)
-            {
-                Debug.LogError($"❌ No se encontró el CaptionImage en el DropdownPersonajes del jugador {i + 1}.");
-                continue;
-            }
-
+            if (playerCaptionImageTransform == null) continue;
+            
             Image playerCaptionImage = playerCaptionImageTransform.GetComponent<Image>();
-            if (playerCaptionImage == null)
-            {
-                Debug.LogError($"❌ El CaptionImage no tiene un componente Image en el jugador {i + 1}.");
-                continue;
-            }
-
             string spriteName = playerCaptionImage.sprite.name;
-            Debug.Log($"🎨 Sprite seleccionado para el jugador {i + 1}: {spriteName}");
-
-            teamForm.AddField($"players[{i}][name]", $"Player_{i + 1}");
-            teamForm.AddField($"players[{i}][img]", spriteName);
+            
+            Sprite playerSprite = Resources.Load<Sprite>($"Players/{spriteName}");
+            if (playerSprite == null) continue;
+            
+            Texture2D playerTexture = playerSprite.texture;
+            Texture2D readablePlayerTexture = new Texture2D(playerTexture.width, playerTexture.height, TextureFormat.RGBA32, false);
+            readablePlayerTexture.SetPixels(playerTexture.GetPixels());
+            readablePlayerTexture.Apply();
+            
+            byte[] playerBytes = readablePlayerTexture.EncodeToPNG();
+            playerDataList.Add(new PlayerData($"Player_{i + 1}", $"img_{i}"));
+            form.AddBinaryData($"img_{i}", playerBytes, $"{spriteName}.png", "image/png");
         }
 
-        UnityWebRequest teamRequest = UnityWebRequest.Post($"{URL}/teams", teamForm);
-
-        yield return teamRequest.SendWebRequest();
-
-        if (teamRequest.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log($"✅ Equipo {teamName} y jugadores guardados correctamente.");
-        }
-        else
-        {
-            Debug.LogError($"❌ Error al guardar el equipo y jugadores: {teamRequest.error}");
-        }
+        string jsonData = JsonUtility.ToJson(new PlayerList { players = playerDataList });
+        form.AddField("players", jsonData);
+        
+        UnityWebRequest request = UnityWebRequest.Post($"{URL}/players", form);
+        yield return request.SendWebRequest();
     }
 }
 
@@ -268,14 +248,16 @@ public class MatchConfig
 }
 
 [System.Serializable]
-public class PlayerData
-{
+public class PlayerData {
     public string name;
     public string img;
-
-    public PlayerData(string name, string img)
-    {
+    public PlayerData(string name, string img) {
         this.name = name;
         this.img = img;
     }
+}
+
+[System.Serializable]
+public class PlayerList {
+    public List<PlayerData> players;
 }
