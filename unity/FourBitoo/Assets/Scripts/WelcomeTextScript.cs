@@ -14,7 +14,7 @@ public class WelcomeTextScript : MonoBehaviour
     public void UpdateWelcomeText()
     {
         Debug.Log($"UserStore.Instance.id: {UserStore.Instance.mainUser.id}, UserStore.Instance.name: {UserStore.Instance.mainUser.username}");
-        if (UserStore.Instance.mainUser.id != 0)
+        if (UserStore.Instance.mainUser != null && !string.IsNullOrEmpty(UserStore.Instance.mainUser.username))
         {
             welcomeText.text = $"Benvingut {UserStore.Instance.mainUser.username}";
         }
