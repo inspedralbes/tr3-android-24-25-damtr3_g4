@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
 using UnityEngine.UIElements;
+using UnityEngine.Networking; // Importa UnityWebRequest
 using System.Collections;
 
 public class LoginScriptUI : MonoBehaviour
@@ -13,7 +13,7 @@ public class LoginScriptUI : MonoBehaviour
     private Button registerButton;
     private Label messageLabel;
 
-    private const string BASE_URL = "http://localhost:3000";
+    private const string BASE_URL = "http://localhost:4000";
 
     void Start()
     {
@@ -33,7 +33,14 @@ public class LoginScriptUI : MonoBehaviour
 
     IEnumerator Login()
     {
-        string jsonData = JsonUtility.ToJson(new UserData(emailField.value, passwordField.value));
+        // Crear el objeto UserData
+        UserData userData = new UserData(emailField.value, passwordField.value);
+
+        // Depurar el contenido de UserData
+        Debug.Log($"UserData - Email: {userData.email}, Password: {userData.password}");
+
+        // Convertir UserData a JSON
+        string jsonData = JsonUtility.ToJson(userData);
 
         using (UnityWebRequest request = new UnityWebRequest(BASE_URL + "/login", "POST"))
         {
@@ -44,14 +51,49 @@ public class LoginScriptUI : MonoBehaviour
 
             yield return request.SendWebRequest();
 
+            Debug.Log("Raw Response: " + request.downloadHandler.text);
+
             if (request.result == UnityWebRequest.Result.Success)
             {
-                ShowMessage("Login exitoso", true);
-                Debug.Log("Respuesta del servidor: " + request.downloadHandler.text);
-                // Puedes cargar otra escena aquí si quieres
+                if (string.IsNullOrEmpty(request.downloadHandler.text))
+                {
+                    ShowMessage("Empty response from server", false);
+                    yield break;
+                }
+
+                if (!request.GetResponseHeader("Content-Type").Contains("application/json"))
+                {
+                    Debug.LogError("Invalid response type: " + request.GetResponseHeader("Content-Type"));
+                    ShowMessage("Error: Respuesta no válida del servidor", false);
+                    yield break;
+                }
+
+                try
+                {
+                    ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+
+                    if (response.user != null)
+                    {
+                        // Guardar los datos del usuario principal en el UserStore
+                        ShowMessage("Login exitoso", true);
+
+                        FindFirstObjectByType<LoginButtonManager>()?.UpdateLoginButtonVisibility();
+                        SceneManager.LoadScene("Inicio");
+                    }
+                    else
+                    {
+                        ShowMessage("Error: Usuario no encontrado", false);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError("JSON Parsing Error: " + ex.Message);
+                    ShowMessage("Error al procesar la respuesta del servidor", false);
+                }
             }
             else
             {
+                Debug.LogError("Request Error: " + request.error);
                 ShowMessage("Error al hacer login", false);
             }
         }
@@ -74,4 +116,21 @@ public class LoginScriptUI : MonoBehaviour
             this.password = password;
         }
     }
+}
+
+[System.Serializable]
+public class ServerResponse
+{
+    public bool success;
+    public User user;
+    public string message;
+}
+
+[System.Serializable]
+public class User
+{
+    public int id;
+    public string username;
+    public string email;
+    public string token;
 }
