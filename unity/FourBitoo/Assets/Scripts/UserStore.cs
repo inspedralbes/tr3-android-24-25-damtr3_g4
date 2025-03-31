@@ -48,6 +48,7 @@ public class UserStore
         {
             if (instance == null)
             {
+                Debug.LogWarning("UserStore instance is null. Initializing UserStore.");
                 instance = new UserStore();
                 instance.LoadUserData();
             }
@@ -55,11 +56,29 @@ public class UserStore
         }
     }
 
+    public static void Initialize()
+    {
+        if (instance == null)
+        {
+            Debug.Log("Explicitly initializing UserStore instance.");
+            instance = new UserStore();
+            instance.LoadUserData();
+        }
+    }
+
     private UserStore() { mainUser = new UserData(0, "", "", ""); guestUser = new UserData(0, "", "", ""); } // Inicializar usuarios
 
     public void SetMainUser(int id, string username, string email, string token)
     {
-        mainUser = new UserData(id, username, email, token);
+        if (mainUser == null)
+        {
+            Debug.LogWarning("mainUser is null. Initializing mainUser.");
+            mainUser = new UserData(0, "", "", ""); // Ensure mainUser is initialized
+        }
+        mainUser.id = id;
+        mainUser.username = username;
+        mainUser.email = email;
+        mainUser.token = token;
         Debug.Log($"Usuario principal actualizado: {username} (ID={id})");
 
         SaveUserData();
