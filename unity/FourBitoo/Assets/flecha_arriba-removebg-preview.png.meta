@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      flecha_arriba-removebg-preview_0: 9123307626660875390
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
