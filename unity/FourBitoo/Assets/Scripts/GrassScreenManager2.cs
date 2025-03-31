@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class GrassScreenManager : MonoBehaviour
+public class GrassScreenManager2 : MonoBehaviour
 {
     public string URL = "http://localhost:4000"; // URL del backend
     public GameObject canvasPrefab; // Prefab del canvas que contiene el CaptionImage
@@ -34,7 +34,7 @@ public class GrassScreenManager : MonoBehaviour
             MatchConfiguration config = JsonUtility.FromJson<MatchConfiguration>(jsonResponse);
             Debug.Log($"🎮 Número de jugadores recibidos: {config.selectedPlayer}");
 
-            SetupPlayers(config.selectedPlayer, true); // Configura el equipo PLAYER1
+            SetupPlayers(config.selectedPlayer); // Configura los jugadores
         }
         else
         {
@@ -42,7 +42,7 @@ public class GrassScreenManager : MonoBehaviour
         }
     }
 
-    void SetupPlayers(int selectedPlayer, bool isPlayer1)
+    void SetupPlayers(int selectedPlayer)
     {
         Debug.Log($"♻️ Configurando jugadores... Número de jugadores seleccionados: {selectedPlayer}");
 
@@ -53,39 +53,27 @@ public class GrassScreenManager : MonoBehaviour
         }
         players.Clear();
 
-        // Definir las posiciones específicas para PLAYER1 y PLAYER2
+        // Definir las posiciones específicas para los jugadores
         Vector3[] player1Positions = new Vector3[]
         {
-            new Vector3(-90, 25, 0),
-            new Vector3(-15, 65, 0),
-            new Vector3(-15, 10, 0),
-            new Vector3(73, -6, 0),
-            new Vector3(73, 65, 0)
+            new Vector3(144, -60, 0),
+            new Vector3(71, -10, 0),
+            new Vector3(71, -87, 0),
+            new Vector3(-5, -90, 0),
+            new Vector3(-5, -20, 0)
         };
-
-        Vector3[] player2Positions = new Vector3[]
-        {
-            new Vector3(341, 25, 0),
-            new Vector3(260, 78, 0),
-            new Vector3(260, -18, 0),
-            new Vector3(180, -6, 0),
-            new Vector3(180, 63, 0)
-        };
-
-        // Seleccionar las posiciones según el equipo
-        Vector3[] selectedPositions = isPlayer1 ? player1Positions : player2Positions;
 
         for (int i = 0; i < selectedPlayer; i++)
         {
             // Verificar si hay suficientes posiciones predefinidas
-            if (i >= selectedPositions.Length)
+            if (i >= player1Positions.Length)
             {
                 Debug.LogError($"❌ No hay suficientes posiciones predefinidas para el jugador {i + 1}.");
                 break;
             }
 
             // Obtener la posición predefinida
-            Vector3 newPosition = selectedPositions[i];
+            Vector3 newPosition = player1Positions[i];
 
             // Instanciar el prefab del jugador en la posición predefinida
             GameObject playerInstance = Instantiate(canvasPrefab, newPosition, Quaternion.identity);
@@ -141,12 +129,4 @@ public class GrassScreenManager : MonoBehaviour
 
         return playerSprites[playerIndex];
     }
-}
-
-[System.Serializable]
-public class MatchConfiguration
-{
-    public int matchDuration;
-    public int goalsToWin;
-    public int selectedPlayer;
 }
