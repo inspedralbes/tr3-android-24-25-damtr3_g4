@@ -22,8 +22,6 @@ public class MatchConfigManager : MonoBehaviour
         LoadAvailableBadges(); // Load badges dynamically
 
         // Eliminar la llamada inicial a SaveSelectedPlayers
-        StartCoroutine(SaveSelectedPlayers());
-
         if (confirmButton != null)
         {
             // Configurar el evento onClick para guardar los jugadores al presionar el botón
