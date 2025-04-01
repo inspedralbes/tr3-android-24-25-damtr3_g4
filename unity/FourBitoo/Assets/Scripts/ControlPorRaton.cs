@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControlPorRaton : MonoBehaviour
 {
-    private float velocidad = 120f;
+    private float velocidad = 420f;
     public static ControlPorRaton jugadorSeleccionado = null;
 
     private bool seleccionado = false;
@@ -12,6 +12,9 @@ public class ControlPorRaton : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject border;
     public bool activo = true;
+
+    // Corrutina de movimiento para poder cancelarla
+    private Coroutine movimientoCoroutine = null;
 
     public LineRenderer lineRenderer; // Para dibujar la trayectoria
     private List<Vector3> trajectoryPoints = new List<Vector3>();
@@ -52,7 +55,15 @@ public class ControlPorRaton : MonoBehaviour
         materialRebote.friction = 0.1f; // Ajustar la fricción según sea necesario
 
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
-        collider.sharedMaterial = materialRebote; // Asignar el material al collider
+        if (collider != null)
+        {
+            collider.sharedMaterial = materialRebote; // Asignar el material al collider
+        }
+        else
+        {
+            Debug.LogError("No se encontró CircleCollider2D en " + gameObject.name);
+        }
+
 
         rb.linearDamping = 0.5f;
         rb.angularDamping = 0.5f; // Ajustar la fricción angular según sea necesario
@@ -112,7 +123,12 @@ public class ControlPorRaton : MonoBehaviour
             lineRenderer.SetPositions(trajectoryPoints.ToArray());
             lineRenderer.enabled = true;
 
-            jugadorSeleccionado.StartCoroutine(jugadorSeleccionado.MoverJugador(rightClickPos));
+            // Guardar la referencia a la corrutina para poder cancelarla
+            if (jugadorSeleccionado.movimientoCoroutine != null)
+            {
+                jugadorSeleccionado.StopCoroutine(jugadorSeleccionado.movimientoCoroutine);
+            }
+            jugadorSeleccionado.movimientoCoroutine = jugadorSeleccionado.StartCoroutine(jugadorSeleccionado.MoverJugador(rightClickPos));
         }
     }
 
@@ -158,7 +174,6 @@ public class ControlPorRaton : MonoBehaviour
         seleccionado = false;
         lineRenderer.enabled = false;
         trajectoryPoints.Clear();
-
         if (border != null)
         {
             border.SetActive(false);
@@ -201,6 +216,7 @@ public class ControlPorRaton : MonoBehaviour
         lineRenderer.enabled = false;
 
         enMovimiento = false;
+        movimientoCoroutine = null;
 
         // Deseleccionar al jugador al finalizar el movimiento
         Deseleccionar();
@@ -221,26 +237,87 @@ public class ControlPorRaton : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) // Verifica que es otro jugador
+        Debug.Log($"Colisión detectada entre {gameObject.name} (Tag: {gameObject.tag}, RB: {rb != null}, Collider: {GetComponent<Collider2D>() != null}) y {collision.gameObject.name} (Tag: {collision.gameObject.tag}, RB: {collision.gameObject.GetComponent<Rigidbody2D>() != null}, Collider: {collision.gameObject.GetComponent<Collider2D>() != null})");
+
+        // Si estamos en movimiento programado, cancelarlo para permitir un rebote físico
+        if (enMovimiento && movimientoCoroutine != null)
+        {
+            StopCoroutine(movimientoCoroutine);
+            movimientoCoroutine = null;
+            enMovimiento = false;
+            lineRenderer.enabled = false;
+
+            // Si estaba seleccionado, mantener la selección después de la colisión
+            if (seleccionado && flecha != null)
+            {
+                flecha.SetActive(true);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
         {
             Rigidbody2D rbOtro = collision.gameObject.GetComponent<Rigidbody2D>();
             if (rbOtro != null)
             {
-                // Calcular la dirección del rebote
-                Vector2 direccionRebote = (rb.position - rbOtro.position).normalized;
+                Debug.Log($"{gameObject.name} - Velocidad ANTES del impulso: {rb.linearVelocity}");
+                Debug.Log($"{collision.gameObject.name} - Velocidad ANTES del impulso: {rbOtro.linearVelocity}");
 
-                // Reducir la fuerza del rebote
-                float fuerzaRebote = 2f; // Ajusta este valor para un rebote más suave
+                // Para un rebote más realista, usar el punto de contacto
+                ContactPoint2D contacto = collision.GetContact(0);
+                Vector2 normal = contacto.normal; // Normal en el punto de contacto
 
-                // Aplicar la fuerza en direcciones opuestas, proporcional a la velocidad actual
-                rb.linearVelocity = direccionRebote * fuerzaRebote;
-                rbOtro.linearVelocity = -direccionRebote * fuerzaRebote;
+                // Obtener las velocidades actuales
+                Vector2 velocidadA = rb.linearVelocity;
+                Vector2 velocidadB = rbOtro.linearVelocity;
 
-                // Reducir gradualmente la velocidad de ambos jugadores
+                // Calcular las masas (o usar las reales si están configuradas)
+                float masaA = rb.mass;
+                float masaB = rbOtro.mass;
+
+                // Calcular la velocidad relativa en dirección de la normal
+                float velocidadRelativa = Vector2.Dot(velocidadB - velocidadA, normal);
+
+                // Calcular el impulso (con un coeficiente de restitución para el rebote)
+                float coefRestitution = 1.2f; // Mayor que 1 para un rebote más enérgico
+                float impulso = (2.0f * velocidadRelativa) / (masaA + masaB) * coefRestitution;
+
+                // Aplicar el impulso a ambos cuerpos en dirección de la normal
+                rb.linearVelocity = velocidadA + impulso * masaB * normal;
+                rbOtro.linearVelocity = velocidadB - impulso * masaA * normal;
+
+                // Multiplicar por un factor para hacer el rebote más pronunciado
+                float factorRebote = 2.5f;
+                rb.linearVelocity *= factorRebote;
+                rbOtro.linearVelocity *= factorRebote;
+
+                Debug.Log($"{gameObject.name} - Velocidad DESPUÉS del impulso: {rb.linearVelocity}");
+                Debug.Log($"{collision.gameObject.name} - Velocidad DESPUÉS del impulso: {rbOtro.linearVelocity}");
+
+                // Asegurarse de que ambos jugadores están en modo "no controlado"
+                ControlPorRaton controlOtro = collision.gameObject.GetComponent<ControlPorRaton>();
+                if (controlOtro != null && controlOtro.enMovimiento && controlOtro.movimientoCoroutine != null)
+                {
+                    controlOtro.StopCoroutine(controlOtro.movimientoCoroutine);
+                    controlOtro.movimientoCoroutine = null;
+                    controlOtro.enMovimiento = false;
+                    controlOtro.lineRenderer.enabled = false;
+
+                    // Si estaba seleccionado, mantener la selección después de la colisión
+                    if (controlOtro.seleccionado && controlOtro.flecha != null)
+                    {
+                        controlOtro.flecha.SetActive(true);
+                    }
+                }
+
+                // Reducir gradualmente la velocidad de ambos jugadores después del rebote
                 StartCoroutine(ReducirVelocidad(rb));
                 StartCoroutine(ReducirVelocidad(rbOtro));
 
-                Debug.Log($"Rebote entre {gameObject.name} y {collision.gameObject.name}");
+                Debug.Log($"Rebote aplicado entre {gameObject.name} y {collision.gameObject.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"El objeto {collision.gameObject.name} tiene la etiqueta 'Player' pero no tiene Rigidbody2D.");
             }
         }
     }
@@ -253,7 +330,7 @@ public class ControlPorRaton : MonoBehaviour
         while (tiempo < duracion)
         {
             // Reduce la velocidad gradualmente
-            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, 0.1f);
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, 0.05f);
             tiempo += Time.deltaTime;
             yield return null;
         }
