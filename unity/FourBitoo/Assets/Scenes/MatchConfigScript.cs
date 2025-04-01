@@ -174,6 +174,7 @@ public class MatchConfigManager : MonoBehaviour
         int userId = 1;
         string teamName = "TeamName";
         
+        // Obtener el escudo seleccionado
         GameObject badgeDropdownObject = GameObject.Find("BadgeDropdown");
         if (badgeDropdownObject == null) yield break;
         
@@ -184,6 +185,13 @@ public class MatchConfigManager : MonoBehaviour
         
         selectedBadgeName = badgeCaptionImage.sprite.name;
         Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{selectedBadgeName}");
+        
+        // Guardar el escudo seleccionado en UserStore
+        UserStore.Instance.SetTeamBadge(true, selectedBadgeName);
+        Debug.Log($"💾 Escudo '{selectedBadgeName}' guardado en UserStore");
+        
+        // Limpiar jugadores anteriores en UserStore
+        UserStore.Instance.ClearPlayers(true);
         
         Texture2D badgeTexture = badgeSprite.texture;
         Texture2D readableBadgeTexture = new Texture2D(badgeTexture.width, badgeTexture.height, TextureFormat.RGBA32, false);
@@ -200,28 +208,63 @@ public class MatchConfigManager : MonoBehaviour
         yield return teamRequest.SendWebRequest();
         if (teamRequest.result != UnityWebRequest.Result.Success) yield break;
 
-        WWWForm form = new WWWForm();
+        WWWForm playerForm = new WWWForm(); // Usar un formulario diferente para jugadores
         List<PlayerData> playerDataList = new List<PlayerData>();
+
+        // Depuración para ver cuántos jugadores hay
+        Debug.Log($"🔍 Número de jugadores para procesar: {players.Count}");
 
         for (int i = 0; i < players.Count; i++)
         {
             GameObject player = players[i];
             
+            // Depuración para verificar el objeto player
+            Debug.Log($"🔍 Procesando jugador {i + 1}: {(player != null ? "objeto válido" : "NULL")}");
+            
             Transform playerDropdownTransform = player.transform.Find("DropdownPersonajes");
-            if (playerDropdownTransform == null) continue;
+            if (playerDropdownTransform == null) 
+            {
+                Debug.LogError($"❌ No se encontró 'DropdownPersonajes' para el jugador {i + 1}");
+                continue;
+            }
             
             Transform playerCaptionImageTransform = playerDropdownTransform.Find("CaptionImage");
-            if (playerCaptionImageTransform == null) continue;
+            if (playerCaptionImageTransform == null) 
+            {
+                Debug.LogError($"❌ No se encontró 'CaptionImage' para el jugador {i + 1}");
+                continue;
+            }
             
             Image playerCaptionImage = playerCaptionImageTransform.GetComponent<Image>();
+            if (playerCaptionImage == null || playerCaptionImage.sprite == null)
+            {
+                Debug.LogError($"❌ Image o Sprite nulo para el jugador {i + 1}");
+                continue;
+            }
+            
             string spriteName = playerCaptionImage.sprite.name;
             Debug.Log($"🎨 Sprite seleccionado para el jugador {i + 1}: {spriteName}");
+            
+            // Guardar el personaje seleccionado en UserStore - Asegurarse de que esto se ejecute
+            try {
+                UserStore.Instance.AddPlayerToUser(true, i, $"Player_{i + 1}", spriteName);
+                Debug.Log($"💾 Jugador {i + 1} con sprite '{spriteName}' guardado en UserStore");
+            } 
+            catch (System.Exception e) {
+                Debug.LogError($"❌ Error al guardar jugador en UserStore: {e.Message}");
+            }
 
-            teamForm.AddField($"players[{i}][name]", $"Player_{i + 1}");
-            teamForm.AddField($"players[{i}][img]", spriteName);
+            playerForm.AddField($"players[{i}][name]", $"Player_{i + 1}");
+            playerForm.AddField($"players[{i}][img]", spriteName);
+            
+            // Añadir a la lista para JSON
+            playerDataList.Add(new PlayerData($"Player_{i + 1}", spriteName));
         }
 
-        UnityWebRequest playerRequest = UnityWebRequest.Post($"{URL}/teams", teamForm); // Renamed variable
+        // Asegurarse de que se hayan agregado jugadores antes de continuar
+        Debug.Log($"✅ Total de jugadores procesados: {playerDataList.Count}");
+
+        UnityWebRequest playerRequest = UnityWebRequest.Post($"{URL}/teams", playerForm); // Usar playerForm en lugar de teamForm
 
         yield return playerRequest.SendWebRequest();
 
@@ -236,6 +279,7 @@ public class MatchConfigManager : MonoBehaviour
         }
 
         string jsonData = JsonUtility.ToJson(new PlayerList { players = playerDataList });
+        WWWForm form = new WWWForm();
         form.AddField("players", jsonData);
         
         UnityWebRequest request = UnityWebRequest.Post($"{URL}/players", form);
