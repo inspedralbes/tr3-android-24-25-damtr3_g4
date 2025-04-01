@@ -17,9 +17,6 @@ public class MovimientoDeLaPelota : MonoBehaviour
     private float tiempoUltimaColision = 0f;
     private float tiempoEntreColisiones = 0.01f; // Tiempo aún más corto
 
-    // Nueva variable para controlar la reducción del giro
-    [SerializeField] private float factorReduccionGiro = 0.98f; // Ajusta este valor para controlar la velocidad de parada del giro
-
     void Start()
     {
         // Configurar el Rigidbody2D
@@ -60,8 +57,6 @@ public class MovimientoDeLaPelota : MonoBehaviour
         if (velocidadActual > velocidadMinima)
         {
             rb.linearVelocity *= desaceleracion;
-            // Reducir gradualmente la velocidad angular (giro)
-            rb.angularVelocity *= factorReduccionGiro;
             if (animator != null)
             {
                 animator.enabled = true; // La animación sigue mientras hay movimiento
@@ -70,7 +65,6 @@ public class MovimientoDeLaPelota : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f; // Detener rotación cuando se detiene la pelota
             if (animator != null)
             {
                 animator.enabled = false; // Detener animación cuando se detiene la pelota

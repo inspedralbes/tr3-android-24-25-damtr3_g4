@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControlPorRaton : MonoBehaviour
 {
-    private float velocidad = 420f;
+    private float velocidad = 400f;
     public static ControlPorRaton jugadorSeleccionado = null;
 
     private bool seleccionado = false;
@@ -15,6 +15,18 @@ public class ControlPorRaton : MonoBehaviour
 
     // Corrutina de movimiento para poder cancelarla
     private Coroutine movimientoCoroutine = null;
+
+    // Variables para el efecto de selección
+    private Vector3 originalScale;
+    private Color originalColor;
+    private Coroutine pulseCoroutine;
+    [SerializeField] private float pulseAmount = 0.2f;
+    [SerializeField] private float pulseSpeed = 2f;
+    [SerializeField] private Color selectionColor = new Color(1f, 0.8f, 0.1f, 1f); // Color amarillo dorado para selección
+
+    // Marcador de selección (icono sobre el jugador)
+    [SerializeField] private GameObject selectionMarkerPrefab; // Prefab del marcador de selección
+    private GameObject selectionMarker; // Instancia del marcador
 
     public LineRenderer lineRenderer; // Para dibujar la trayectoria
     private List<Vector3> trajectoryPoints = new List<Vector3>();
@@ -45,6 +57,10 @@ public class ControlPorRaton : MonoBehaviour
         {
             rb = this.gameObject.AddComponent<Rigidbody2D>();
         }
+
+        // Guardar la escala y color original para usarlos luego en las animaciones
+        originalScale = transform.localScale;
+        originalColor = GetComponent<SpriteRenderer>().color;
 
         rb.gravityScale = 0;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -79,6 +95,50 @@ public class ControlPorRaton : MonoBehaviour
         lineRenderer.enabled = false;
         lineRenderer.useWorldSpace = true;
         lineRenderer.positionCount = 0;
+
+        // Crear el marcador de selección si no existe el prefab
+        if (selectionMarkerPrefab == null)
+        {
+            CreateDefaultSelectionMarker();
+        }
+    }
+
+    // Crear un marcador de selección por defecto (un círculo con el color de selección)
+    private void CreateDefaultSelectionMarker()
+    {
+        selectionMarkerPrefab = new GameObject("SelectionMarkerPrefab");
+        SpriteRenderer markerRenderer = selectionMarkerPrefab.AddComponent<SpriteRenderer>();
+        
+        // Crear un sprite circular simple
+        Texture2D texture = new Texture2D(64, 64);
+        Color[] colors = new Color[64 * 64];
+        for (int i = 0; i < colors.Length; i++) 
+        {
+            int x = i % 64 - 32;
+            int y = i / 64 - 32;
+            float distSqr = x * x + y * y;
+            
+            // Crear un círculo con borde
+            if (distSqr < 900 && distSqr > 700)
+            {
+                colors[i] = selectionColor;
+            }
+            else
+            {
+                colors[i] = new Color(0, 0, 0, 0); // Transparente
+            }
+        }
+        
+        texture.SetPixels(colors);
+        texture.Apply();
+        
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, 64, 64), new Vector2(0.5f, 0.5f), 100);
+        markerRenderer.sprite = sprite;
+        markerRenderer.sortingOrder = 10; // Asegurar que está sobre el jugador
+        
+        // No destruir el prefab al cargar nuevas escenas
+        DontDestroyOnLoad(selectionMarkerPrefab);
+        selectionMarkerPrefab.SetActive(false);
     }
 
     void Update()
@@ -148,7 +208,10 @@ public class ControlPorRaton : MonoBehaviour
     {
         jugadorSeleccionado = this;
         seleccionado = true;
-        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        
+        // Cambiar el color para indicar la selección
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = selectionColor;
 
         if (border != null)
         {
@@ -166,6 +229,36 @@ public class ControlPorRaton : MonoBehaviour
             flecha.SetActive(true); // Activar la flecha al seleccionar el jugador
         }
 
+        // Iniciar animación de pulsación
+        if (pulseCoroutine != null)
+        {
+            StopCoroutine(pulseCoroutine);
+        }
+        pulseCoroutine = StartCoroutine(PulseAnimation());
+
+        // Activar el marcador de selección
+        if (selectionMarker == null && selectionMarkerPrefab != null)
+        {
+            selectionMarker = Instantiate(selectionMarkerPrefab, transform.position, Quaternion.identity);
+            selectionMarker.transform.SetParent(transform);
+            selectionMarker.transform.localPosition = new Vector3(0, 0, -0.1f); // Colocar justo encima del jugador
+            selectionMarker.transform.localScale = Vector3.one * 1.5f; // Escalar adecuadamente
+            
+            // Activar y hacer visible el marcador
+            selectionMarker.SetActive(true);
+            
+            // Si tiene SpriteRenderer, asegurar que tiene el color correcto
+            SpriteRenderer markerRenderer = selectionMarker.GetComponent<SpriteRenderer>();
+            if (markerRenderer != null)
+            {
+                markerRenderer.color = selectionColor;
+            }
+        }
+        else if (selectionMarker != null)
+        {
+            selectionMarker.SetActive(true);
+        }
+
         Debug.Log("Jugador seleccionado: " + gameObject.name);
     }
 
@@ -174,6 +267,20 @@ public class ControlPorRaton : MonoBehaviour
         seleccionado = false;
         lineRenderer.enabled = false;
         trajectoryPoints.Clear();
+        
+        // Detener la animación de pulsación
+        if (pulseCoroutine != null)
+        {
+            StopCoroutine(pulseCoroutine);
+            pulseCoroutine = null;
+        }
+        
+        // Restaurar la escala original
+        transform.localScale = originalScale;
+        
+        // Restaurar el color original
+        GetComponent<SpriteRenderer>().color = originalColor;
+        
         if (border != null)
         {
             border.SetActive(false);
@@ -183,6 +290,13 @@ public class ControlPorRaton : MonoBehaviour
         {
             Destroy(flecha); // Eliminar la flecha al deseleccionar
             flecha = null;
+        }
+        
+        // Desactivar el marcador de selección
+        if (selectionMarker != null)
+        {
+            Destroy(selectionMarker);
+            selectionMarker = null;
         }
     }
 
@@ -337,5 +451,18 @@ public class ControlPorRaton : MonoBehaviour
 
         // Asegurarse de que la velocidad sea cero al final
         rb.linearVelocity = Vector2.zero;
+    }
+    
+    // Corrutina para la animación de pulsación
+    private IEnumerator PulseAnimation()
+    {
+        float t = 0;
+        while (seleccionado)
+        {
+            t += Time.deltaTime * pulseSpeed;
+            float pulse = 1 + Mathf.Sin(t) * pulseAmount;
+            transform.localScale = originalScale * pulse;
+            yield return null;
+        }
     }
 }
