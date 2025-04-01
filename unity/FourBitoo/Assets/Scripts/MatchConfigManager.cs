@@ -7,25 +7,57 @@ using UnityEngine.UI;
 public class MatchConfigManager : MonoBehaviour
 {
     public string URL = "http://localhost:4000"; // URL del backend
-    public Transform[] spawnPoints; // Puntos de spawn para los jugadores
-    public GameObject canvasPrefab; // Prefab del canvas que contiene el dropdown y la imagen del jugador
-    public Button confirmButton; // Botón de confirmar
+    // Comentado para centrarnos en el temporizador
+    // public Transform[] spawnPoints; // Puntos de spawn para los jugadores
+    // public GameObject canvasPrefab; // Prefab del canvas que contiene el dropdown y la imagen del jugador
+    // public Button confirmButton; // Botón de confirmar
 
-    private List<GameObject> players = new List<GameObject>();
+    // Propiedad pública para acceder a la configuración del partido
+    public static MatchConfigManager Instance { get; private set; }
+    public MatchConfig CurrentMatchConfig { get; private set; }
+
+    // Comentado para centrarnos en el temporizador
+    // private List<GameObject> players = new List<GameObject>();
+
+    void Awake()
+    {
+        // Implementación del patrón Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
-        CheckSpawnPoints();
+        // Comentado para centrarnos en el temporizador
+        // CheckSpawnPoints();
         StartCoroutine(LoadMatchConfig());
 
+        // Comentado para centrarnos en el temporizador
+        /*
         if (confirmButton != null)
         {
             confirmButton.onClick.AddListener(() => StartCoroutine(SaveSelectedPlayers()));
         }
+        */
     }
 
+    // Comentado para centrarnos en el temporizador
+    /*
     void CheckSpawnPoints()
     {
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogError("❌ No se han asignado spawn points.");
+            return;
+        }
+
+        Debug.Log($"🏁 Número de spawn points: {spawnPoints.Length}");
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             if (spawnPoints[i] == null)
@@ -38,6 +70,7 @@ public class MatchConfigManager : MonoBehaviour
             }
         }
     }
+    */
 
     IEnumerator LoadMatchConfig()
     {
@@ -53,17 +86,43 @@ public class MatchConfigManager : MonoBehaviour
             string jsonResponse = request.downloadHandler.text;
             Debug.Log($"📥 Respuesta del servidor: {jsonResponse}");
 
-            MatchConfig config = JsonUtility.FromJson<MatchConfig>(jsonResponse);
-            Debug.Log($"🎮 Número de jugadores recibidos: {config.selectedPlayer}");
+            CurrentMatchConfig = JsonUtility.FromJson<MatchConfig>(jsonResponse);
+            
+            // Convertir la duración del partido de minutos a segundos
+            if (CurrentMatchConfig != null && CurrentMatchConfig.matchDuration > 0)
+            {
+                CurrentMatchConfig.matchDurationSeconds = CurrentMatchConfig.matchDuration * 60;
+                Debug.Log($"⏱️ Duración del partido: {CurrentMatchConfig.matchDuration} minutos ({CurrentMatchConfig.matchDurationSeconds} segundos)");
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ La duración del partido es 0 o inválida. Usando valor por defecto.");
+                CurrentMatchConfig.matchDurationSeconds = 300; // 5 minutos por defecto
+            }
+            
+            Debug.Log($"🎮 Número de jugadores recibidos: {CurrentMatchConfig.selectedPlayer}");
+            Debug.Log($"🥅 Goles para ganar: {CurrentMatchConfig.goalsToWin}");
 
-            SetupPlayers(config.selectedPlayer);
+            // Comentado para evitar el error de los spawn points
+            // SetupPlayers(CurrentMatchConfig.selectedPlayer);
         }
         else
         {
             Debug.LogError("❌ Error al obtener la configuración del partido: " + request.error);
+            // Configuración por defecto en caso de error
+            CurrentMatchConfig = new MatchConfig
+            {
+                id = 0,
+                matchDuration = 5, // 5 minutos por defecto
+                matchDurationSeconds = 300, // 5 minutos en segundos
+                goalsToWin = 3,
+                selectedPlayer = 4
+            };
         }
     }
 
+    // Comentado para centrarnos en el temporizador
+    /*
     void SetupPlayers(int selectedPlayer)
     {
         Debug.Log($"♻️ Eliminando jugadores anteriores... Número de jugadores seleccionados: {selectedPlayer}");
@@ -74,6 +133,13 @@ public class MatchConfigManager : MonoBehaviour
             Destroy(player);
         }
         players.Clear();
+
+        // Verificar que hay puntos de spawn disponibles
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogError("❌ Error: No hay puntos de spawn configurados. Añade spawn points al MatchConfigManager en el Inspector.");
+            return;
+        }
 
         for (int i = 0; i < selectedPlayer; i++)
         {
@@ -102,91 +168,37 @@ public class MatchConfigManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("❌ No se encontró DropdownPersonajes en el prefab.");
+                Debug.LogError($"❌ No se encontró el DropdownPersonajes dentro del prefab para el jugador {i + 1}.");
             }
 
-            // Configurar el Canvas en World Space
-            Canvas canvas = canvasInstance.GetComponent<Canvas>();
-            if (canvas != null)
-            {
-                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                canvas.sortingOrder = i * 10; // Asegurar visibilidad
-
-                // Asegurar que el CanvasScaler esté configurado
-                CanvasScaler canvasScaler = canvasInstance.GetComponent<CanvasScaler>();
-                if (canvasScaler == null)
-                {
-                    canvasScaler = canvasInstance.AddComponent<CanvasScaler>();
-                }
-                canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = new Vector2(1920, 1080);
-                canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-                canvasScaler.matchWidthOrHeight = 0.5f;
-
-                // Asegurar que el GraphicRaycaster esté configurado
-                GraphicRaycaster graphicRaycaster = canvasInstance.GetComponent<GraphicRaycaster>();
-                if (graphicRaycaster == null)
-                {
-                    canvasInstance.AddComponent<GraphicRaycaster>();
-                }
-            }
-
-            Debug.Log($"🎯 Jugador {i + 1} instanciado en: {newPosition} con escala: {canvasInstance.transform.localScale}");
-
+            // Guardar referencia al objeto jugador
             players.Add(canvasInstance);
         }
     }
 
+    // Método para guardar jugadores seleccionados en el backend
     IEnumerator SaveSelectedPlayers()
     {
-        Debug.Log("🔄 Guardando equipo y jugadores seleccionados en la base de datos...");
-
-        // Datos del equipo
-        string teamName = "TeamName"; // Cambiar por el nombre del equipo (puedes obtenerlo de un input en la UI)
-        int userId = 1; // Cambiar por el ID del usuario (puedes obtenerlo dinámicamente)
-        string badgeSpriteName = "DS_DSi_-_Inazuma_Eleven_-_Team_Emblems-removebg-preview_0"; // Cambiar por el nombre del sprite seleccionado
-
-        // Cargar el sprite del escudo desde la carpeta Resources
-        Sprite badgeSprite = Resources.Load<Sprite>($"Emblems/{badgeSpriteName}");
-        if (badgeSprite == null)
-        {
-            Debug.LogError($"❌ No se encontró el sprite del badge con el nombre: {badgeSpriteName}");
-            yield break;
-        }
-
-        // Convertir el sprite a una textura
-        Texture2D badgeTexture = badgeSprite.texture;
-        byte[] badgeBytes = badgeTexture.EncodeToPNG();
-
-        // Crear formulario para enviar como multipart/form-data
+        // Crear el formulario con los datos del equipo
         WWWForm teamForm = new WWWForm();
-        teamForm.AddField("id_user", userId.ToString());
+        string teamName = "Equipo_" + Random.Range(1000, 9999); // Nombre aleatorio para el equipo
         teamForm.AddField("name", teamName);
-        teamForm.AddBinaryData("badge", badgeBytes, $"{badgeSpriteName}.png", "image/png");
 
-        // Agregar jugadores seleccionados al formulario
+        Debug.Log($"🏆 Guardando equipo: {teamName}");
+
+        // Recorrer los jugadores para añadirlos al formulario
         for (int i = 0; i < players.Count; i++)
         {
-            GameObject player = players[i];
-
-            // Buscar el DropdownPersonajes dentro del CanvasPrefab(Clone)
-            Transform dropdownTransform = player.transform.Find("DropdownPersonajes");
-            if (dropdownTransform == null)
+            GameObject playerObj = players[i];
+            Transform captionTransform = playerObj.transform.Find("DropdownPersonajes/CaptionImage");
+            
+            if (captionTransform == null)
             {
-                Debug.LogError($"❌ No se encontró el DropdownPersonajes en el jugador {i + 1}. Verifica la jerarquía del prefab.");
+                Debug.LogError($"❌ No se encontró CaptionImage para el jugador {i + 1}.");
                 continue; // Continuar con el siguiente jugador
             }
 
-            // Buscar el CaptionImage dentro del DropdownPersonajes
-            Transform captionImageTransform = dropdownTransform.Find("CaptionImage");
-            if (captionImageTransform == null)
-            {
-                Debug.LogError($"❌ No se encontró el CaptionImage en el DropdownPersonajes del jugador {i + 1}.");
-                continue; // Continuar con el siguiente jugador
-            }
-
-            // Obtener el componente Image del CaptionImage
-            Image captionImage = captionImageTransform.GetComponent<Image>();
+            Image captionImage = captionTransform.GetComponent<Image>();
             if (captionImage == null)
             {
                 Debug.LogError($"❌ El CaptionImage no tiene un componente Image en el jugador {i + 1}.");
@@ -215,12 +227,15 @@ public class MatchConfigManager : MonoBehaviour
             Debug.LogError($"❌ Error al guardar el equipo y jugadores: {teamRequest.error}");
         }
     }
+    */
 }
 
 [System.Serializable]
 public class MatchConfig
 {
+    public int id;
     public int matchDuration;
+    public int matchDurationSeconds;
     public int goalsToWin;
     public int selectedPlayer;
 }

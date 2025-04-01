@@ -12,6 +12,7 @@ public class ControlPorRaton : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject border;
     public bool activo = true;
+    [SerializeField] private int teamID; // ID del equipo al que pertenece este jugador (1 o 2)
 
     // Corrutina de movimiento para poder cancelarla
     private Coroutine movimientoCoroutine = null;
@@ -22,9 +23,9 @@ public class ControlPorRaton : MonoBehaviour
     private Coroutine pulseCoroutine;
     [SerializeField] private float pulseAmount = 0.2f;
     [SerializeField] private float pulseSpeed = 2f;
-    [SerializeField] private Color selectionColor = new Color(1f, 0.8f, 0.1f, 1f); // Color amarillo dorado para selección
-
-    // Marcador de selección (icono sobre el jugador)
+    [SerializeField] private Color selectionColorTeam1 = new Color(1f, 0.2f, 0.2f, 0.6f); // Color rojo para equipo 1 con menor opacidad
+    [SerializeField] private Color selectionColorTeam2 = new Color(0.2f, 0.2f, 1f, 0.6f); // Color azul para equipo 2 con menor opacidad
+    [SerializeField] private Color selectionColor = new Color(1f, 0.8f, 0.1f, 0.6f); // Color amarillo dorado para selección con menor opacidad
     [SerializeField] private GameObject selectionMarkerPrefab; // Prefab del marcador de selección
     private GameObject selectionMarker; // Instancia del marcador
 
@@ -118,8 +119,8 @@ public class ControlPorRaton : MonoBehaviour
             int y = i / 64 - 32;
             float distSqr = x * x + y * y;
             
-            // Crear un círculo con borde
-            if (distSqr < 900 && distSqr > 700)
+            // Crear un círculo con borde más delgado
+            if (distSqr < 840 && distSqr > 800)
             {
                 colors[i] = selectionColor;
             }
@@ -161,7 +162,8 @@ public class ControlPorRaton : MonoBehaviour
 
             Vector3 direccion = (mousePos - transform.position).normalized;
             float radio = GetComponent<CircleCollider2D>().radius * transform.localScale.x;
-            flecha.transform.position = transform.position + direccion * radio;
+            // Ajustar la posición de la flecha para que esté más adelante y no sobresalga por detrás
+            flecha.transform.position = transform.position + direccion * (radio * 1.1f);
             flecha.transform.up = direccion;
         }
 
@@ -204,14 +206,15 @@ public class ControlPorRaton : MonoBehaviour
         }
     }
 
-    private void Seleccionar()
+    // Métodos para seleccionar y deseleccionar jugadores (ahora públicos)
+    public void Seleccionar()
     {
         jugadorSeleccionado = this;
         seleccionado = true;
         
-        // Cambiar el color para indicar la selección
+        // Cambiar el color para indicar la selección según el equipo
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = selectionColor;
+        spriteRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
 
         if (border != null)
         {
@@ -221,7 +224,14 @@ public class ControlPorRaton : MonoBehaviour
         if (flechaPrefab != null && flecha == null)
         {
             flecha = Instantiate(flechaPrefab, transform.position, Quaternion.identity, transform);
-            flecha.transform.localScale = new Vector3(0.5f, 0.6f, 1f); // Ajustar el tamaño de la flecha
+            flecha.transform.localScale = new Vector3(0.4f, 0.5f, 1f); // Reducido de 0.5f, 0.6f a 0.4f, 0.5f para mejor ajuste
+
+            // Colorear la flecha según el equipo
+            SpriteRenderer flechaRenderer = flecha.GetComponent<SpriteRenderer>();
+            if (flechaRenderer != null)
+            {
+                flechaRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
+            }
         }
 
         if (flecha != null)
@@ -242,27 +252,34 @@ public class ControlPorRaton : MonoBehaviour
             selectionMarker = Instantiate(selectionMarkerPrefab, transform.position, Quaternion.identity);
             selectionMarker.transform.SetParent(transform);
             selectionMarker.transform.localPosition = new Vector3(0, 0, -0.1f); // Colocar justo encima del jugador
-            selectionMarker.transform.localScale = Vector3.one * 1.5f; // Escalar adecuadamente
+            selectionMarker.transform.localScale = Vector3.one * 1.2f; // Reducido de 1.5f a 1.2f para hacer el borde más pequeño
             
             // Activar y hacer visible el marcador
             selectionMarker.SetActive(true);
             
-            // Si tiene SpriteRenderer, asegurar que tiene el color correcto
+            // Si tiene SpriteRenderer, asegurar que tiene el color correcto del equipo
             SpriteRenderer markerRenderer = selectionMarker.GetComponent<SpriteRenderer>();
             if (markerRenderer != null)
             {
-                markerRenderer.color = selectionColor;
+                markerRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
             }
         }
         else if (selectionMarker != null)
         {
+            // Actualizar color si ya existe el marcador
+            SpriteRenderer markerRenderer = selectionMarker.GetComponent<SpriteRenderer>();
+            if (markerRenderer != null)
+            {
+                markerRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
+            }
+            
             selectionMarker.SetActive(true);
         }
 
         Debug.Log("Jugador seleccionado: " + gameObject.name);
     }
 
-    private void Deseleccionar()
+    public void Deseleccionar()
     {
         seleccionado = false;
         lineRenderer.enabled = false;
@@ -332,8 +349,23 @@ public class ControlPorRaton : MonoBehaviour
         enMovimiento = false;
         movimientoCoroutine = null;
 
-        // Deseleccionar al jugador al finalizar el movimiento
+        // Obtener el ID del equipo actual
+        int equipoActual = GetTeamID();
+        
+        // Deseleccionar al jugador actual
         Deseleccionar();
+        
+        // Buscar un jugador del equipo contrario para seleccionar
+        GameObject[] todosLosJugadores = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject jugador in todosLosJugadores)
+        {
+            ControlPorRaton controlOtroJugador = jugador.GetComponent<ControlPorRaton>();
+            if (controlOtroJugador != null && controlOtroJugador.GetTeamID() != equipoActual)
+            {
+                controlOtroJugador.Seleccionar();
+                break; // Solo seleccionar un jugador
+            }
+        }
     }
 
     void FixedUpdate()
@@ -371,6 +403,26 @@ public class ControlPorRaton : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Rigidbody2D rbOtro = collision.gameObject.GetComponent<Rigidbody2D>();
+            
+            // Si este jugador está seleccionado y colisiona con otro jugador, cambiar al jugador del equipo contrario
+            if (seleccionado)
+            {
+                int equipoActual = GetTeamID();
+                Deseleccionar();
+                
+                // Buscar un jugador del equipo contrario para seleccionar
+                GameObject[] todosLosJugadores = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject jugador in todosLosJugadores)
+                {
+                    ControlPorRaton controlOtroJugador = jugador.GetComponent<ControlPorRaton>();
+                    if (controlOtroJugador != null && controlOtroJugador.GetTeamID() != equipoActual)
+                    {
+                        controlOtroJugador.Seleccionar();
+                        break; // Solo seleccionar un jugador
+                    }
+                }
+            }
+            
             if (rbOtro != null)
             {
                 Debug.Log($"{gameObject.name} - Velocidad ANTES del impulso: {rb.linearVelocity}");
@@ -464,5 +516,11 @@ public class ControlPorRaton : MonoBehaviour
             transform.localScale = originalScale * pulse;
             yield return null;
         }
+    }
+
+    // Método para obtener el ID del equipo
+    public int GetTeamID()
+    {
+        return teamID;
     }
 }

@@ -16,6 +16,11 @@ public class MovimientoDeLaPelota : MonoBehaviour
     private Animator animator; // Para efectos visuales
     private float tiempoUltimaColision = 0f;
     private float tiempoEntreColisiones = 0.01f; // Tiempo aún más corto
+    
+    // Sistema de cooldown para el cambio de selección
+    private float tiempoUltimoCambioSeleccion = 0f;
+    [SerializeField] private float cooldownCambioSeleccion = 1.0f; // Tiempo de espera entre cambios de selección en segundos
+    private bool seleccionEnCooldown = false;
 
     void Start()
     {
@@ -64,7 +69,10 @@ public class MovimientoDeLaPelota : MonoBehaviour
         }
         else
         {
+            // Detener completamente la pelota cuando está por debajo de la velocidad mínima
             rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f; // Detener también la rotación
+            
             if (animator != null)
             {
                 animator.enabled = false; // Detener animación cuando se detiene la pelota
@@ -92,6 +100,36 @@ public class MovimientoDeLaPelota : MonoBehaviour
 
             // Obtener el Rigidbody2D del jugador
             Rigidbody2D rbJugador = collision.gameObject.GetComponent<Rigidbody2D>();
+            
+            // Seleccionar jugador del equipo contrario automáticamente, pero solo si no estamos en cooldown
+            if (!seleccionEnCooldown && Time.time - tiempoUltimoCambioSeleccion >= cooldownCambioSeleccion)
+            {
+                ControlPorRaton controlJugadorActual = collision.gameObject.GetComponent<ControlPorRaton>();
+                if (controlJugadorActual != null)
+                {
+                    int equipoActual = controlJugadorActual.GetTeamID();
+                    // Deseleccionar todos los jugadores primero
+                    if (ControlPorRaton.jugadorSeleccionado != null)
+                    {
+                        ControlPorRaton.jugadorSeleccionado.Deseleccionar();
+                    }
+                    
+                    // Buscar un jugador del equipo contrario para seleccionar
+                    GameObject[] todosLosJugadores = GameObject.FindGameObjectsWithTag("Player");
+                    foreach (GameObject jugador in todosLosJugadores)
+                    {
+                        ControlPorRaton controlOtroJugador = jugador.GetComponent<ControlPorRaton>();
+                        if (controlOtroJugador != null && controlOtroJugador.GetTeamID() != equipoActual)
+                        {
+                            controlOtroJugador.Seleccionar();
+                            tiempoUltimoCambioSeleccion = Time.time; // Actualizar el tiempo del último cambio
+                            seleccionEnCooldown = true;
+                            StartCoroutine(ResetearCooldown());
+                            break; // Solo seleccionar un jugador
+                        }
+                    }
+                }
+            }
 
             if (rbJugador != null)
             {
@@ -126,11 +164,11 @@ public class MovimientoDeLaPelota : MonoBehaviour
             Vector2 normal = punto.normal;
             Vector2 velocidadEntrada = rb.linearVelocity;
 
-            // Rebote mejorado con aceleración en cada rebote
-            Vector2 velocidadRebote = Vector2.Reflect(velocidadEntrada, normal) * 0.8f;
+            // Rebote más suave, con menor aceleración en cada rebote
+            Vector2 velocidadRebote = Vector2.Reflect(velocidadEntrada, normal) * 0.5f;
 
             rb.linearVelocity = velocidadRebote;
-            rb.AddTorque(Random.Range(-100f, 100f), ForceMode2D.Impulse);
+            rb.AddTorque(Random.Range(-50f, 50f), ForceMode2D.Impulse);
 
             Debug.Log("Pelota colisionó con el borde: " + collision.gameObject.name + "a velocidad: " + rb.linearVelocity);
         }
@@ -149,6 +187,13 @@ public class MovimientoDeLaPelota : MonoBehaviour
 
         // Segundo impulso para efecto de "aceleración después del golpe"
         rb.AddForce(direccion * fuerza * 0.3f, ForceMode2D.Impulse);
+    }
+
+    // Método para resetear el cooldown de selección
+    private System.Collections.IEnumerator ResetearCooldown()
+    {
+        yield return new WaitForSeconds(cooldownCambioSeleccion);
+        seleccionEnCooldown = false;
     }
 
     void OnCollisionStay2D(Collision2D collision)
