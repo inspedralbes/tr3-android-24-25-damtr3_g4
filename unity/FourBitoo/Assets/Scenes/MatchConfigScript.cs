@@ -221,11 +221,11 @@ public class MatchConfigManager : MonoBehaviour
             teamForm.AddField($"players[{i}][img]", spriteName);
         }
 
-        UnityWebRequest teamRequest = UnityWebRequest.Post($"{URL}/teams", teamForm);
+        UnityWebRequest playerRequest = UnityWebRequest.Post($"{URL}/teams", teamForm); // Renamed variable
 
-        yield return teamRequest.SendWebRequest();
+        yield return playerRequest.SendWebRequest();
 
-        if (teamRequest.result == UnityWebRequest.Result.Success)
+        if (playerRequest.result == UnityWebRequest.Result.Success)
         {
             Debug.Log($"✅ Equipo {teamName} y jugadores guardados correctamente.");
 
