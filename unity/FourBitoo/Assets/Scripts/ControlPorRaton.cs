@@ -5,21 +5,28 @@ using UnityEngine;
 public class ControlPorRaton : MonoBehaviour
 {
     private float velocidad = 70f;
-    public static List<ControlPorRaton> objetoSeleccionado = new List<ControlPorRaton>();
-    private Vector3 prosicionJugador;
-    private bool seleccionado = false;
+    public static ControlPorRaton jugadorSeleccionado = null;
 
-    public bool activo = false;
+    private bool seleccionado = false;
+    private bool enMovimiento = false;
     private Rigidbody2D rb;
     private GameObject border;
+    public bool activo = true;
+
+    public LineRenderer lineRenderer; // Para dibujar la trayectoria
+    private List<Vector3> trajectoryPoints = new List<Vector3>();
+
+    [SerializeField]
+    public GameObject flechaPrefab; // Prefab de la flecha
+    private GameObject flecha; // Instancia de la flecha
+
+    // Cursor personalizado (opcional)
+    public Texture2D cursorPointerTexture;
+    private CursorMode cursorMode = CursorMode.Auto;
+    private Vector2 hotSpot = Vector2.zero;
 
     void Start()
     {
-        objetoSeleccionado.Add(this);
-        prosicionJugador = this.transform.position;
-
-        activo = false;
-
         if (this.gameObject.GetComponent<CircleCollider2D>() == null)
         {
             this.gameObject.AddComponent<CircleCollider2D>();
@@ -35,93 +42,153 @@ public class ControlPorRaton : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-        // Encuentra el objeto "rojo" hijo del jugador con el tag "border"
-        border = transform.Find("rojo")?.gameObject;
-        if (border != null && border.CompareTag("border"))
+        // Asegurar que haya un LineRenderer
+        if (lineRenderer == null)
         {
-            border.SetActive(false); // Asegúrate de que el borde esté desactivado al inicio
+            lineRenderer = GetComponent<LineRenderer>();
+            if (lineRenderer == null)
+            {
+                lineRenderer = gameObject.AddComponent<LineRenderer>();
+            }
         }
-        else
-        {
-            Debug.LogWarning("El objeto 'rojo' no tiene el tag 'border' o no se encontró.");
-        }
+        lineRenderer.enabled = false;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.positionCount = 0;
     }
 
     void Update()
     {
-        if(!activo) return;
-        if (Input.GetMouseButtonDown(0) && seleccionado)
+        if (jugadorSeleccionado == null || !jugadorSeleccionado.seleccionado || enMovimiento)
         {
-            prosicionJugador = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            prosicionJugador.z = this.transform.position.z;
+            if (flecha != null)
+            {
+                flecha.SetActive(false);
+            }
+            return;
         }
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, prosicionJugador, velocidad * Time.deltaTime);
+        if (flecha != null && jugadorSeleccionado == this) // Solo mostrar la flecha si este es el jugador seleccionado
+        {
+            flecha.SetActive(true);
+
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+
+            Vector3 direccion = (mousePos - transform.position).normalized;
+            float radio = GetComponent<CircleCollider2D>().radius * transform.localScale.x;
+            flecha.transform.position = transform.position + direccion * radio;
+            flecha.transform.up = direccion;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 rightClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            rightClickPos.z = 0;
+
+            if (flecha != null)
+            {
+                flecha.SetActive(false); // Ocultar la flecha al iniciar el movimiento
+            }
+
+            trajectoryPoints.Clear();
+            trajectoryPoints.Add(jugadorSeleccionado.transform.position);
+            trajectoryPoints.Add(rightClickPos);
+
+            lineRenderer.positionCount = trajectoryPoints.Count;
+            lineRenderer.SetPositions(trajectoryPoints.ToArray());
+            lineRenderer.enabled = true;
+
+            jugadorSeleccionado.StartCoroutine(jugadorSeleccionado.MoverJugador(rightClickPos));
+        }
     }
 
     private void OnMouseDown()
     {
-        seleccionado = true;
-        activo = true;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        if (jugadorSeleccionado != this)
+        {
+            if (jugadorSeleccionado != null)
+            {
+                jugadorSeleccionado.Deseleccionar();
+            }
+            Seleccionar();
+        }
+    }
 
-        // Activa el borde del objeto seleccionado
+    private void Seleccionar()
+    {
+        jugadorSeleccionado = this;
+        seleccionado = true;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+
         if (border != null)
         {
             border.SetActive(true);
         }
 
-        foreach (ControlPorRaton jugador in objetoSeleccionado)
+        if (flechaPrefab != null && flecha == null)
         {
-            if (jugador != this)
-            {
-                jugador.seleccionado = false;
-                jugador.activo = false;
-                jugador.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            flecha = Instantiate(flechaPrefab, transform.position, Quaternion.identity, transform);
+            flecha.transform.localScale = new Vector3(0.5f, 0.6f, 1f); // Ajustar el tamaño de la flecha
+        }
 
-                // Desactiva el borde de los otros objetos
-                if (jugador.border != null)
-                {
-                    jugador.border.SetActive(false);
-                }
-            }
+        if (flecha != null)
+        {
+            flecha.SetActive(true); // Activar la flecha al seleccionar el jugador
+        }
+
+        Debug.Log("Jugador seleccionado: " + gameObject.name);
+    }
+
+    private void Deseleccionar()
+    {
+        seleccionado = false;
+        lineRenderer.enabled = false;
+        trajectoryPoints.Clear();
+
+        if (border != null)
+        {
+            border.SetActive(false);
+        }
+
+        if (flecha != null)
+        {
+            Destroy(flecha); // Eliminar la flecha al deseleccionar
+            flecha = null;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnMouseEnter()
     {
-        if (other.CompareTag("Player"))
+        if (cursorPointerTexture != null)
         {
-            Debug.Log("Colisión con otro jugador (Trigger)!");
-
-            // Detener el movimiento del personaje actual
-            rb.linearVelocity = Vector2.zero;
-            prosicionJugador = transform.position; // Evitar que siga moviéndose hacia el objetivo
-
-            // También detener al otro personaje (si tiene Rigidbody2D)
-            Rigidbody2D rbOther = other.GetComponent<Rigidbody2D>();
-            if (rbOther != null)
-            {
-                rbOther.linearVelocity = Vector2.zero;
-            }
-        }
-         else if (other.CompareTag("ColisionInvisible"))
-        {
-            Debug.Log("Colisión con ColisionInvisible!");
-
-
-            rb.linearVelocity = Vector2.zero;
-            prosicionJugador = transform.position; 
+            Cursor.SetCursor(cursorPointerTexture, hotSpot, cursorMode);
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnMouseExit()
     {
-        if (other.CompareTag("ColisionInvisible"))
+        Cursor.SetCursor(null, Vector2.zero, cursorMode);
+    }
+
+    IEnumerator MoverJugador(Vector3 destino)
+    {
+        enMovimiento = true;
+        Vector3 inicio = transform.position;
+        float tiempo = 0;
+
+        while (tiempo < 1)
         {
-            // Mantener el personaje detenido mientras esté en contacto con "ColisionInvisible"
-            rb.linearVelocity = Vector2.zero;
-            prosicionJugador = transform.position; // Evitar que siga moviéndose hacia el objetivo
+            tiempo += Time.deltaTime * (velocidad / Vector3.Distance(inicio, destino));
+            transform.position = Vector3.Lerp(inicio, destino, tiempo);
+            yield return null;
         }
+
+        transform.position = destino;
+        lineRenderer.enabled = false;
+
+        enMovimiento = false;
+
+        // Deseleccionar al jugador al finalizar el movimiento
+        Deseleccionar();
     }
 }

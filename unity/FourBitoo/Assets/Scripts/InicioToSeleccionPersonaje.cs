@@ -23,7 +23,7 @@ public class InicioToSeleccionPersonaje : MonoBehaviour
 
     private void OnIniciarButtonClick()
     {
-        if (UserStore.Instance.id != 0) // Verifica si el usuario está logueado
+        if (UserStore.Instance.mainUser.id != 0) // Verifica si el usuario está logueado
         {
             Debug.Log("Usuario logueado. Redirigiendo a la pantalla de selección de personaje...");
             SceneManager.LoadScene(seleccionPersonajeSceneName); // Cargar la escena de selección de personaje

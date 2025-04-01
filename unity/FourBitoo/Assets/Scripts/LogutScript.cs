@@ -12,40 +12,61 @@ public class LogutScript : MonoBehaviour
         if (logoutButton != null)
         {
             logoutButton.onClick.AddListener(Logout);
-        }else{
+        }
+        else
+        {
             Debug.Log("No se ha encontrado el botón de logout");
         }
     }
 
     // Update is called once per frame
-    void Logout()
-{
-    Debug.Log($"Datos actuales de UserStore antes de cerrar sesión: " +
-              $"ID: {UserStore.Instance.id}, " +
-              $"Nombre: {UserStore.Instance.username}, " +
-              $"Email: {UserStore.Instance.email}, " +
-              $"Token: {UserStore.Instance.token}");
-    Debug.Log("Cerrando sesión...");
-    UserStore.Instance.ClearUserData();
-
-    Debug.Log($"Datos de UserStore después de cerrar sesión: " +
-              $"ID: {UserStore.Instance.id}, " +
-              $"Nombre: {UserStore.Instance.username}, " +
-              $"Email: {UserStore.Instance.email}, " +
-              $"Token: {UserStore.Instance.token}");
-    Debug.Log("Sesión cerrada");
-
-    if (loginButton != null)
+    public void Logout()
     {
-        loginButton.SetActive(true);
-    }
+        // Ensure UserStore is initialized
+        UserStore.Initialize();
 
-    // Actualizar la visibilidad del botón de logout
-    FindFirstObjectByType<LogoutButtonManager>()?.UpdateLogoutButtonVisibility();
+        Debug.Log($"Datos actuales de UserStore antes de cerrar sesión: " +
+                  $"ID: {UserStore.Instance.mainUser?.id}, " +
+                  $"Nombre: {UserStore.Instance.mainUser?.username}, " +
+                  $"Email: {UserStore.Instance.mainUser?.email}, " +
+                  $"Token: {UserStore.Instance.mainUser?.token}");
 
-    if (welcomeTextScript != null)
-    {
-        welcomeTextScript.UpdateWelcomeText();
+        Debug.Log("Cerrando sesión...");
+        UserStore.Instance.ClearUserData();
+
+        Debug.Log($"Datos de UserStore después de cerrar sesión: " +
+                  $"ID: {UserStore.Instance.mainUser?.id}, " +
+                  $"Nombre: {UserStore.Instance.mainUser?.username}, " +
+                  $"Email: {UserStore.Instance.mainUser?.email}, " +
+                  $"Token: {UserStore.Instance.mainUser?.token}");
+        Debug.Log("Sesión cerrada");
+
+        if (loginButton != null)
+        {
+            loginButton.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("loginButton no está asignado.");
+        }
+
+        if (logoutButton != null)
+        {
+            logoutButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("logoutButton no está asignado.");
+        }
+
+        if (welcomeTextScript != null)
+        {
+            // Update welcome text even if mainUser is null
+            welcomeTextScript.UpdateWelcomeText();
+        }
+        else
+        {
+            Debug.LogWarning("welcomeTextScript is null. Cannot update welcome text.");
+        }
     }
-}
 }

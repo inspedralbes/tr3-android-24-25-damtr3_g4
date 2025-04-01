@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
 using UnityEngine.UIElements;
+using UnityEngine.Networking; // Importa UnityWebRequest
 using System.Collections;
-using System;
 
 public class LoginScriptUI : MonoBehaviour
 {
@@ -25,7 +24,6 @@ public class LoginScriptUI : MonoBehaviour
         registerButton = root.Q<Button>("registerBtn");
         messageLabel = root.Q<Label>("messageLabel");
 
-
         if (loginButton != null)
             loginButton.clicked += () => StartCoroutine(Login());
 
@@ -33,7 +31,7 @@ public class LoginScriptUI : MonoBehaviour
             registerButton.clicked += () => SceneManager.LoadScene("RegisterScene"); // 🔄 Cambia de escena
     }
 
-   IEnumerator Login()
+    IEnumerator Login()
 {
     // Crear el objeto UserData
     UserData userData = new UserData(emailField.value, passwordField.value);
@@ -76,10 +74,24 @@ public class LoginScriptUI : MonoBehaviour
 
                 if (response.user != null)
                 {
-                    UserStore.Instance.SetUserData(response.user.id, response.user.username, response.user.email, null);
+                    // Guardar los datos del usuario principal en el UserStore
+                    UserStore.Instance.SetMainUser(
+                        response.user.id,
+                        response.user.username,
+                        response.user.email,
+                        response.user.token
+                    );
+
+                    Debug.Log($"Usuario principal actualizado: {response.user.username} (ID={response.user.id})");
+
+                    // Actualizar la interfaz de usuario
+                    FindFirstObjectByType<WelcomeTextScript>()?.UpdateWelcomeText();
+                    FindFirstObjectByType<LoginButtonManager>()?.UpdateLoginButtonVisibility();
+                    FindFirstObjectByType<LogoutButtonManager>()?.UpdateLogoutButtonVisibility();
+
                     ShowMessage("Login exitoso", true);
 
-                    FindFirstObjectByType<LoginButtonManager>()?.UpdateLoginButtonVisibility();
+                    // Cambiar a la escena de inicio
                     SceneManager.LoadScene("Inicio");
                 }
                 else

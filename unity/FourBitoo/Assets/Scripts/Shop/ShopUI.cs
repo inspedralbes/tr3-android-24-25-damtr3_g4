@@ -28,7 +28,7 @@ public class ShopUI : MonoBehaviour
     // Update is called once per frame
     void BuyItem(int itemId)
     {
-        int userId = UserStore.Instance.id;
+        int userId = UserStore.Instance.mainUser.id;
 
         if (userId == 0)
         {
