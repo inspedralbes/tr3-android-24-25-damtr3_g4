@@ -1,13 +1,13 @@
 using UnityEngine;
-using TMPro; // Asegúrate de tener la referencia a TextMeshPro
+using UnityEngine.UI; // Necesario para trabajar con imágenes
 using System.Collections; // Para usar corutinas
 
 public class GoalDetector : MonoBehaviour
 {
     public int teamID; // 1 = Gol en la portería del equipo 1, 2 = Gol en la portería del equipo 2
     [SerializeField] private ScoreManager scoreManager; // Asigna en el Inspector
-    [SerializeField] private TextMeshProUGUI goalText; // Asigna el objeto de texto en el Inspector
-    [SerializeField] private float goalTextDuration = 2f; // Duración del texto en pantalla
+    [SerializeField] private Image golImage; // Asigna la imagen en el Inspector
+    [SerializeField] private float goalImageDuration = 2f; // Duración de la imagen en pantalla
 
     private void Start()
     {
@@ -18,13 +18,13 @@ public class GoalDetector : MonoBehaviour
             Debug.LogError("❌ ScoreManager no está asignado en GoalDetector.");
         }
 
-        if (goalText != null)
+        if (golImage != null)
         {
-            goalText.gameObject.SetActive(false); // Asegúrate de que el texto esté desactivado al inicio
+            golImage.gameObject.SetActive(false); // Asegúrate de que la imagen esté desactivada al inicio
         }
         else
         {
-            Debug.LogError("❌ GoalText no está asignado en GoalDetector.");
+            Debug.LogError("❌ GolImage no está asignada en GoalDetector.");
         }
     }
 
@@ -35,20 +35,18 @@ public class GoalDetector : MonoBehaviour
             Debug.Log("⚽ ¡Gol detectado en la portería del equipo " + teamID + "!");
             scoreManager.AddGoal(teamID);
 
-            // Mostrar el texto de gol
-            if (goalText != null)
+            // Mostrar la imagen de gol
+            if (golImage != null)
             {
-                StartCoroutine(ShowGoalText());
+                StartCoroutine(ShowGoalImage());
             }
         }
     }
 
-    private IEnumerator ShowGoalText()
+    private IEnumerator ShowGoalImage()
     {
-        goalText.gameObject.SetActive(true); // Activar el texto
-        goalText.text = "¡Gool!"; // Cambiar el texto
-        goalText.fontSize = 100; // Ajustar el tamaño del texto
-        yield return new WaitForSeconds(goalTextDuration); // Esperar
-        goalText.gameObject.SetActive(false); // Desactivar el texto
+        golImage.gameObject.SetActive(true); // Activar la imagen
+        yield return new WaitForSeconds(goalImageDuration); // Esperar
+        golImage.gameObject.SetActive(false); // Desactivar la imagen
     }
 }
