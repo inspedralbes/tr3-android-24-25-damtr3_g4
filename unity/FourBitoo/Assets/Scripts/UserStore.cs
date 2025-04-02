@@ -48,6 +48,7 @@ public class UserStore
         {
             if (instance == null)
             {
+                Debug.LogWarning("UserStore instance is null. Initializing UserStore.");
                 instance = new UserStore();
                 instance.LoadUserData();
             }
@@ -55,12 +56,30 @@ public class UserStore
         }
     }
 
-    private UserStore() { }
+    public static void Initialize()
+    {
+        if (instance == null)
+        {
+            Debug.Log("Explicitly initializing UserStore instance.");
+            instance = new UserStore();
+            instance.LoadUserData();
+        }
+    }
+
+    private UserStore() { mainUser = new UserData(0, "", "", ""); guestUser = new UserData(0, "", "", ""); } // Inicializar usuarios
 
     public void SetMainUser(int id, string username, string email, string token)
     {
-        mainUser = new UserData(id, username, email, token);
-        Debug.Log($"Usuario principal: {username} (ID={id})");
+        if (mainUser == null)
+        {
+            Debug.LogWarning("mainUser is null. Initializing mainUser.");
+            mainUser = new UserData(0, "", "", ""); // Ensure mainUser is initialized
+        }
+        mainUser.id = id;
+        mainUser.username = username;
+        mainUser.email = email;
+        mainUser.token = token;
+        Debug.Log($"Usuario principal actualizado: {username} (ID={id})");
 
         SaveUserData();
     }
@@ -68,7 +87,7 @@ public class UserStore
     public void SetGuestUser(int id, string username, string email, string token)
     {
         guestUser = new UserData(id, username, email, token); // Generar usuario invitado
-        Debug.Log($"Usuario invitado: {guestUser.username} (ID={guestUser.id})");
+        Debug.Log($"SetGuestUser llamado con: ID={id}, Nombre={username}, Email={email}, Token={token}");
         SaveUserData();
     }
 
@@ -120,6 +139,7 @@ public class UserStore
     private void SaveUserData()
     {
         string json = JsonUtility.ToJson(this);
+        Debug.Log($"Guardando datos de usuario: {json}"); // Línea añadida
         PlayerPrefs.SetString("userData", json);
         PlayerPrefs.Save();
     }
@@ -129,10 +149,31 @@ public class UserStore
         if (PlayerPrefs.HasKey("userData"))
         {
             string jsonData = PlayerPrefs.GetString("userData");
+            Debug.Log($"Cargando datos de usuario: {jsonData}"); // Línea añadida
             if (!string.IsNullOrEmpty(jsonData))
             {
                 JsonUtility.FromJsonOverwrite(jsonData, this);
             }
+        }
+    }
+
+    public void DebugGuestUser()
+    {
+        if (guestUser != null)
+        {
+            Debug.Log($"Guest User Details:\nID: {guestUser.id}\nUsername: {guestUser.username}\nEmail: {guestUser.email}\nToken: {guestUser.token}");
+            foreach (var player in guestUser.players)
+            {
+                Debug.Log($"Player ID: {player.id}, Name: {player.name}");
+                foreach (var trajectory in player.trajectories)
+                {
+                    Debug.Log($"Turn: {trajectory.Key}, Trajectory: {trajectory.Value[0]} -> {trajectory.Value[1]}");
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Guest user is null.");
         }
     }
 }

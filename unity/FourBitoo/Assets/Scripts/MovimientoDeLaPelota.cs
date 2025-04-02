@@ -3,211 +3,75 @@ using UnityEngine;
 public class MovimientoDeLaPelota : MonoBehaviour
 {
     private Rigidbody2D rb;
-
-    [SerializeField] private float desaceleracion = 0.99f; // Mantener este valor cerca de lo que tienes
-    [SerializeField] private float velocidadMinima = 0.5f; // Igual a lo que tienes configurado
-    [SerializeField] private float factorDeImpulso = 1500f; // AUMENTADO DRÁSTICAMENTE
-    [SerializeField] private float velocidadMaxima = 200f; // AUMENTADO DRÁSTICAMENTE
-    [SerializeField] private float masaPelota = 0.5f; // Mantener igual a lo que tienes configurado
-
-    // Nuevas variables para efectos especiales
-    [SerializeField] private float multiplicadorImpactoBase = 10f; // Nuevo parámetro para control extremo
-    [SerializeField] private float efectoExplosivo = 1.8f; // Efecto explosivo al golpear
-    private Animator animator; // Para efectos visuales
-    private float tiempoUltimaColision = 0f;
-    private float tiempoEntreColisiones = 0.01f; // Tiempo aún más corto
+    private float desaceleracion = 0.98f; // Factor de desaceleración (más cerca de 1 = desaceleración lenta)
+    private float velocidadMinima = 0.3f; // Velocidad mínima antes de detenerse
+    private bool enColision = false;
     
-    // Sistema de cooldown para el cambio de selección
-    private float tiempoUltimoCambioSeleccion = 0f;
-    [SerializeField] private float cooldownCambioSeleccion = 1.0f; // Tiempo de espera entre cambios de selección en segundos
-    private bool seleccionEnCooldown = false;
 
     void Start()
     {
-        // Configurar el Rigidbody2D
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         if (rb == null)
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
         }
 
-        // Configuración física extrema
         rb.gravityScale = 0;
-        rb.mass = masaPelota;
-        rb.linearDamping = 0.005f; // Prácticamente sin resistencia
-        rb.angularDamping = 0.005f; // Menor resistencia a la rotación
-        rb.constraints = RigidbodyConstraints2D.None; // Permitir rotación para efectos más dinámicos
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        // Configurar el collider físico
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider == null)
         {
             collider = gameObject.AddComponent<CircleCollider2D>();
         }
-        collider.isTrigger = false;
 
-        // Material de física ultra-rebotante
-        PhysicsMaterial2D materialPelota = new PhysicsMaterial2D("MaterialPelota");
-        materialPelota.bounciness = 0.7f; // Máximo rebote
-        materialPelota.friction = 0.01f; // Mínima fricción
-        collider.sharedMaterial = materialPelota;
+        collider.isTrigger = true; // Asegurar que sea un Trigger
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        float velocidadActual = rb.linearVelocity.magnitude;
-
-        if (velocidadActual > velocidadMinima)
+        // Si la pelota no está en colisión, desacelera
+        if (!enColision && rb.linearVelocity.magnitude > velocidadMinima)
         {
             rb.linearVelocity *= desaceleracion;
-            if (animator != null)
-            {
-                animator.enabled = true; // La animación sigue mientras hay movimiento
-            }
         }
-        else
+        else if (rb.linearVelocity.magnitude <= velocidadMinima)
         {
-            // Detener completamente la pelota cuando está por debajo de la velocidad mínima
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f; // Detener también la rotación
-            
-            if (animator != null)
-            {
-                animator.enabled = false; // Detener animación cuando se detiene la pelota
-            }
+            rb.linearVelocity = Vector2.zero; // Detener la pelota completamente
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Time.time - tiempoUltimaColision < tiempoEntreColisiones)
+        if (other.CompareTag("Player"))
         {
-            return;
+            enColision = true; // Marca que está en contacto con el jugador
+            Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
+            rb.AddForce(direccionDeRebote * 50f, ForceMode2D.Impulse);
         }
-
-        tiempoUltimaColision = Time.time;
-
-        if (collision.gameObject.CompareTag("Player"))
+        else if (other.CompareTag("ColisionInvisible"))
         {
-            // Resetear velocidad antes del nuevo impulso
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-
-            // Obtener información de la colisión
-            ContactPoint2D punto = collision.GetContact(0);
-
-            // Obtener el Rigidbody2D del jugador
-            Rigidbody2D rbJugador = collision.gameObject.GetComponent<Rigidbody2D>();
-            
-            // Seleccionar jugador del equipo contrario automáticamente, pero solo si no estamos en cooldown
-            if (!seleccionEnCooldown && Time.time - tiempoUltimoCambioSeleccion >= cooldownCambioSeleccion)
-            {
-                ControlPorRaton controlJugadorActual = collision.gameObject.GetComponent<ControlPorRaton>();
-                if (controlJugadorActual != null)
-                {
-                    int equipoActual = controlJugadorActual.GetTeamID();
-                    // Deseleccionar todos los jugadores primero
-                    if (ControlPorRaton.jugadorSeleccionado != null)
-                    {
-                        ControlPorRaton.jugadorSeleccionado.Deseleccionar();
-                    }
-                    
-                    // Buscar un jugador del equipo contrario para seleccionar
-                    GameObject[] todosLosJugadores = GameObject.FindGameObjectsWithTag("Player");
-                    foreach (GameObject jugador in todosLosJugadores)
-                    {
-                        ControlPorRaton controlOtroJugador = jugador.GetComponent<ControlPorRaton>();
-                        if (controlOtroJugador != null && controlOtroJugador.GetTeamID() != equipoActual)
-                        {
-                            controlOtroJugador.Seleccionar();
-                            tiempoUltimoCambioSeleccion = Time.time; // Actualizar el tiempo del último cambio
-                            seleccionEnCooldown = true;
-                            StartCoroutine(ResetearCooldown());
-                            break; // Solo seleccionar un jugador
-                        }
-                    }
-                }
-            }
-
-            if (rbJugador != null)
-            {
-                // Impulso EXTREMADAMENTE POTENTE
-                float velocidadJugador = rbJugador.linearVelocity.magnitude;
-
-                // Multiplicador de fuerza básico fijo muy alto
-                float multiplicadorFuerza = multiplicadorImpactoBase + (velocidadJugador * 2f);
-
-                // Dirección del impulso: desde el jugador hacia la pelota
-                Vector2 direccionImpulso = (rb.position - rbJugador.position).normalized;
-
-                // Aplicar fuerza EXTREMA
-                float fuerzaBase = factorDeImpulso * multiplicadorFuerza;
-
-                // IMPULSO PRINCIPAL - Extremadamente potente
-                rb.AddForce(direccionImpulso * fuerzaBase, ForceMode2D.Impulse);
-
-                // Aplicar torque para efecto visual de rotación violenta
-                rb.AddTorque(Random.Range(-500f, 500f), ForceMode2D.Impulse);
-
-                // NUEVO: Impulso secundario retardado para efecto de explosión
-                StartCoroutine(EfectoExplosivo(direccionImpulso, fuerzaBase));
-
-                Debug.Log($"IMPACTO POTENTE - Fuerza: {fuerzaBase}, Multiplicador: {multiplicadorFuerza}");
-            }
-        }
-        else if (collision.gameObject.CompareTag("ColisionInvisible"))
-        {
-            // Manejar colisiones con los bordes con rebotes más violentos
-            ContactPoint2D punto = collision.GetContact(0);
-            Vector2 normal = punto.normal;
-            Vector2 velocidadEntrada = rb.linearVelocity;
-
-            // Rebote más suave, con menor aceleración en cada rebote
-            Vector2 velocidadRebote = Vector2.Reflect(velocidadEntrada, normal) * 0.5f;
-
-            rb.linearVelocity = velocidadRebote;
-            rb.AddTorque(Random.Range(-50f, 50f), ForceMode2D.Impulse);
-
-            Debug.Log("Pelota colisionó con el borde: " + collision.gameObject.name + "a velocidad: " + rb.linearVelocity);
+            enColision = true; // Marca que está en contacto con la colisión invisible
+            Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
+            rb.linearVelocity = direccionDeRebote * rb.linearVelocity.magnitude; // Rebote en la dirección opuesta
         }
     }
 
-    // Sistema de impulsos múltiples para efecto explosivo
-    System.Collections.IEnumerator EfectoExplosivo(Vector2 direccion, float fuerza)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        yield return new WaitForFixedUpdate();
-
-        // Primer impulso adicional
-        rb.AddForce(direccion * fuerza * 0.4f, ForceMode2D.Impulse);
-
-        yield return new WaitForFixedUpdate();
-        yield return new WaitForFixedUpdate();
-
-        // Segundo impulso para efecto de "aceleración después del golpe"
-        rb.AddForce(direccion * fuerza * 0.3f, ForceMode2D.Impulse);
-    }
-
-    // Método para resetear el cooldown de selección
-    private System.Collections.IEnumerator ResetearCooldown()
-    {
-        yield return new WaitForSeconds(cooldownCambioSeleccion);
-        seleccionEnCooldown = false;
-    }
-
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("ColisionInvisible"))
         {
-            // Evitar que la pelota se quede pegada con una fuerza extrema
-            Vector2 direccionSeparacion = (rb.position - collision.rigidbody.position).normalized;
+            // Mantener la pelota rebotando mientras esté en contacto con "ColisionInvisible"
+            Vector2 direccionDeRebote = (transform.position - other.transform.position).normalized;
+            rb.linearVelocity = direccionDeRebote * rb.linearVelocity.magnitude; // Rebote en la dirección opuesta
+        }
+    }
 
-            // Fuerza de separación EXTREMA
-            rb.AddForce(direccionSeparacion * 300f, ForceMode2D.Force);
-
-            // Añadir efecto de "rebote" adicional
-            rb.AddForce(Vector2.up * 50f, ForceMode2D.Force);
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("ColisionInvisible"))
+        {
+            enColision = false; // Cuando el Player o la colisión invisible sale, la pelota empieza a desacelerar
         }
     }
 }

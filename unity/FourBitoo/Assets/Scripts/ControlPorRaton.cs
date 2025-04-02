@@ -5,7 +5,7 @@ using UnityEngine.UI; // Para trabajar con UI
 
 public class ControlPorRaton : MonoBehaviour
 {
-    private float velocidad = 400f;
+    private float velocidad = 70f;
     public static ControlPorRaton jugadorSeleccionado = null;
 
     private bool seleccionado = false;
@@ -31,11 +31,6 @@ public class ControlPorRaton : MonoBehaviour
 
     public LineRenderer lineRenderer; // Para dibujar la trayectoria
     private List<Vector3> trajectoryPoints = new List<Vector3>();
-
-    [SerializeField]
-    private float friction = 0.98f;
-    [SerializeField]
-    private float minVelocityToStop = 0.1f; // Velocidad mínima para detener el jugador
 
     [SerializeField]
     public GameObject flechaPrefab; // Prefab de la flecha
@@ -223,8 +218,7 @@ public class ControlPorRaton : MonoBehaviour
 
             Vector3 direccion = (mousePos - transform.position).normalized;
             float radio = GetComponent<CircleCollider2D>().radius * transform.localScale.x;
-            // Ajustar la posición de la flecha para que esté más adelante y no sobresalga por detrás
-            flecha.transform.position = transform.position + direccion * (radio * 1.1f);
+            flecha.transform.position = transform.position + direccion * radio;
             flecha.transform.up = direccion;
             
             // Si el destino está marcado, mostrar la línea de trayectoria
@@ -391,7 +385,7 @@ public class ControlPorRaton : MonoBehaviour
         Debug.Log("Jugador seleccionado: " + gameObject.name);
     }
 
-    public void Deseleccionar()
+    private void Deseleccionar()
     {
         // Restaurar el color original
         if (usingCanvasImage && playerImage != null)
@@ -552,11 +546,11 @@ public class ControlPorRaton : MonoBehaviour
         while (tiempo < 1)
         {
             tiempo += Time.deltaTime * (velocidad / Vector3.Distance(inicio, destino));
-            rb.MovePosition(Vector3.Lerp(inicio, destino, tiempo)); // Usa MovePosition en lugar de modificar transform.position
+            transform.position = Vector3.Lerp(inicio, destino, tiempo);
             yield return null;
         }
 
-        rb.MovePosition(destino);
+        transform.position = destino;
         lineRenderer.enabled = false;
 
         enMovimiento = false;

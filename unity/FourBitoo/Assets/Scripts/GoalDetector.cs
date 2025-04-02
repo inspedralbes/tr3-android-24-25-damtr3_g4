@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI; // Necesario para trabajar con imágenes
+using System.Collections; // Para usar corutinas
 
 public class GoalDetector : MonoBehaviour
 {
     public int teamID; // 1 = Gol en la portería del equipo 1, 2 = Gol en la portería del equipo 2
     [SerializeField] private ScoreManager scoreManager; // Asigna en el Inspector
-    
+        [SerializeField] private Image golImage; // Asigna la imagen en el Inspector
+    [SerializeField] private float goalImageDuration = 2f; // Duración de la imagen en pantalla
+
     [Header("Configuración alternativa de detección")]
     [Tooltip("Si el método normal de colisiones no funciona, esto comprobará la distancia")]
     public bool usarDeteccionPorDistancia = true;
@@ -22,6 +26,10 @@ public class GoalDetector : MonoBehaviour
         }
 
         if (scoreManager == null)
+        {
+            Debug.LogError(" ScoreManager no está asignado en GoalDetector. El sistema de goles no funcionará!");
+        }
+        else
         {
             Debug.LogError(" ScoreManager no está asignado en GoalDetector. El sistema de goles no funcionará!");
         }
@@ -96,6 +104,24 @@ public class GoalDetector : MonoBehaviour
                 goalDetected = false;
             }
         }
+
+        if (golImage != null)
+        {
+            golImage.gameObject.SetActive(false); // Asegúrate de que la imagen esté desactivada al inicio
+        }
+        else
+        {
+            Debug.LogError("❌ GolImage no está asignada en GoalDetector.");
+        }
+
+        if (golImage != null)
+        {
+            golImage.gameObject.SetActive(false); // Asegúrate de que la imagen esté desactivada al inicio
+        }
+        else
+        {
+            Debug.LogError("❌ GolImage no está asignada en GoalDetector.");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -146,5 +172,12 @@ public class GoalDetector : MonoBehaviour
             Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f); // Naranja semi-transparente
             Gizmos.DrawSphere(transform.position, distanciaDeteccion);
         }
+    }
+
+    private IEnumerator ShowGoalImage()
+    {
+        golImage.gameObject.SetActive(true); // Activar la imagen
+        yield return new WaitForSeconds(goalImageDuration); // Esperar
+        golImage.gameObject.SetActive(false); // Desactivar la imagen
     }
 }
