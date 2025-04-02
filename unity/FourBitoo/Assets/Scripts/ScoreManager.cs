@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+
 public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI team1ScoreText;
@@ -10,6 +11,8 @@ public class ScoreManager : MonoBehaviour
     public GameObject ball;
 
     public List<GameObject> players;
+    
+    [SerializeField] private GoalManager goalManager; 
 
     private int team1Score = 0;
     private int team2Score = 0;
@@ -28,6 +31,11 @@ public class ScoreManager : MonoBehaviour
         }
         Debug.Log("📢 Marcador actualizado: Equipo 1 - " + team1Score + " | Equipo 2 - " + team2Score);
         UpdateScoreUI();
+        
+        // Notify the GoalManager about the updated scores
+        if (goalManager != null) {
+            goalManager.OnGoalScored(team1Score, team2Score);
+        }
 
         StartCoroutine(ResetBall(teamID));
     }
@@ -74,55 +82,72 @@ public class ScoreManager : MonoBehaviour
         team2ScoreText.text = team2Score.ToString();
     }
 
-void Start()
-{
-    if (ball == null)
+    void Start()
     {
-        Debug.LogError("❌ La variable 'ball' no está asignada en el Inspector. Por favor, asigna la pelota.");
-        return;
+        if (ball == null)
+        {
+            Debug.LogError("❌ La variable 'ball' no está asignada en el Inspector. Por favor, asigna la pelota.");
+            return;
+        }
+
+        initialBallPosition = ball.transform.position;
+
+        // Guarda las posiciones iniciales de los jugadores
+        initialPlayerPositions.Clear(); // Asegúrate de limpiar la lista antes de llenarla
+        foreach (GameObject player in players)
+        {
+            if (player != null)
+            {
+                initialPlayerPositions.Add(player.transform.position);
+            }
+            else
+            {
+                Debug.LogError("❌ Uno de los jugadores no está asignado en la lista.");
+            }
+        }
+
+        // Find GoalManager if not assigned
+        if (goalManager == null) {
+            goalManager = UnityEngine.Object.FindFirstObjectByType<GoalManager>();
+            if (goalManager == null) {
+                Debug.LogWarning("⚠️ No se encontró el GoalManager en la escena. El juego no terminará automáticamente.");
+            }
+        }
+
+        // Código existente para inicializar los textos...
+        if (team1ScoreText == null)
+        {
+            GameObject team1TextObject = GameObject.FindWithTag("Team1ScoreText");
+            if (team1TextObject != null)
+            {
+                team1ScoreText = team1TextObject.GetComponent<TextMeshProUGUI>();
+            }
+            else
+            {
+                Debug.LogError("❌ No se encontró el objeto con la etiqueta 'Team1ScoreText'.");
+            }
+        }
+
+        if (team2ScoreText == null)
+        {
+            GameObject team2TextObject = GameObject.FindWithTag("Team2ScoreText");
+            if (team2TextObject != null)
+            {
+                team2ScoreText = team2TextObject.GetComponent<TextMeshProUGUI>();
+            }
+            else
+            {
+                Debug.LogError("❌ No se encontró el objeto con la etiqueta 'Team2ScoreText'.");
+            }
+        }
     }
 
-    initialBallPosition = ball.transform.position;
-
-    // Guarda las posiciones iniciales de los jugadores
-    initialPlayerPositions.Clear(); // Asegúrate de limpiar la lista antes de llenarla
-    foreach (GameObject player in players)
-    {
-        if (player != null)
-        {
-            initialPlayerPositions.Add(player.transform.position);
-        }
-        else
-        {
-            Debug.LogError("❌ Uno de los jugadores no está asignado en la lista.");
-        }
+    // Add getters for the current scores that can be accessed by other scripts
+    public int GetTeam1Score() {
+        return team1Score;
     }
 
-    // Código existente para inicializar los textos...
-    if (team1ScoreText == null)
-    {
-        GameObject team1TextObject = GameObject.FindWithTag("Team1ScoreText");
-        if (team1TextObject != null)
-        {
-            team1ScoreText = team1TextObject.GetComponent<TextMeshProUGUI>();
-        }
-        else
-        {
-            Debug.LogError("❌ No se encontró el objeto con la etiqueta 'Team1ScoreText'.");
-        }
+    public int GetTeam2Score() {
+        return team2Score;
     }
-
-    if (team2ScoreText == null)
-    {
-        GameObject team2TextObject = GameObject.FindWithTag("Team2ScoreText");
-        if (team2TextObject != null)
-        {
-            team2ScoreText = team2TextObject.GetComponent<TextMeshProUGUI>();
-        }
-        else
-        {
-            Debug.LogError("❌ No se encontró el objeto con la etiqueta 'Team2ScoreText'.");
-        }
-    }
-}
 }

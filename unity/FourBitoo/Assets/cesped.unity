@@ -368,6 +368,7 @@ MonoBehaviour:
   players:
   - {fileID: 2075678735}
   - {fileID: 1756108676}
+  goalManager: {fileID: 0}
 --- !u!1 &290650726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,6 +1033,7 @@ MonoBehaviour:
   players:
   - {fileID: 2075678735}
   - {fileID: 1756108676}
+  goalManager: {fileID: 0}
 --- !u!1 &1018004574
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,6 +2195,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!1 &1873685150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1873685152}
+  - component: {fileID: 1873685151}
+  m_Layer: 0
+  m_Name: GoalManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1873685151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873685150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac970236abed704b920349e91d67a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalsToWin: 1
+  scoreManager: {fileID: 868839489}
+  finalSceneName: FinalGame
+  delayBeforeFinalScene: 1
+  apiUrl: http://localhost:4000
+--- !u!4 &1873685152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873685150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 867.70465, y: 670.77454, z: 1.539335}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1998068986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,6 +2486,7 @@ MonoBehaviour:
   players:
   - {fileID: 2075678735}
   - {fileID: 1756108676}
+  goalManager: {fileID: 0}
 --- !u!1 &2043609296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,7 +2667,7 @@ Transform:
   m_GameObject: {fileID: 2064664914}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 968.6495, y: 559.0435, z: 0}
+  m_LocalPosition: {x: 1803, y: 571, z: 0}
   m_LocalScale: {x: 130, y: 130, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2954,6 +3006,7 @@ SceneRoots:
   - {fileID: 2043609298}
   - {fileID: 539097134}
   - {fileID: 1040250834}
+  - {fileID: 1873685152}
   - {fileID: 868839488}
   - {fileID: 563342244}
   - {fileID: 8283874820155478384}
