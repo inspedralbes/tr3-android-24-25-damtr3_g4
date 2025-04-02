@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
     {
         while (isMatchRunning && remainingSeconds > 0)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1f);
             if (isMatchRunning) // Comprobar de nuevo por si se ha pausado o detenido
             {
                 remainingSeconds--;
