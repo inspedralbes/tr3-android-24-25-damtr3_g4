@@ -106,6 +106,21 @@ public class ScoreManager : MonoBehaviour
 
         initialBallPosition = ball.transform.position;
 
+        // Buscar automáticamente todos los jugadores con el tag "Player"
+        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+        players.Clear();
+        
+        if (allPlayers.Length > 0)
+        {
+            Debug.Log($"✅ Se encontraron {allPlayers.Length} jugadores en la escena");
+            // Añadir a la lista de players
+            players.AddRange(allPlayers);
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ No se encontraron jugadores con el tag 'Player' en la escena");
+        }
+
         // Guarda las posiciones iniciales de los jugadores
         initialPlayerPositions.Clear(); // Asegúrate de limpiar la lista antes de llenarla
         foreach (GameObject player in players)

@@ -169,6 +169,12 @@ public class UserStore
         }
     }
 
+    // Método para obtener el escudo del equipo (Alias para GetTeamBadge para compatibilidad)
+    public string GetSelectedBadge()
+    {
+        return GetTeamBadge(true);
+    }
+
     // Método para obtener la lista de jugadores
     public List<UserPlayerData> GetPlayerList(bool isMainUser)
     {
