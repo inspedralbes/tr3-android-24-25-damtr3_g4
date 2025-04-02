@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Para trabajar con UI
 
 public class ControlPorRaton : MonoBehaviour
 {
@@ -24,8 +23,9 @@ public class ControlPorRaton : MonoBehaviour
     private Coroutine pulseCoroutine;
     [SerializeField] private float pulseAmount = 0.2f;
     [SerializeField] private float pulseSpeed = 2f;
-    [SerializeField] private Color selectionColorTeam1 = new Color(0.2f, 0.2f, 1f, 0.6f); // Color AZUL para equipo 1
-    [SerializeField] private Color selectionColorTeam2 = new Color(1f, 0.2f, 0.2f, 0.6f); // Color ROJO para equipo 2
+    [SerializeField] private Color selectionColorTeam1 = new Color(1f, 0.2f, 0.2f, 0.6f); // Color rojo para equipo 1 con menor opacidad
+    [SerializeField] private Color selectionColorTeam2 = new Color(0.2f, 0.2f, 1f, 0.6f); // Color azul para equipo 2 con menor opacidad
+    [SerializeField] private Color selectionColor = new Color(1f, 0.8f, 0.1f, 0.6f); // Color amarillo dorado para selección con menor opacidad
     [SerializeField] private GameObject selectionMarkerPrefab; // Prefab del marcador de selección
     private GameObject selectionMarker; // Instancia del marcador
 
@@ -46,14 +46,6 @@ public class ControlPorRaton : MonoBehaviour
     private CursorMode cursorMode = CursorMode.Auto;
     private Vector2 hotSpot = Vector2.zero;
 
-    // Referencias para trabajar con Canvas (si usa UI)
-    private Image playerImage;
-    private bool usingCanvasImage = false;
-    
-    // Destino marcado (para el sistema de turnos)
-    private Vector3? destinoMarcado = null;
-    private bool destinoConfirmado = false;
-
     void Start()
     {
         if (this.gameObject.GetComponent<CircleCollider2D>() == null)
@@ -67,34 +59,9 @@ public class ControlPorRaton : MonoBehaviour
             rb = this.gameObject.AddComponent<Rigidbody2D>();
         }
 
-        // Verificar si estamos usando una imagen UI o un SpriteRenderer
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            usingCanvasImage = false;
-            originalColor = spriteRenderer.color;
-        }
-        else
-        {
-            // Buscar la imagen UI dentro del Canvas
-            Transform canvasTransform = transform.Find("Canvas");
-            if (canvasTransform != null)
-            {
-                Transform captionImageTransform = canvasTransform.Find("CaptionImage");
-                if (captionImageTransform != null)
-                {
-                    playerImage = captionImageTransform.GetComponent<Image>();
-                    if (playerImage != null)
-                    {
-                        usingCanvasImage = true;
-                        originalColor = playerImage.color;
-                    }
-                }
-            }
-        }
-
-        // Guardar la escala original para usarla luego en las animaciones
+        // Guardar la escala y color original para usarlos luego en las animaciones
         originalScale = transform.localScale;
+        originalColor = GetComponent<SpriteRenderer>().color;
 
         rb.gravityScale = 0;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -114,9 +81,9 @@ public class ControlPorRaton : MonoBehaviour
             Debug.LogError("No se encontró CircleCollider2D en " + gameObject.name);
         }
 
+
         rb.linearDamping = 0.5f;
         rb.angularDamping = 0.5f; // Ajustar la fricción angular según sea necesario
-        
         // Asegurar que haya un LineRenderer
         if (lineRenderer == null)
         {
@@ -129,17 +96,11 @@ public class ControlPorRaton : MonoBehaviour
         lineRenderer.enabled = false;
         lineRenderer.useWorldSpace = true;
         lineRenderer.positionCount = 0;
-        
+
         // Crear el marcador de selección si no existe el prefab
         if (selectionMarkerPrefab == null)
         {
             CreateDefaultSelectionMarker();
-        }
-        
-        // Registrar en el sistema de turnos al inicio
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.RegisterPlayersByTeamID();
         }
     }
 
@@ -161,8 +122,7 @@ public class ControlPorRaton : MonoBehaviour
             // Crear un círculo con borde más delgado
             if (distSqr < 840 && distSqr > 800)
             {
-                Color teamColor = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
-                colors[i] = teamColor;
+                colors[i] = selectionColor;
             }
             else
             {
@@ -184,27 +144,7 @@ public class ControlPorRaton : MonoBehaviour
 
     void Update()
     {
-        // Solo realizar acciones si este es el jugador seleccionado actualmente
-        if (jugadorSeleccionado != this)
-        {
-            // Asegurarse de que los elementos visuales estén desactivados para jugadores no seleccionados
-            if (flecha != null)
-            {
-                flecha.SetActive(false);
-            }
-            if (lineRenderer != null)
-            {
-                lineRenderer.enabled = false;
-            }
-            if (selectionMarker != null)
-            {
-                selectionMarker.SetActive(false);
-            }
-            return;
-        }
-
-        // Si el jugador está en movimiento, ocultar la flecha
-        if (enMovimiento)
+        if (jugadorSeleccionado == null || !jugadorSeleccionado.seleccionado || enMovimiento)
         {
             if (flecha != null)
             {
@@ -213,8 +153,7 @@ public class ControlPorRaton : MonoBehaviour
             return;
         }
 
-        // Solo mostrar la flecha si este jugador está seleccionado y es su turno
-        if (flecha != null && CanMove()) 
+        if (flecha != null && jugadorSeleccionado == this) // Solo mostrar la flecha si este es el jugador seleccionado
         {
             flecha.SetActive(true);
 
@@ -226,132 +165,78 @@ public class ControlPorRaton : MonoBehaviour
             // Ajustar la posición de la flecha para que esté más adelante y no sobresalga por detrás
             flecha.transform.position = transform.position + direccion * (radio * 1.1f);
             flecha.transform.up = direccion;
-            
-            // Si el destino está marcado, mostrar la línea de trayectoria
-            if (destinoMarcado.HasValue)
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 rightClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            rightClickPos.z = 0;
+
+            if (flecha != null)
             {
-                trajectoryPoints.Clear();
-                trajectoryPoints.Add(transform.position);
-                trajectoryPoints.Add(destinoMarcado.Value);
-                
-                lineRenderer.positionCount = trajectoryPoints.Count;
-                lineRenderer.SetPositions(trajectoryPoints.ToArray());
-                lineRenderer.enabled = true;
+                flecha.SetActive(false); // Ocultar la flecha al iniciar el movimiento
             }
-        }
 
-        // Solo permitir marcar destino si es el turno del jugador
-        if (Input.GetMouseButtonDown(1) && CanMove())
-        {
-            MarcarDestino();
-        }
-    }
-    
-    // Método para marcar el destino con el clic derecho
-    private void MarcarDestino()
-    {
-        // Solo permitir marcar destino si es el jugador actual en turno
-        if (!CanMove())
-        {
-            Debug.LogWarning($"No puedes marcar destino para {gameObject.name} (Tag: {gameObject.tag}) porque no es su turno.");
-            return;
-        }
-        
-        Vector3 rightClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        rightClickPos.z = 0;
-        
-        // Marcar el destino (pero no moverse aún)
-        destinoMarcado = rightClickPos;
-        destinoConfirmado = false;
-        
-        if (flecha != null)
-        {
-            flecha.SetActive(false); // Ocultar la flecha al marcar destino
-        }
+            trajectoryPoints.Clear();
+            trajectoryPoints.Add(jugadorSeleccionado.transform.position);
+            trajectoryPoints.Add(rightClickPos);
 
-        // Mostrar trayectoria
-        trajectoryPoints.Clear();
-        trajectoryPoints.Add(transform.position);
-        trajectoryPoints.Add(rightClickPos);
+            lineRenderer.positionCount = trajectoryPoints.Count;
+            lineRenderer.SetPositions(trajectoryPoints.ToArray());
+            lineRenderer.enabled = true;
 
-        lineRenderer.positionCount = trajectoryPoints.Count;
-        lineRenderer.SetPositions(trajectoryPoints.ToArray());
-        lineRenderer.enabled = true;
-        
-        // Confirmar el destino inmediatamente y pasar al siguiente jugador
-        ConfirmarDestino();
-        
-        // Log de depuración
-        Debug.Log($"Destino marcado para {gameObject.name} (Tag: {gameObject.tag}). Pasando al siguiente jugador.");
+            // Guardar la referencia a la corrutina para poder cancelarla
+            if (jugadorSeleccionado.movimientoCoroutine != null)
+            {
+                jugadorSeleccionado.StopCoroutine(jugadorSeleccionado.movimientoCoroutine);
+            }
+            jugadorSeleccionado.movimientoCoroutine = jugadorSeleccionado.StartCoroutine(jugadorSeleccionado.MoverJugador(rightClickPos));
+        }
     }
 
     private void OnMouseDown()
     {
-        // Solo permitimos marcar el destino si es el jugador actual según el orden por tag
-        if (GameManager.Instance != null && GameManager.Instance.CanPlayerMove(gameObject))
+        if (jugadorSeleccionado != this)
         {
-            // Este es el jugador que debe moverse ahora, no hacemos nada más
-            // porque ya estará seleccionado automáticamente
-            Debug.Log($"Este es el turno del jugador {gameObject.name} (Tag: {gameObject.tag})");
-        }
-        else
-        {
-            Debug.Log($"No es el turno del jugador {gameObject.name} (Tag: {gameObject.tag})");
+            if (jugadorSeleccionado != null)
+            {
+                jugadorSeleccionado.Deseleccionar();
+            }
+            Seleccionar();
         }
     }
 
+    // Métodos para seleccionar y deseleccionar jugadores (ahora públicos)
     public void Seleccionar()
     {
         jugadorSeleccionado = this;
         seleccionado = true;
         
         // Cambiar el color para indicar la selección según el equipo
-        Color teamColor = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
-        
-        if (usingCanvasImage && playerImage != null)
-        {
-            playerImage.color = teamColor;
-        }
-        else
-        {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.color = teamColor;
-            }
-        }
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
 
         if (border != null)
         {
             border.SetActive(true);
         }
 
-        // Crear la flecha solo cuando se selecciona este jugador
-        if (flechaPrefab != null)
+        if (flechaPrefab != null && flecha == null)
         {
-            // Si ya existe una flecha, destruirla
-            if (flecha != null)
-            {
-                Destroy(flecha);
-                flecha = null;
-            }
-            
-            // Crear una nueva flecha
             flecha = Instantiate(flechaPrefab, transform.position, Quaternion.identity, transform);
-            flecha.transform.localScale = new Vector3(0.4f, 0.5f, 1f); // Reducido para mejor ajuste
+            flecha.transform.localScale = new Vector3(0.4f, 0.5f, 1f); // Reducido de 0.5f, 0.6f a 0.4f, 0.5f para mejor ajuste
 
             // Colorear la flecha según el equipo
             SpriteRenderer flechaRenderer = flecha.GetComponent<SpriteRenderer>();
             if (flechaRenderer != null)
             {
-                flechaRenderer.color = teamColor;
+                flechaRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
             }
         }
 
-        // Activar la flecha solo si el jugador puede moverse
         if (flecha != null)
         {
-            flecha.SetActive(CanMove()); 
+            flecha.SetActive(true); // Activar la flecha al seleccionar el jugador
         }
 
         // Iniciar animación de pulsación
@@ -361,21 +246,13 @@ public class ControlPorRaton : MonoBehaviour
         }
         pulseCoroutine = StartCoroutine(PulseAnimation());
 
-        // Crear y activar el marcador de selección solo para este jugador
-        if (selectionMarkerPrefab != null)
+        // Activar el marcador de selección
+        if (selectionMarker == null && selectionMarkerPrefab != null)
         {
-            // Si ya existe un marcador, destruirlo
-            if (selectionMarker != null)
-            {
-                Destroy(selectionMarker);
-                selectionMarker = null;
-            }
-            
-            // Crear un nuevo marcador
             selectionMarker = Instantiate(selectionMarkerPrefab, transform.position, Quaternion.identity);
             selectionMarker.transform.SetParent(transform);
             selectionMarker.transform.localPosition = new Vector3(0, 0, -0.1f); // Colocar justo encima del jugador
-            selectionMarker.transform.localScale = Vector3.one * 1.2f; // Reducido para hacer el borde más pequeño
+            selectionMarker.transform.localScale = Vector3.one * 1.2f; // Reducido de 1.5f a 1.2f para hacer el borde más pequeño
             
             // Activar y hacer visible el marcador
             selectionMarker.SetActive(true);
@@ -384,8 +261,19 @@ public class ControlPorRaton : MonoBehaviour
             SpriteRenderer markerRenderer = selectionMarker.GetComponent<SpriteRenderer>();
             if (markerRenderer != null)
             {
-                markerRenderer.color = teamColor;
+                markerRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
             }
+        }
+        else if (selectionMarker != null)
+        {
+            // Actualizar color si ya existe el marcador
+            SpriteRenderer markerRenderer = selectionMarker.GetComponent<SpriteRenderer>();
+            if (markerRenderer != null)
+            {
+                markerRenderer.color = (teamID == 1) ? selectionColorTeam1 : selectionColorTeam2;
+            }
+            
+            selectionMarker.SetActive(true);
         }
 
         Debug.Log("Jugador seleccionado: " + gameObject.name);
@@ -393,154 +281,53 @@ public class ControlPorRaton : MonoBehaviour
 
     public void Deseleccionar()
     {
-        // Restaurar el color original
-        if (usingCanvasImage && playerImage != null)
-        {
-            playerImage.color = originalColor;
-        }
-        else
-        {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.color = originalColor;
-            }
-        }
-
-        if (border != null)
-        {
-            border.SetActive(false);
-        }
-
-        // Destruir la flecha para evitar objetos huérfanos
-        if (flecha != null)
-        {
-            Destroy(flecha);
-            flecha = null;
-        }
-
-        // Destruir el marcador de selección para evitar objetos huérfanos
-        if (selectionMarker != null)
-        {
-            Destroy(selectionMarker);
-            selectionMarker = null;
-        }
-
-        // Desactivar LineRenderer
-        if (lineRenderer != null)
-        {
-            lineRenderer.enabled = false;
-        }
-
-        // Detener la animación de pulsación si está en curso
+        seleccionado = false;
+        lineRenderer.enabled = false;
+        trajectoryPoints.Clear();
+        
+        // Detener la animación de pulsación
         if (pulseCoroutine != null)
         {
             StopCoroutine(pulseCoroutine);
             pulseCoroutine = null;
         }
-
-        seleccionado = false;
         
-        // Si este jugador era el seleccionado, resetearlo
-        if (jugadorSeleccionado == this)
-        {
-            jugadorSeleccionado = null;
-        }
-    }
-    
-    IEnumerator PulseAnimation()
-    {
-        float t = 0;
+        // Restaurar la escala original
+        transform.localScale = originalScale;
         
-        while (true)
+        // Restaurar el color original
+        GetComponent<SpriteRenderer>().color = originalColor;
+        
+        if (border != null)
         {
-            t += Time.deltaTime * pulseSpeed;
-            float scale = 1 + (Mathf.Sin(t) * 0.5f + 0.5f) * pulseAmount;
-            transform.localScale = originalScale * scale;
-            yield return null;
+            border.SetActive(false);
+        }
+
+        if (flecha != null)
+        {
+            Destroy(flecha); // Eliminar la flecha al deseleccionar
+            flecha = null;
+        }
+        
+        // Desactivar el marcador de selección
+        if (selectionMarker != null)
+        {
+            Destroy(selectionMarker);
+            selectionMarker = null;
         }
     }
 
-    // Método para confirmar el destino y notificar al GameManager
-    public void ConfirmarDestino()
+    private void OnMouseEnter()
     {
-        if (destinoMarcado.HasValue && !destinoConfirmado)
+        if (cursorPointerTexture != null)
         {
-            destinoConfirmado = true;
-            
-            // Notificar al GameManager que este jugador ha establecido su destino
-            if (GameManager.Instance != null)
-            {
-                // Pasar el gameObject y dejar que GameManager obtenga el teamID
-                GameManager.Instance.PlayerSetDestination(gameObject);
-            }
-            
-            // Ocultar la flecha y desactivar la línea de trayectoria
-            if (flecha != null)
-            {
-                flecha.SetActive(false);
-            }
-            
-            if (lineRenderer != null)
-            {
-                lineRenderer.enabled = false;
-            }
-            
-            Debug.Log("Destino confirmado para: " + gameObject.name);
+            Cursor.SetCursor(cursorPointerTexture, hotSpot, cursorMode);
         }
     }
-    
-    // Método para iniciar el movimiento (será llamado por el GameManager)
-    public void InitiateMovement()
-    {
-        if (destinoMarcado.HasValue)
-        {
-            // Iniciar el movimiento
-            if (movimientoCoroutine != null)
-            {
-                StopCoroutine(movimientoCoroutine);
-            }
-            
-            // Si hay una flecha o marcador, ocultarlos antes del movimiento
-            if (flecha != null)
-            {
-                flecha.SetActive(false);
-            }
-            
-            if (selectionMarker != null)
-            {
-                selectionMarker.SetActive(false);
-            }
-            
-            movimientoCoroutine = StartCoroutine(MoverJugador(destinoMarcado.Value));
-            
-            // Limpiar el destino marcado
-            destinoMarcado = null;
-        }
-    }
-    
-    // Método para verificar si el jugador puede moverse (según el sistema de turnos)
-    private bool CanMove()
-    {
-        return GameManager.Instance != null && GameManager.Instance.CanPlayerMove(gameObject);
-    }
 
-    // Método para verificar si el jugador está en movimiento (usado por GameManager)
-    public bool IsMoving()
+    private void OnMouseExit()
     {
-        return enMovimiento;
-    }
-
-    // Para verificar si ya ha establecido un destino
-    public bool HasDestinationSet()
-    {
-        return destinoMarcado.HasValue && destinoConfirmado;
-    }
-    
-    // Obtener el destino marcado (para dibujar la trayectoria)
-    public Vector3? GetMarkedDestination()
-    {
-        return destinoMarcado;
+        Cursor.SetCursor(null, Vector2.zero, cursorMode);
     }
 
     IEnumerator MoverJugador(Vector3 destino)
@@ -561,61 +348,42 @@ public class ControlPorRaton : MonoBehaviour
 
         enMovimiento = false;
         movimientoCoroutine = null;
-        destinoConfirmado = false;
+
+        // Obtener el ID del equipo actual
+        int equipoActual = GetTeamID();
         
-        // Notificar al GameManager que este jugador ha terminado de moverse
-        if (GameManager.Instance != null)
+        // Deseleccionar al jugador actual
+        Deseleccionar();
+        
+        // Buscar un jugador del equipo contrario para seleccionar
+        GameObject[] todosLosJugadores = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject jugador in todosLosJugadores)
         {
-            Debug.Log($"JUGADOR {gameObject.name} (Tag: {gameObject.tag}) HA TERMINADO DE MOVERSE. Notificando al GameManager...");
-            GameManager.Instance.PlayerFinishedMoving(gameObject);
-        }
-        else
-        {
-            Debug.LogError("No se pudo notificar al GameManager que el jugador terminó - GameManager.Instance es null");
+            ControlPorRaton controlOtroJugador = jugador.GetComponent<ControlPorRaton>();
+            if (controlOtroJugador != null && controlOtroJugador.GetTeamID() != equipoActual)
+            {
+                controlOtroJugador.Seleccionar();
+                break; // Solo seleccionar un jugador
+            }
         }
     }
 
     void FixedUpdate()
     {
-        // Solo aplicar fricción si no hay un movimiento controlado en curso
-        if (!enMovimiento && rb.linearVelocity.magnitude > minVelocityToStop)
+        // Aplicar fricción continuamente
+        if (rb.linearVelocity.magnitude > minVelocityToStop)
         {
-            // Aplicar fricción gradualmente
             rb.linearVelocity *= friction;
-            
-            // Si la velocidad cae por debajo del umbral, detener completamente
-            if (rb.linearVelocity.magnitude < minVelocityToStop)
-            {
-                rb.linearVelocity = Vector2.zero;
-            }
+        }
+        else if (!enMovimiento) // Solo detener completamente si no está en movimiento controlado
+        {
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
-    IEnumerator ReducirVelocidad(Rigidbody2D targetRb)
-    {
-        float time = 0;
-        Vector2 initialVelocity = targetRb.linearVelocity;
-        
-        while (time < 2.0f) // Reducir durante 2 segundos
-        {
-            time += Time.deltaTime;
-            targetRb.linearVelocity = Vector2.Lerp(initialVelocity, Vector2.zero, time / 2.0f);
-            yield return null;
-        }
-        
-        // Asegurarse de que la velocidad sea cero al final
-        targetRb.linearVelocity = Vector2.zero;
-    }
-    
-    // Manejar colisión entre jugadores
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Si colisiona con otro jugador, no cambiar el turno
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.tag.StartsWith("Player "))
-        {
-            Debug.Log($"¡Colisión entre jugadores! No se cambia el turno.");
-            // No hacer nada para mantener el turno actual
-        }
+        Debug.Log($"Colisión detectada entre {gameObject.name} (Tag: {gameObject.tag}, RB: {rb != null}, Collider: {GetComponent<Collider2D>() != null}) y {collision.gameObject.name} (Tag: {collision.gameObject.tag}, RB: {collision.gameObject.GetComponent<Rigidbody2D>() != null}, Collider: {collision.gameObject.GetComponent<Collider2D>() != null})");
 
         // Si estamos en movimiento programado, cancelarlo para permitir un rebote físico
         if (enMovimiento && movimientoCoroutine != null)
@@ -623,129 +391,136 @@ public class ControlPorRaton : MonoBehaviour
             StopCoroutine(movimientoCoroutine);
             movimientoCoroutine = null;
             enMovimiento = false;
-            
-            if (destinoMarcado.HasValue)
+            lineRenderer.enabled = false;
+
+            // Si estaba seleccionado, mantener la selección después de la colisión
+            if (seleccionado && flecha != null)
             {
-                lineRenderer.enabled = false;
+                flecha.SetActive(true);
             }
         }
 
-        Debug.Log($"Colisión detectada entre {gameObject.name} (Tag: {gameObject.tag}, RB: {rb != null}, Collider: {GetComponent<Collider2D>() != null}) y {collision.gameObject.name} (Tag: {collision.gameObject.tag}, RB: {collision.gameObject.GetComponent<Rigidbody2D>() != null}, Collider: {collision.gameObject.GetComponent<Collider2D>() != null})");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Rigidbody2D rbOtro = collision.gameObject.GetComponent<Rigidbody2D>();
+            
+            // Si este jugador está seleccionado y colisiona con otro jugador, cambiar al jugador del equipo contrario
+            if (seleccionado)
+            {
+                int equipoActual = GetTeamID();
+                Deseleccionar();
+                
+                // Buscar un jugador del equipo contrario para seleccionar
+                GameObject[] todosLosJugadores = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject jugador in todosLosJugadores)
+                {
+                    ControlPorRaton controlOtroJugador = jugador.GetComponent<ControlPorRaton>();
+                    if (controlOtroJugador != null && controlOtroJugador.GetTeamID() != equipoActual)
+                    {
+                        controlOtroJugador.Seleccionar();
+                        break; // Solo seleccionar un jugador
+                    }
+                }
+            }
+            
+            if (rbOtro != null)
+            {
+                Debug.Log($"{gameObject.name} - Velocidad ANTES del impulso: {rb.linearVelocity}");
+                Debug.Log($"{collision.gameObject.name} - Velocidad ANTES del impulso: {rbOtro.linearVelocity}");
+
+                // Para un rebote más realista, usar el punto de contacto
+                ContactPoint2D contacto = collision.GetContact(0);
+                Vector2 normal = contacto.normal; // Normal en el punto de contacto
+
+                // Obtener las velocidades actuales
+                Vector2 velocidadA = rb.linearVelocity;
+                Vector2 velocidadB = rbOtro.linearVelocity;
+
+                // Calcular las masas (o usar las reales si están configuradas)
+                float masaA = rb.mass;
+                float masaB = rbOtro.mass;
+
+                // Calcular la velocidad relativa en dirección de la normal
+                float velocidadRelativa = Vector2.Dot(velocidadB - velocidadA, normal);
+
+                // Calcular el impulso (con un coeficiente de restitución para el rebote)
+                float coefRestitution = 1.2f; // Mayor que 1 para un rebote más enérgico
+                float impulso = (2.0f * velocidadRelativa) / (masaA + masaB) * coefRestitution;
+
+                // Aplicar el impulso a ambos cuerpos en dirección de la normal
+                rb.linearVelocity = velocidadA + impulso * masaB * normal;
+                rbOtro.linearVelocity = velocidadB - impulso * masaA * normal;
+
+                // Multiplicar por un factor para hacer el rebote más pronunciado
+                float factorRebote = 2.5f;
+                rb.linearVelocity *= factorRebote;
+                rbOtro.linearVelocity *= factorRebote;
+
+                Debug.Log($"{gameObject.name} - Velocidad DESPUÉS del impulso: {rb.linearVelocity}");
+                Debug.Log($"{collision.gameObject.name} - Velocidad DESPUÉS del impulso: {rbOtro.linearVelocity}");
+
+                // Asegurarse de que ambos jugadores están en modo "no controlado"
+                ControlPorRaton controlOtro = collision.gameObject.GetComponent<ControlPorRaton>();
+                if (controlOtro != null && controlOtro.enMovimiento && controlOtro.movimientoCoroutine != null)
+                {
+                    controlOtro.StopCoroutine(controlOtro.movimientoCoroutine);
+                    controlOtro.movimientoCoroutine = null;
+                    controlOtro.enMovimiento = false;
+                    controlOtro.lineRenderer.enabled = false;
+
+                    // Si estaba seleccionado, mantener la selección después de la colisión
+                    if (controlOtro.seleccionado && controlOtro.flecha != null)
+                    {
+                        controlOtro.flecha.SetActive(true);
+                    }
+                }
+
+                // Reducir gradualmente la velocidad de ambos jugadores después del rebote
+                StartCoroutine(ReducirVelocidad(rb));
+                StartCoroutine(ReducirVelocidad(rbOtro));
+
+                Debug.Log($"Rebote aplicado entre {gameObject.name} y {collision.gameObject.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"El objeto {collision.gameObject.name} tiene la etiqueta 'Player' pero no tiene Rigidbody2D.");
+            }
+        }
     }
 
-    // Getters para acceder a los valores desde otras clases
+    IEnumerator ReducirVelocidad(Rigidbody2D rb)
+    {
+        float duracion = 1.5f; // Tiempo hasta que se detiene completamente
+        float tiempo = 0f;
+
+        while (tiempo < duracion)
+        {
+            // Reduce la velocidad gradualmente
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, 0.05f);
+            tiempo += Time.deltaTime;
+            yield return null;
+        }
+
+        // Asegurarse de que la velocidad sea cero al final
+        rb.linearVelocity = Vector2.zero;
+    }
+    
+    // Corrutina para la animación de pulsación
+    private IEnumerator PulseAnimation()
+    {
+        float t = 0;
+        while (seleccionado)
+        {
+            t += Time.deltaTime * pulseSpeed;
+            float pulse = 1 + Mathf.Sin(t) * pulseAmount;
+            transform.localScale = originalScale * pulse;
+            yield return null;
+        }
+    }
+
+    // Método para obtener el ID del equipo
     public int GetTeamID()
     {
         return teamID;
-    }
-    
-    // Métodos para el cursor personalizado (opcional)
-    private void OnMouseEnter()
-    {
-        if (cursorPointerTexture != null)
-        {
-            Cursor.SetCursor(cursorPointerTexture, hotSpot, cursorMode);
-        }
-    }
-
-    private void OnMouseExit()
-    {
-        Cursor.SetCursor(null, Vector2.zero, cursorMode);
-    }
-
-    // Método para limpiar todos los elementos visuales (marcadores y flechas)
-    public void CleanupVisualElements()
-    {
-        // Destruir la flecha si existe
-        if (flecha != null)
-        {
-            Destroy(flecha);
-            flecha = null;
-        }
-        
-        // Destruir el marcador de selección si existe
-        if (selectionMarker != null)
-        {
-            Destroy(selectionMarker);
-            selectionMarker = null;
-        }
-        
-        // Desactivar el LineRenderer
-        if (lineRenderer != null)
-        {
-            lineRenderer.enabled = false;
-        }
-        
-        // Restaurar el color original
-        if (usingCanvasImage && playerImage != null)
-        {
-            playerImage.color = originalColor;
-        }
-        else
-        {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.color = originalColor;
-            }
-        }
-        
-        // Desactivar el borde
-        if (border != null)
-        {
-            border.SetActive(false);
-        }
-        
-        // Detener la animación de pulsación
-        if (pulseCoroutine != null)
-        {
-            StopCoroutine(pulseCoroutine);
-            pulseCoroutine = null;
-        }
-    }
-
-    // Reiniciar el estado del jugador al comenzar un nuevo ciclo
-    public void ResetPlayerState()
-    {
-        // Reiniciar variables de estado
-        enMovimiento = false;
-        destinoConfirmado = false;
-        seleccionado = false;
-        
-        // Detener cualquier corrutina en curso
-        if (movimientoCoroutine != null)
-        {
-            StopCoroutine(movimientoCoroutine);
-            movimientoCoroutine = null;
-        }
-        
-        // Desactivar el LineRenderer
-        if (lineRenderer != null)
-        {
-            lineRenderer.enabled = false;
-        }
-        
-        // Desactivar cualquier marcador de selección
-        if (selectionMarker != null)
-        {
-            Destroy(selectionMarker);
-            selectionMarker = null;
-        }
-        
-        // Desactivar la flecha de dirección
-        if (flecha != null)
-        {
-            Destroy(flecha);
-            flecha = null;
-        }
-        
-        // Detener el movimiento del Rigidbody
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
-        
-        Debug.Log($"Estado del jugador {gameObject.name} reiniciado completamente");
     }
 }
