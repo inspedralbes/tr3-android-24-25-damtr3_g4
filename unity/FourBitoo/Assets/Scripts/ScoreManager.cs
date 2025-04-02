@@ -11,8 +11,6 @@ public class ScoreManager : MonoBehaviour
     public GameObject ball;
 
     public List<GameObject> players;
-    
-    [SerializeField] private GoalManager goalManager; 
 
     private int team1Score = 0;
     private int team2Score = 0;
@@ -31,11 +29,6 @@ public class ScoreManager : MonoBehaviour
         }
         Debug.Log("📢 Marcador actualizado: Equipo 1 - " + team1Score + " | Equipo 2 - " + team2Score);
         UpdateScoreUI();
-        
-        // Notify the GoalManager about the updated scores
-        if (goalManager != null) {
-            goalManager.OnGoalScored(team1Score, team2Score);
-        }
 
         StartCoroutine(ResetBall(teamID));
     }
@@ -50,6 +43,19 @@ public class ScoreManager : MonoBehaviour
         if(ballRigidbody != null){
             ballRigidbody.linearVelocity = Vector3.zero;
             ballRigidbody.angularVelocity = Vector3.zero;
+        }
+
+        // Deseleccionar todos los jugadores primero
+        foreach (GameObject player in players)
+        {
+            if (player != null)
+            {
+                ControlPorRaton playerControl = player.GetComponent<ControlPorRaton>();
+                if (playerControl != null)
+                {
+                    playerControl.Deseleccionar();
+                }
+            }
         }
 
         for (int i = 0; i < players.Count; i++)
@@ -68,6 +74,14 @@ public class ScoreManager : MonoBehaviour
                 if(playerControl != null){
                     playerControl.activo = false;
                     playerControl.GetComponent<SpriteRenderer>().enabled = true;
+                    
+                    // Seleccionar jugador del equipo opuesto al que marcó gol
+                    int equipoJugador = playerControl.GetTeamID();
+                    if (equipoJugador != 0 && equipoJugador != lastScoringTeamID)
+                    {
+                        playerControl.Seleccionar();
+                        break; // Solo seleccionar un jugador
+                    }
                 }
             }
         }
@@ -106,14 +120,6 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
-        // Find GoalManager if not assigned
-        if (goalManager == null) {
-            goalManager = UnityEngine.Object.FindFirstObjectByType<GoalManager>();
-            if (goalManager == null) {
-                Debug.LogWarning("⚠️ No se encontró el GoalManager en la escena. El juego no terminará automáticamente.");
-            }
-        }
-
         // Código existente para inicializar los textos...
         if (team1ScoreText == null)
         {
@@ -140,14 +146,5 @@ public class ScoreManager : MonoBehaviour
                 Debug.LogError("❌ No se encontró el objeto con la etiqueta 'Team2ScoreText'.");
             }
         }
-    }
-
-    // Add getters for the current scores that can be accessed by other scripts
-    public int GetTeam1Score() {
-        return team1Score;
-    }
-
-    public int GetTeam2Score() {
-        return team2Score;
     }
 }

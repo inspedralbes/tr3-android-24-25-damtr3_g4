@@ -14,8 +14,6 @@ TagManager:
   - Team2ScoreText
   - loginBtn
   - gameButton
-  - GoalText
-  - golImage
   layers:
   - Default
   - TransparentFX
