@@ -10,9 +10,9 @@ public class GoalDetector : MonoBehaviour
         scoreManager = Object.FindFirstObjectByType<ScoreManager>();
 
         if (scoreManager == null)
-    {
-        Debug.LogError("❌ ScoreManager no está asignado en GoalDetector.");
-    }
+        {
+            Debug.LogError("❌ ScoreManager no está asignado en GoalDetector.");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
