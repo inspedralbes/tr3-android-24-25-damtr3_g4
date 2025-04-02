@@ -21,8 +21,6 @@ TagManager:
   - Player6
   - Player7
   - Player8
-  - GoalText
-  - golImage
   layers:
   - Default
   - TransparentFX

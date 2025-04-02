@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class LogoutButtonManager : MonoBehaviour
 {
-    public Button logoutButton;
+    public Button logoutButton; // Botón de logout
 
     void Start()
     {
@@ -12,13 +12,13 @@ public class LogoutButtonManager : MonoBehaviour
 
     public void UpdateLogoutButtonVisibility()
     {
-        if (UserStore.Instance.mainUser != null && UserStore.Instance.mainUser.id != 0)
+        if (UserStore.Instance.mainUser.id != 0) // Usuario logueado
         {
-            logoutButton.gameObject.SetActive(true);
+            logoutButton.gameObject.SetActive(true); // Mostrar botón de logout
         }
-        else
+        else // Usuario no logueado
         {
-            logoutButton.gameObject.SetActive(false);
+            logoutButton.gameObject.SetActive(false); // Ocultar botón de logout
         }
     }
 }

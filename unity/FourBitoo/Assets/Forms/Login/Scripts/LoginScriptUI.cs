@@ -32,86 +32,72 @@ public class LoginScriptUI : MonoBehaviour
     }
 
     IEnumerator Login()
-{
-    // Crear el objeto UserData
-    UserData userData = new UserData(emailField.value, passwordField.value);
-
-    // Depurar el contenido de UserData
-    Debug.Log($"UserData - Email: {userData.email}, Password: {userData.password}");
-
-    // Convertir UserData a JSON
-    string jsonData = JsonUtility.ToJson(userData);
-
-    using (UnityWebRequest request = new UnityWebRequest(BASE_URL + "/login", "POST"))
     {
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
+        // Crear el objeto UserData
+        UserData userData = new UserData(emailField.value, passwordField.value);
 
-        yield return request.SendWebRequest();
+        // Depurar el contenido de UserData
+        Debug.Log($"UserData - Email: {userData.email}, Password: {userData.password}");
 
-        Debug.Log("Raw Response: " + request.downloadHandler.text);
+        // Convertir UserData a JSON
+        string jsonData = JsonUtility.ToJson(userData);
 
-        if (request.result == UnityWebRequest.Result.Success)
+        using (UnityWebRequest request = new UnityWebRequest(BASE_URL + "/login", "POST"))
         {
-            if (string.IsNullOrEmpty(request.downloadHandler.text))
-            {
-                ShowMessage("Empty response from server", false);
-                yield break;
-            }
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
 
-            if (!request.GetResponseHeader("Content-Type").Contains("application/json"))
-            {
-                Debug.LogError("Invalid response type: " + request.GetResponseHeader("Content-Type"));
-                ShowMessage("Error: Respuesta no válida del servidor", false);
-                yield break;
-            }
+            yield return request.SendWebRequest();
 
-            try
-            {
-                ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+            Debug.Log("Raw Response: " + request.downloadHandler.text);
 
-                if (response.user != null)
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                if (string.IsNullOrEmpty(request.downloadHandler.text))
                 {
-                    // Guardar los datos del usuario principal en el UserStore
-                    UserStore.Instance.SetMainUser(
-                        response.user.id,
-                        response.user.username,
-                        response.user.email,
-                        response.user.token
-                    );
-
-                    Debug.Log($"Usuario principal actualizado: {response.user.username} (ID={response.user.id})");
-
-                    // Actualizar la interfaz de usuario
-                    FindFirstObjectByType<WelcomeTextScript>()?.UpdateWelcomeText();
-                    FindFirstObjectByType<LoginButtonManager>()?.UpdateLoginButtonVisibility();
-                    FindFirstObjectByType<LogoutButtonManager>()?.UpdateLogoutButtonVisibility();
-
-                    ShowMessage("Login exitoso", true);
-
-                    // Cambiar a la escena de inicio
-                    SceneManager.LoadScene("Inicio");
+                    ShowMessage("Empty response from server", false);
+                    yield break;
                 }
-                else
+
+                if (!request.GetResponseHeader("Content-Type").Contains("application/json"))
                 {
-                    ShowMessage("Error: Usuario no encontrado", false);
+                    Debug.LogError("Invalid response type: " + request.GetResponseHeader("Content-Type"));
+                    ShowMessage("Error: Respuesta no válida del servidor", false);
+                    yield break;
+                }
+
+                try
+                {
+                    ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+
+                    if (response.user != null)
+                    {
+                        // Guardar los datos del usuario principal en el UserStore
+                        ShowMessage("Login exitoso", true);
+
+                        FindFirstObjectByType<LoginButtonManager>()?.UpdateLoginButtonVisibility();
+                        SceneManager.LoadScene("Inicio");
+                    }
+                    else
+                    {
+                        ShowMessage("Error: Usuario no encontrado", false);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError("JSON Parsing Error: " + ex.Message);
+                    ShowMessage("Error al procesar la respuesta del servidor", false);
                 }
             }
-            catch (System.Exception ex)
+            else
             {
-                Debug.LogError("JSON Parsing Error: " + ex.Message);
-                ShowMessage("Error al procesar la respuesta del servidor", false);
+                Debug.LogError("Request Error: " + request.error);
+                ShowMessage("Error al hacer login", false);
             }
-        }
-        else
-        {
-            Debug.LogError("Request Error: " + request.error);
-            ShowMessage("Error al hacer login", false);
         }
     }
-}
 
     void ShowMessage(string message, bool isSuccess)
     {

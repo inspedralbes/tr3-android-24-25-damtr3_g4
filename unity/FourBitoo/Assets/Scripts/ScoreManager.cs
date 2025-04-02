@@ -11,8 +11,6 @@ public class ScoreManager : MonoBehaviour
     public GameObject ball;
 
     public List<GameObject> players;
-    
-    [SerializeField] private GoalManager goalManager; 
 
     private int team1Score = 0;
     private int team2Score = 0;
@@ -43,11 +41,6 @@ public class ScoreManager : MonoBehaviour
         }
         Debug.Log("ud83dudce2 Marcador actualizado: Equipo 1 - " + team1Score + " | Equipo 2 - " + team2Score);
         UpdateScoreUI();
-        
-        // Notify the GoalManager about the updated scores
-        if (goalManager != null) {
-            goalManager.OnGoalScored(team1Score, team2Score);
-        }
         
         // Notificar al GameManager que se ha marcado un gol
         // El teamID en GoalDetector es inverso al concepto de "equipo que marca"
@@ -86,8 +79,8 @@ public class ScoreManager : MonoBehaviour
 
         Rigidbody2D ballRigidbody = ball.GetComponent<Rigidbody2D>();
         if(ballRigidbody != null){
-            ballRigidbody.linearVelocity = Vector3.zero;
-            ballRigidbody.angularVelocity = Vector3.zero;
+            ballRigidbody.linearVelocity = Vector2.zero;
+            ballRigidbody.angularVelocity = 0f;
         }
 
         // Deseleccionar todos los jugadores primero
@@ -172,23 +165,18 @@ public class ScoreManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("❌ Uno de los jugadores no está asignado en la lista.");
+                Debug.Log($"Balu00f3n encontrado: {ball.name}");
             }
         }
 
-        // Find GoalManager if not assigned
-        if (goalManager == null) {
-            goalManager = UnityEngine.Object.FindFirstObjectByType<GoalManager>();
-            if (goalManager == null) {
-                Debug.LogWarning("⚠️ No se encontró el GoalManager en la escena. El juego no terminará automáticamente.");
-            }
-        }
-
-        // Código existente para inicializar los textos...
-        if (team1ScoreText == null)
+        if (ball != null)
         {
-            GameObject team1TextObject = GameObject.FindWithTag("Team1ScoreText");
-            if (team1TextObject != null)
+            initialBallPosition = ball.transform.position;
+            Debug.Log($"Posici00f3n inicial del balu00f3n registrada: {initialBallPosition}");
+            
+            // Verificar que el balu00f3n tiene un Collider2D
+            Collider2D ballCollider = ball.GetComponent<Collider2D>();
+            if (ballCollider == null)
             {
                 Debug.LogError("u274c El balu00f3n no tiene un Collider2D! Agrega un Circle Collider 2D al balu00f3n.");
             }
@@ -239,23 +227,5 @@ public class ScoreManager : MonoBehaviour
                 Debug.Log($"ud83dude64 Guardando posici00f3n inicial de jugador: {player.name} en {player.transform.position}");
             }
         }
-    }
-
-    // Add getters for the current scores that can be accessed by other scripts
-    public int GetTeam1Score() {
-        return team1Score;
-    }
-
-    public int GetTeam2Score() {
-        return team2Score;
-    }
-
-    // Add getters for the current scores that can be accessed by other scripts
-    public int GetTeam1Score() {
-        return team1Score;
-    }
-
-    public int GetTeam2Score() {
-        return team2Score;
     }
 }

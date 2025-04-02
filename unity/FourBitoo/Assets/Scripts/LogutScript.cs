@@ -20,53 +20,34 @@ public class LogutScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Logout()
+    void Logout()
     {
-        // Ensure UserStore is initialized
-        UserStore.Initialize();
-
         Debug.Log($"Datos actuales de UserStore antes de cerrar sesión: " +
-                  $"ID: {UserStore.Instance.mainUser?.id}, " +
-                  $"Nombre: {UserStore.Instance.mainUser?.username}, " +
-                  $"Email: {UserStore.Instance.mainUser?.email}, " +
-                  $"Token: {UserStore.Instance.mainUser?.token}");
-
+                  $"ID: {UserStore.Instance.mainUser.id}, " +
+                  $"Nombre: {UserStore.Instance.mainUser.username}, " +
+                  $"Email: {UserStore.Instance.mainUser.email}, " +
+                  $"Token: {UserStore.Instance.mainUser.token}");
         Debug.Log("Cerrando sesión...");
         UserStore.Instance.ClearUserData();
 
         Debug.Log($"Datos de UserStore después de cerrar sesión: " +
-                  $"ID: {UserStore.Instance.mainUser?.id}, " +
-                  $"Nombre: {UserStore.Instance.mainUser?.username}, " +
-                  $"Email: {UserStore.Instance.mainUser?.email}, " +
-                  $"Token: {UserStore.Instance.mainUser?.token}");
+                  $"ID: {UserStore.Instance.mainUser.id}, " +
+                  $"Nombre: {UserStore.Instance.mainUser.username}, " +
+                  $"Email: {UserStore.Instance.mainUser.email}, " +
+                  $"Token: {UserStore.Instance.mainUser.token}");
         Debug.Log("Sesión cerrada");
 
         if (loginButton != null)
         {
             loginButton.SetActive(true);
         }
-        else
-        {
-            Debug.LogWarning("loginButton no está asignado.");
-        }
 
-        if (logoutButton != null)
-        {
-            logoutButton.gameObject.SetActive(false);
-        }
-        else
-        {
-            Debug.LogWarning("logoutButton no está asignado.");
-        }
+        // Actualizar la visibilidad del botón de logout
+        FindFirstObjectByType<LogoutButtonManager>()?.UpdateLogoutButtonVisibility();
 
         if (welcomeTextScript != null)
         {
-            // Update welcome text even if mainUser is null
             welcomeTextScript.UpdateWelcomeText();
-        }
-        else
-        {
-            Debug.LogWarning("welcomeTextScript is null. Cannot update welcome text.");
         }
     }
 }
